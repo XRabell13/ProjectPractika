@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,7 +62,15 @@
     </Compile>
     <Compile Include="Commands\CommandReference.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="DataBase\Administration\DBLoadAdmin.cs" />
     <Compile Include="DataBase\Connect.cs" />
+    <Compile Include="DataBase\DBLoad.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Concourse.cs" />
+    <Compile Include="Models\EducationIns.cs" />
+    <Compile Include="Models\Entrant.cs" />
+    <Compile Include="Models\Entry.cs" />
+    <Compile Include="Models\Specialization.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -93,9 +102,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataBase\Administration\" />
-    <Folder Include="DataBase\User\" />
-    <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>

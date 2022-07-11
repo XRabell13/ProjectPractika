@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Configuration;
 
 namespace ProjectPractika.DataBase
 {
     public class Connect
     {
-        string conStr = @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=Test;Trusted_Connection=Yes;";
+        string conStr = ConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;// @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=ManualDb;Trusted_Connection=Yes;"; // тестовая проверка подключения к серверу
         public bool status = false;
 
         public SqlConnection conn;
