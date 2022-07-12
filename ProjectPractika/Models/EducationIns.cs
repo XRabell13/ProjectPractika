@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ProjectPractika.Models
 {
-    public class EducationIns : INotifyPropertyChanged
+    public class EducationIns : ObservableObject
     {
         int id;
         string insName;
@@ -53,14 +53,6 @@ namespace ProjectPractika.Models
             this.InsName = insName;
             this.InsAddress = insAddress;
 
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(name));
         }
 
 

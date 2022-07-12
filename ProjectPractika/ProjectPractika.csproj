@@ -65,13 +65,21 @@
     <Compile Include="DataBase\Administration\DBLoadAdmin.cs" />
     <Compile Include="DataBase\Connect.cs" />
     <Compile Include="DataBase\DBLoad.cs" />
+    <Compile Include="Helper Classes\ObservableObject.cs" />
+    <Compile Include="Helper Classes\RelayCommand.cs" />
+    <Compile Include="IPageViewModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Concourse.cs" />
     <Compile Include="Models\EducationIns.cs" />
     <Compile Include="Models\Entrant.cs" />
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Specialization.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="ViewModels\AdminPageViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -101,11 +109,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Resources\lang.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

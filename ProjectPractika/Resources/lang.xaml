@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <!-- Window title -->
+    <v:String x:Key="window_title">Manual</v:String>
+    <!-- Admin page -->
+    <v:String x:Key="ap_tabTitle_entrants">Абитуриенты</v:String>
+    <v:String x:Key="ap_tabTitle_specializations">Специальности</v:String>
+    <v:String x:Key="ap_tabTitle_educationalIns">Учебные заведения</v:String>
+    <v:String x:Key="ap_tabTitle_categories">Категории</v:String>
+    <v:String x:Key="ap_tabTitle_entries">Записи</v:String>
+    <v:String x:Key="ap_tabTitle_concourses">Конкурсы</v:String>
+    <v:String x:Key="ap_tabTitle_addInfo">Добавить информацию</v:String>
+    <v:String x:Key="ap_tabTitle_deleteInfo">Удалить информацию</v:String>
+    <v:String x:Key="ap_tabTitle_loadInfo">Загрузить все</v:String>
+    
+</ResourceDictionary>

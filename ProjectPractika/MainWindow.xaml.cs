@@ -21,17 +21,17 @@ namespace ProjectPractika.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public SqlConnection conn;
-        string conStr = ConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;// @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=ManualDb;Trusted_Connection=Yes;"; // тестовая проверка подключения к серверу
-        public bool status = false;
+       // public SqlConnection conn;
+       // string conStr = ConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;// @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=ManualDb;Trusted_Connection=Yes;"; // тестовая проверка подключения к серверу
+       // public bool status = false;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            conn = new SqlConnection(conStr);
-            MessageBox.Show("A");
-            GetUsers();
+          //  conn = new SqlConnection(conStr);
+          //  MessageBox.Show("A");
+          //  GetUsers();
             // название процедуры
            /* string sqlExpression = "AllCatTest";
 
@@ -57,7 +57,7 @@ namespace ProjectPractika.Views
 
         }
 
-
+        /*
         public void Open()
         {
             if (conn.State != System.Data.ConnectionState.Open)
@@ -118,7 +118,7 @@ namespace ProjectPractika.Views
                 }
                 reader.Close();
             }
-        }
+        }*/
 
     }
 

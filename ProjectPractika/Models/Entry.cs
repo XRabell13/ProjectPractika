@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ProjectPractika.Models
 {
-    public class Entry : INotifyPropertyChanged
+    public class Entry : ObservableObject
     {
         int id;
         int idEntrant;
@@ -52,15 +52,6 @@ namespace ProjectPractika.Models
             this.IdEntrant = idEntrant;
             this.idConcourse = idConcourse;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(name));
-        }
-
 
         public override string ToString()
         {

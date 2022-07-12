@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ProjectPractika.Models
 {
-    public class Entrant : INotifyPropertyChanged
+    public class Entrant : ObservableObject
     {
         int id;
         string fullName;
@@ -78,15 +78,6 @@ namespace ProjectPractika.Models
             this.DataYear = dataYear;
           
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(name));
-        }
-
 
         public override string ToString()
         {

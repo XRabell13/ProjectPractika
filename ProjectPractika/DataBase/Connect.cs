@@ -14,25 +14,25 @@ namespace ProjectPractika.DataBase
         string conStr = ConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;// @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=ManualDb;Trusted_Connection=Yes;"; // тестовая проверка подключения к серверу
         public bool status = false;
 
-        public SqlConnection conn;
+        public SqlConnection connection;
 
         public Connect()
         {
-            conn = new SqlConnection(conStr);
+            connection = new SqlConnection(conStr);
         }
 
         public void Open()
         {
-            if (conn.State != System.Data.ConnectionState.Open)
+            if (connection.State != System.Data.ConnectionState.Open)
                 try
                 {
-                    conn.Open();
+                    connection.Open();
                 }
                 catch
                 {
                     MessageBox.Show(@"Ошибка соединения с сервером");
                 }
-            if (conn.State.ToString() == "Open")
+            if (connection.State.ToString() == "Open")
             {
                 status = true;
                 MessageBox.Show("Open");
@@ -44,9 +44,9 @@ namespace ProjectPractika.DataBase
         }
         public void Close()
         {
-            if (conn.State == System.Data.ConnectionState.Open)
+            if (connection.State == System.Data.ConnectionState.Open)
             {
-                conn.Close();
+                connection.Close();
                 status = false;
                 MessageBox.Show("Close");
             }

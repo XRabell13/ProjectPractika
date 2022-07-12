@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace ProjectPractika.Models
 {
-    public class Specialization : INotifyPropertyChanged
+    public class Specialization : ObservableObject
     {
         int id;
         string specName;
@@ -40,15 +40,6 @@ namespace ProjectPractika.Models
             this.SpecName = specName;
             this.idCategory = idCategory;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this,
-            new PropertyChangedEventArgs(name));
-        }
-
 
         public override string ToString()
         {
