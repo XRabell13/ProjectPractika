@@ -1,6 +1,7 @@
 ﻿using ProjectPractika.DataBase;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security;
 using System.Text;
@@ -82,6 +83,13 @@ namespace ProjectPractika.ViewModels
         {
            bool isAdmin = dbl.IsAdminCheck(Log,Password);
             if (isAdmin) {
+                // заменяем строку подключения на строку подключения с ролью админа
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
+                connectionStringsSection.ConnectionStrings["MyConnectionString"].ConnectionString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
+                config.Save();
+                ConfigurationManager.RefreshSection("connectionStrings");
+
                 mVM.PageViewModels[0].Visibility = "Visible";
                 mVM.ChangeViewModel(mVM.PageViewModels[0]);
             }

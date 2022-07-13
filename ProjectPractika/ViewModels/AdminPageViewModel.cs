@@ -1,8 +1,10 @@
 ﻿using ProjectPractika.DataBase;
+using ProjectPractika.DataBase.Administration;
 using ProjectPractika.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,25 +17,9 @@ namespace ProjectPractika.ViewModels
 {
     public class AdminPageViewModel : ObservableObject, IPageViewModel
     {
-
-        DBLoad dbl = new DBLoad();
-
-        ObservableCollection<Category> categories = new ObservableCollection<Category>();
-
-        public ObservableCollection<Category> Categories { 
-            get { return categories; }
-            set { categories = value; }
-        }
-
-        public AdminPageViewModel()
-        {
-            categories = dbl.GetAllCategory();
-            
-        }
-
-        Category selectedCategory;
+        #region IPageViewModel
         string visibility = "Collapsed";
-     
+
         public string Name
         {
             get
@@ -42,30 +28,77 @@ namespace ProjectPractika.ViewModels
             }
         }
 
-        public string Visibility {
+        public string Visibility
+        {
             get
             {
                 return visibility;
             }
-            set 
+            set
             {
                 visibility = value;
                 OnPropertyChanged();
             }
         }
+        #endregion 
 
-        public Category SelectedCategory
+        DBLoad dbl = new DBLoad();
+      //  DBLoadAdmin dbla = new DBLoadAdmin(true);
+
+        #region Fields
+
+        private ICommand _delCategory;
+        ObservableCollection<Category> categories = new ObservableCollection<Category>();
+        Category selectedCategory;
+
+
+        #endregion
+
+        #region Properties / Commands
+
+        public ObservableCollection<Category> Categories { 
+            get { return categories; }
+            set { categories = value; }
+        }
+       
+        public Category SelectedCategory { 
+            get   { return selectedCategory; }
+            set  {  selectedCategory = value; }
+        }
+
+        public ICommand LogIn
         {
             get
             {
-                return selectedCategory;
-            }
-            set
-            {
-                selectedCategory = value;
+                if (_delCategory == null)
+                {
+                    _delCategory = new RelayCommand(p => DeleteCategory(SelectedCategory));
+                }
+
+                return _delCategory;
             }
         }
- 
+
+
+        #endregion
+
+        #region Methods
+
+        private void DeleteCategory(Category category)
+        {
+            if (category != null)
+            { 
+                
+            }
+        }
+
+        #endregion
+
+        public AdminPageViewModel()
+        {
+            categories = dbl.GetAllCategory();
+            
+        }
 
       /*  private void cb_entrants_TextChanged()
         {

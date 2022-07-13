@@ -24,5 +24,16 @@ namespace ProjectPractika
             app.DataContext = context;
             app.Show();
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            // заменяем строку подключения на строку подключения с ролью пользователя, т.е. возвращаем строке прежний вид
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
+            connectionStringsSection.ConnectionStrings["MyConnectionString"].ConnectionString = ConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;
+            config.Save();
+            ConfigurationManager.RefreshSection("connectionStrings");
+
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace ProjectPractika.DataBase
 {
     public class DBLoad : Connect
     {
+
         public ObservableCollection<Models.Category> GetAllCategory()
         {
             ObservableCollection<Models.Category> categories = new ObservableCollection<Models.Category>();

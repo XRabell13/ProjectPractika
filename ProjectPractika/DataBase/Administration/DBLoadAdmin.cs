@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
@@ -10,6 +10,7 @@ namespace ProjectPractika.DataBase.Administration
 {
     public class DBLoadAdmin : Connect
     {
+
         public ObservableCollection<Models.Specialization> GetAllEntrants()
         {
             ObservableCollection<Models.Specialization> specializations = new ObservableCollection<Models.Specialization>();
@@ -38,4 +39,3 @@ namespace ProjectPractika.DataBase.Administration
         }
     }
 }
-*/
