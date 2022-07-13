@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -65,6 +68,7 @@
     <Compile Include="DataBase\Administration\DBLoadAdmin.cs" />
     <Compile Include="DataBase\Connect.cs" />
     <Compile Include="DataBase\DBLoad.cs" />
+    <Compile Include="Helper Classes\PasswordHelper.cs" />
     <Compile Include="Helper Classes\ObservableObject.cs" />
     <Compile Include="Helper Classes\RelayCommand.cs" />
     <Compile Include="IPageViewModel.cs" />
@@ -75,12 +79,20 @@
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Specialization.cs" />
     <Compile Include="ViewModels\AdminPageViewModel.cs" />
+    <Compile Include="ViewModels\AuthorizationViewModel.cs" />
+    <Compile Include="ViewModels\HomePageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Authorization.xaml.cs">
+      <DependentUpon>Authorization.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +113,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -120,6 +133,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Authorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

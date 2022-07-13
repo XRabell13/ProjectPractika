@@ -24,5 +24,7 @@ namespace ProjectPractika.Views
         {
             InitializeComponent();
         }
+
+        
     }
 }

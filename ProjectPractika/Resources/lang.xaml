@@ -12,6 +12,15 @@
     <v:String x:Key="ap_tabTitle_concourses">Конкурсы</v:String>
     <v:String x:Key="ap_tabTitle_addInfo">Добавить информацию</v:String>
     <v:String x:Key="ap_tabTitle_deleteInfo">Удалить информацию</v:String>
-    <v:String x:Key="ap_tabTitle_loadInfo">Загрузить все</v:String>
-    
+   <!-- <v:String x:Key="ap_tabTitle_loadInfo">Загрузить все</v:String>-->
+    <v:String x:Key="ap_btnDel_entrant">Удалить абитуриента</v:String>
+    <v:String x:Key="ap_btnDel_specialization">Удалить специальность</v:String>
+    <v:String x:Key="ap_btnDel_educationalIns">Удалить учебное заведение</v:String>
+    <v:String x:Key="ap_btnDel_category">Удалить категорию</v:String>
+    <v:String x:Key="ap_btnDel_entry">Удалить запись</v:String>
+    <v:String x:Key="ap_btnDel_concourse">Удалить конкурс</v:String>
+
+    <v:String x:Key="logIn">Войти</v:String>
+
+
 </ResourceDictionary>

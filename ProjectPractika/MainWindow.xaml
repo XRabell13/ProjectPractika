@@ -3,17 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:local="clr-namespace:ProjectPractika"
         xmlns:localView="clr-namespace:ProjectPractika.Views"
-        xmlns:localViewModel="clr-namespace:ProjectPractika.ViewModels"
+        xmlns:localViewModel="clr-namespace:ProjectPractika.ViewModels" d:DataContext="{d:DesignInstance Type=localViewModel:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="{DynamicResource window_title}" Height="700" Width="1200">
+    
+   
     <Window.Resources>
         <DataTemplate DataType="{x:Type localViewModel:AdminPageViewModel}">
             <localView:AdminPage/>
         </DataTemplate>
-        <!-- <DataTemplate DataType="{x:Type local:HomeViewModel}">
-            <local:HomeView />
+        <DataTemplate DataType="{x:Type localViewModel:AuthorizationViewModel}">
+            <localView:Authorization />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type localViewModel:HomePageViewModel}">
+            <localView:HomePage />
+        </DataTemplate>
+
+        <!-- </DataTemplate>
         <DataTemplate DataType="{x:Type local:ProductsViewModel}">
             <local:ProductsView />
         </DataTemplate>
@@ -21,6 +29,17 @@
             <local:Test2View />
         </DataTemplate>-->
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Control"
+                    Key="A"
+                    Command="{Binding ShowAuthorizCommand}" />
+    </Window.InputBindings>
+    <!-- <Window.InputBindings>
+        <KeyBinding Command="local:UserCommands.SomeCommand" Gesture="Ctrl+A" Key="A" />
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="local:UserCommands.SomeCommand" Executed="ShowMessage_Executed" />
+    </Window.CommandBindings>-->
 
     <DockPanel>
         <Border DockPanel.Dock="Left" BorderBrush="Black" BorderThickness="0,0,1,0">
@@ -30,6 +49,7 @@
                         <Button Content="{Binding Name}"
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
+                                Visibility="{Binding Visibility, Mode=TwoWay}"
                                 Margin="2,5"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

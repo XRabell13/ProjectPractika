@@ -9,5 +9,6 @@ namespace ProjectPractika
     public interface IPageViewModel
     {
         string Name { get; }
+        string Visibility { get; set; }
     }
 }

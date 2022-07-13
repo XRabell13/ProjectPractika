@@ -4,18 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectPractika.Views"
+             xmlns:localViewModel="clr-namespace:ProjectPractika.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <localViewModel:AdminPageViewModel/>
+    </UserControl.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="1">
+       <!-- <StackPanel Grid.Column="1">
             <Button Content="{DynamicResource ap_tabTitle_loadInfo}" />
-            <Button Content=""/>
-        </StackPanel>
+        </StackPanel>-->
         <TabControl>
            <!-- 
             <TabItem Header="users" >
@@ -41,43 +45,60 @@
                 </DataGrid>
             </TabItem>
            -->
-            
+            <TabItem Header="{DynamicResource ap_tabTitle_deleteInfo}" Background="GreenYellow">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+
+                      
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
             <TabItem Header="{DynamicResource ap_tabTitle_deleteInfo}" Background="LightCoral">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition />
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-<!--
-                    <TextBlock FontSize="16">Delete Auction</TextBlock>
-                    <ComboBox x:Name="cb_auctions"  Grid.Column="1"></ComboBox>
-                    <Button Content="Delete Auction" Grid.Column="2" Click="But_del_Auction"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
 
-                    <TextBlock FontSize="16" Grid.Row="1">Delete car</TextBlock>
-                    <ComboBox x:Name="cb_cars" Grid.Column="1" Grid.Row="1"></ComboBox>
-                    <Button Content="Delete Car" Grid.Column="2" Grid.Row="1" Click="But_del_car"/>
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_category}"/>
+                        <ComboBox x:Name="cb_categories" ItemsSource="{Binding Categories}"
+                       DisplayMemberPath="CategoryName"
+                       SelectedItem="{Binding SelectedCategory}" >
+                        </ComboBox>
+                        <!-- <ComboBox x:Name="cb_entrants" ItemsSource="{Binding Entrants, Mode=TwoWay}"
+                       DisplayMemberPath="CategoryName"
+                       SelectedItem="{Binding SelectedEntrant}"  
+                       IsTextSearchEnabled="False" 
+                       IsEditable="True" 
+                       IsDropDownOpen="{Binding  IsDropDownOpen, Mode=TwoWay}"
+                       Text="{Binding Text, Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="KeyUp">
+                                <i:InvokeCommandAction Command="{Binding  GetProductCommand}"  />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>-->
+                        <Button Content="{DynamicResource ap_btnDel_category}" />
 
-                    <TextBlock FontSize="16" Grid.Row="2">Delete topic</TextBlock>
-                    <ComboBox x:Name="cb_forum_topics" Grid.Column="1" Grid.Row="2"></ComboBox>
-                    <Button Content="Delete forum topic" Grid.Column="2" Grid.Row="2" Click="But_del_topic"/>
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_entrant}"/>
+                        <TextBox Text=""/>
+                        <ComboBox x:Name="cb_entrants" IsEnabled="False" ></ComboBox>
+                        <Button Content="{DynamicResource ap_btnDel_entrant}" />
 
-                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Margin="10">Select user</TextBlock>
-                    <ComboBox x:Name="cb_users" Grid.Column="2" Grid.Row="3" Margin="0,10,0,10"/>
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_concourse}"/>
+                        <TextBox Text=""/>
+                        <ComboBox x:Name="cb_concourses" IsEnabled="False" ></ComboBox>
+                        <Button Content="{DynamicResource ap_btnDel_concourse}" />
 
-                    <TextBlock FontSize="16" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Center">Topic</TextBlock>
-                    <ComboBox x:Name="cb_user_topic" Grid.Column="1" Grid.Row="4"/>
-                    <Button Content="Delete forum answers" Grid.Column="2" Grid.Row="4" Click="But_del_user_answers"/>
--->
-                </Grid>
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_entry}"/>
+                        <TextBox Text=""/>
+                        <ComboBox x:Name="cb_entries" IsEnabled="False" ></ComboBox>
+                        <Button Content="{DynamicResource ap_btnDel_entry}" />
+
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_educationalIns}"/>
+                        <TextBox Text=""/>
+                        <ComboBox x:Name="cb_educationalIns" IsEnabled="False" ></ComboBox>
+                        <Button Content="{DynamicResource ap_btnDel_educationalIns}" />
+                    
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </Grid>

@@ -35,7 +35,7 @@ namespace ProjectPractika.DataBase
             if (connection.State.ToString() == "Open")
             {
                 status = true;
-                MessageBox.Show("Open");
+              //  MessageBox.Show("Open");
             }
             else
             {
@@ -48,7 +48,7 @@ namespace ProjectPractika.DataBase
             {
                 connection.Close();
                 status = false;
-                MessageBox.Show("Close");
+              //  MessageBox.Show("Close");
             }
         }
     }

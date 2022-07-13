@@ -64,7 +64,52 @@ namespace ProjectPractika.DataBase
             }
         }
 
-       
+        // Проверка праивльности логина и пароля
+        public bool IsAdminCheck(string login, string password)
+        { 
+            bool isAdmin = false;
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.IsAdminCheck";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметры для ввода 
+                SqlParameter loginParam = new SqlParameter
+                {
+                    ParameterName = "@login",
+                    Value = login
+                };
+                SqlParameter passParam = new SqlParameter
+                {
+                    ParameterName = "@password",
+                    Value = password
+                };
+                // добавляем параметры
+                command.Parameters.Add(loginParam);
+                command.Parameters.Add(passParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    System.Windows.MessageBox.Show("Верно");
+                    isAdmin = true;
+                    reader.Close();
+                    base.Close();
+                    return isAdmin;
+                }
+                System.Windows.MessageBox.Show("Не Верно");
+                reader.Close();
+                base.Close();
+                return isAdmin;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Error: ошибка проверки логина и пароля");
+                base.Close();
+                return isAdmin;
+            }
+        }
 
     }
 }
