@@ -82,6 +82,7 @@
     <Compile Include="Models\Helper models\EntryDG.cs" />
     <Compile Include="Models\Helper models\EntryWithInfo.cs" />
     <Compile Include="Models\Helper models\SpecializationDG.cs" />
+    <Compile Include="Models\Helper models\SpecializationWithInfo.cs" />
     <Compile Include="Models\Specialization.cs" />
     <Compile Include="ViewModels\AdminPageViewModel.cs" />
     <Compile Include="ViewModels\AuthorizationViewModel.cs" />

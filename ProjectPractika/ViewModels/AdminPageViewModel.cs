@@ -48,10 +48,10 @@ namespace ProjectPractika.ViewModels
 
         #region Fields
         bool enabledEntrant = false, enabledEntry = false, enabledEducationalIns = false,
-           enabledSpecialization = false, enabledConcourse = false;
+           enabledSpecialization = false, enabledSpecializationOne = false, enabledConcourse = false;
 
         bool enabledDropDownEntrant = false, enabledDropDownEntry = false, enabledDropDownEducationalIns = false,
-         enabledDropDownSpecialization = false, enabledDropDownConcourse = false;
+         enabledDropDownSpecialization = false, enabledDropDownSpecializationOne = false, enabledDropDownConcourse = false;
 
         bool checkRBtnIsFreeYes = false, checkRBtnIsFreeNo = false, 
             checkRBtnIsIntramuralYes = false, checkRBtnIsIntramuralNo = false;
@@ -60,9 +60,9 @@ namespace ProjectPractika.ViewModels
             checkRBtnEntryIsIntramuralYes = false, checkRBtnEntryIsIntramuralNo = false;
 
         string searchTxtEntrant = "", searchTxtEntry = "", searchTxtEducationalIns = "",
-             searchTxtSpecialization = "", searchTxtConcourse = "";
+             searchTxtSpecialization = "", searchTxtSpecializationOne = "", searchTxtConcourse = "";
 
-        private ICommand _delCategory, _delEntrant, _delEducationalIns, _delEntry, _delConcourse, _delSpecialization;
+        private ICommand _delCategory, _delEntrant, _delEducationalIns, _delEntry, _delConcourse, _delSpecialization, _delSpecializationOne;
         
         List<int> years = new List<int>() { 2019, 2020, 2021, 2022 };
         
@@ -71,6 +71,8 @@ namespace ProjectPractika.ViewModels
         ObservableCollection<EducationIns> educationIns = new ObservableCollection<EducationIns>();
         ObservableCollection<ConcourseWithEduAndSpec> concourses = new ObservableCollection<ConcourseWithEduAndSpec>();
         ObservableCollection<EntryWithInfo> entries = new ObservableCollection<EntryWithInfo>();
+        ObservableCollection<SpecializationWithInfo> specializations = new ObservableCollection<SpecializationWithInfo>();
+        ObservableCollection<Specialization> specializationsDelOne = new ObservableCollection<Specialization>();
 
         ObservableCollection<Entrant> entrantsDG = new ObservableCollection<Entrant>();
         ObservableCollection<EducationIns> educationInsDG = new ObservableCollection<EducationIns>();
@@ -81,8 +83,8 @@ namespace ProjectPractika.ViewModels
         EducationIns selectedEducationIns;
         ConcourseWithEduAndSpec selectedConcourseWithEduAndSpec;
         EntryWithInfo selectedEntryWithInfo;
-
-
+        SpecializationWithInfo selectedSpecializationWithInfo;
+        Specialization selectedSpecializationOne;
         #endregion
 
         #region Properties / Commands
@@ -106,6 +108,11 @@ namespace ProjectPractika.ViewModels
         {
             get { return enabledSpecialization; }
             set { enabledSpecialization = value; OnPropertyChanged(); }
+        }
+        public bool EnabledSpecializationOne
+        {
+            get { return enabledSpecializationOne; }
+            set { enabledSpecializationOne = value; OnPropertyChanged(); }
         }
         public bool EnabledConcourse
         {
@@ -132,6 +139,11 @@ namespace ProjectPractika.ViewModels
         {
             get { return enabledDropDownSpecialization; }
             set { enabledDropDownSpecialization = value; OnPropertyChanged(); }
+        }
+        public bool EnabledDropDownSpecializationOne
+        {
+            get { return enabledDropDownSpecializationOne; }
+            set { enabledDropDownSpecializationOne = value; OnPropertyChanged(); }
         }
         public bool EnabledDropDownConcourse
         {
@@ -205,7 +217,12 @@ namespace ProjectPractika.ViewModels
         public string SearchTxtSpecialization
         {
             get { return searchTxtSpecialization; }
-            set { searchTxtSpecialization = value; OnPropertyChanged(); SearchSpecialization(); }
+            set { searchTxtSpecialization = value; OnPropertyChanged();  SearchSpecialization();  }
+        }
+        public string SearchTxtSpecializationOne
+        {
+            get { return searchTxtSpecializationOne; }
+            set { searchTxtSpecializationOne = value; OnPropertyChanged(); SearchSpecializationOne(); }
         }
         public string SearchTxtConcourse
         {
@@ -287,6 +304,30 @@ namespace ProjectPractika.ViewModels
         {
             get { return selectedEntryWithInfo; }
             set { selectedEntryWithInfo = value; OnPropertyChanged(); }
+        }
+
+        public ObservableCollection<SpecializationWithInfo> Specializations
+        {
+            get { return specializations; }
+            set { specializations = value; OnPropertyChanged(); }
+        }
+
+        public SpecializationWithInfo SelectedSpecialization
+        {
+            get { return selectedSpecializationWithInfo; }
+            set { selectedSpecializationWithInfo = value; OnPropertyChanged(); }
+        }
+
+        public ObservableCollection<Specialization> SpecializationsDelOne
+        {
+            get { return specializationsDelOne; }
+            set { specializationsDelOne = value; OnPropertyChanged(); }
+        }
+
+        public Specialization SelectedSpecializationOne
+        {
+            get { return selectedSpecializationOne; }
+            set { selectedSpecializationOne = value; OnPropertyChanged(); }
         }
         #endregion
 
@@ -370,6 +411,18 @@ namespace ProjectPractika.ViewModels
                 return _delSpecialization;
             }
         }
+        public ICommand DeleteSpecializationOneCommand
+        {
+            get
+            {
+                if (_delSpecializationOne == null)
+                {
+                    _delSpecializationOne = new RelayCommand(p => DeleteSpecializationOne());
+                }
+
+                return _delSpecializationOne;
+            }
+        }
         public ICommand DeleteConcourseCommand
         {
             get
@@ -426,7 +479,30 @@ namespace ProjectPractika.ViewModels
         {
             if (searchTxtSpecialization != "")
             {
-                // foreach(Entrant entrant in entrantsList)
+                Specializations = dbl.GetAllSpecializations(searchTxtSpecialization);
+                EnabledSpecialization = true;
+                EnabledDropDownSpecialization = true;
+            }
+            else
+            {
+                EnabledSpecialization = false;
+                EnabledDropDownSpecialization = false;
+            }
+
+        }
+
+        private void SearchSpecializationOne()
+        {
+            if (searchTxtSpecializationOne != "")
+            {
+                SpecializationsDelOne = dbl.GetAllSpecializationsByName(searchTxtSpecializationOne);
+                EnabledSpecializationOne = true;
+                EnabledDropDownSpecializationOne = true;
+            }
+            else
+            {
+                EnabledSpecializationOne = false;
+                EnabledDropDownSpecializationOne = false;
             }
 
         }
@@ -552,9 +628,24 @@ namespace ProjectPractika.ViewModels
             }
             else MessageBox.Show("Элемент не выбран");
         }
+      
         private void DeleteSpecialization()
         {
-
+            if (SelectedSpecialization != null)
+            {
+                dbla.DeleteSpecialization(SelectedSpecialization.Id);
+                Specializations.Clear();
+            }
+            else MessageBox.Show("Элемент не выбран");
+        }
+        private void DeleteSpecializationOne()
+        {
+            if (SelectedSpecializationOne != null)
+            {
+                dbla.DeleteSpecialization(SelectedSpecializationOne.Id);
+                SpecializationsDelOne.Clear();
+            }
+            else MessageBox.Show("Элемент не выбран");
         }
         #endregion
 

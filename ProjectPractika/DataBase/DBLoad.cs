@@ -195,6 +195,87 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        public ObservableCollection<SpecializationWithInfo> GetAllSpecializations(string specName)
+        {
+            ObservableCollection<SpecializationWithInfo> specializations = new ObservableCollection<SpecializationWithInfo>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SearchSpecializationByInfo";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@specName",
+                    Value = specName
+                };
+               
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        specializations.Add(new SpecializationWithInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                   
+
+                }
+                reader.Close();
+                base.Close();
+                return specializations;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка абитуриентов");
+                base.Close();
+                return null;
+            }
+        }
+
+        public ObservableCollection<Specialization> GetAllSpecializationsByName(string specName)
+        {
+            ObservableCollection<Specialization> specializations = new ObservableCollection<Specialization>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SpecializationByName";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@name",
+                    Value = specName
+                };
+
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        specializations.Add(new Specialization(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+
+                }
+                reader.Close();
+                base.Close();
+                return specializations;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка абитуриентов");
+                base.Close();
+                return null;
+            }
+        }
+
 
 
         // Проверка праивльности логина и пароля

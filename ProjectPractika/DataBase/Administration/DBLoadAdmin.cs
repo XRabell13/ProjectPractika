@@ -356,7 +356,39 @@ namespace ProjectPractika.DataBase.Administration
                 System.Windows.MessageBox.Show("Error: ошибка удаления записи" + "\n\n" + e.Message);
                 base.Close();
             }
+        }
 
+        public void DeleteSpecialization(int id)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.DeleteSpecialization";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter loginParam = new SqlParameter
+                    {
+                        ParameterName = "@specializationId",
+                        Value = id
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(loginParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка удаления специальности в учреждении" + "\n\n" + e.Message);
+                base.Close();
+            }
         }
         #endregion
     }

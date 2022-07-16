@@ -15,10 +15,12 @@
    <!-- <v:String x:Key="ap_tabTitle_loadInfo">Загрузить все</v:String>-->
     <v:String x:Key="ap_btnDel_entrant">Удалить абитуриента</v:String>
     <v:String x:Key="ap_btnDel_specialization">Удалить специальность</v:String>
+    <v:String x:Key="ap_btnDel_specializationByEdu">Удалить специальность из учебного учреждения</v:String>
     <v:String x:Key="ap_btnDel_educationalIns">Удалить учебное заведение</v:String>
     <v:String x:Key="ap_btnDel_category">Удалить категорию</v:String>
     <v:String x:Key="ap_btnDel_entry">Удалить запись</v:String>
     <v:String x:Key="ap_btnDel_concourse">Удалить конкурс</v:String>
+    
     <v:String x:Key="ap_combobox_titleYear">Год</v:String>
     <v:String x:Key="ap_combobox_titleFree">Бесплатно или платно</v:String>
     <v:String x:Key="ap_combobox_titleIntramural">Очно или заочно</v:String>

@@ -317,15 +317,26 @@
                         <Button Content="{DynamicResource ap_btnDel_entry}" Command="{Binding DeleteEntryCommand}"/>
 
                        
-                        <!--DELETE SPECIALIZATIONS-->
-                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_specialization}"/>
+                        <!--DELETE SPECIALIZATIONS BY EDU-->
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_specializationByEdu}"/>
                         <TextBox Text="{Binding SearchTxtSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
                         <ComboBox ItemsSource="{Binding Specializations}"
                                   IsEnabled="{Binding EnabledSpecialization, Mode=TwoWay}" 
-                                  DisplayMemberPath="InsName"
                                   SelectedItem="{Binding SelectedSpecialization}"
-                                  IsDropDownOpen="{Binding EnabledDropDownSpecialization}"/>
+                                 />
                         <Button Content="{DynamicResource ap_btnDel_educationalIns}" Command="{Binding DeleteSpecializationCommand}" />
+
+                        <!--DELETE SPECIALIZATION-->
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_specialization}"/>
+                        <TextBox Text="{Binding SearchTxtSpecializationOne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ComboBox ItemsSource="{Binding SpecializationsDelOne}"
+                                  IsEnabled="{Binding EnabledSpecializationOne, Mode=TwoWay}" 
+                                  DisplayMemberPath="SpecName"
+                                  SelectedItem="{Binding SelectedSpecializationOne}"
+                                 />
+                        <Button Content="{DynamicResource ap_btnDel_educationalIns}" Command="{Binding DeleteSpecializationOneCommand}" />
 
                     </StackPanel>
                 </ScrollViewer>
