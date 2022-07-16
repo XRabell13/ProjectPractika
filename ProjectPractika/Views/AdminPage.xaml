@@ -291,22 +291,6 @@
                         <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_entry}"/>
                         <TextBox Text="{Binding SearchTxtEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"/>
-                        <ComboBox ItemsSource="{Binding YearsEntry}" SelectedItem="{Binding SelectedYearEntry}"  />
-
-                        <TextBlock Text="{DynamicResource ap_combobox_titleFree}"/>
-                        <GroupBox Header="{DynamicResource ap_combobox_titleFree}">
-                            <StackPanel>
-                                <RadioButton GroupName="isFree" IsChecked="{Binding CheckRBtnIsFreeYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_yes}"  />
-                                <RadioButton GroupName="isFree"  IsChecked="{Binding CheckRBtnIsFreeNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_no}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{DynamicResource ap_combobox_titleIntramural}">
-                            <StackPanel>
-                                <RadioButton GroupName="isIntramural"  IsChecked="{Binding CheckRBtnIsIntramuralYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_yes}"  />
-                                <RadioButton GroupName="isIntramural" IsChecked="{Binding CheckRBtnIsIntramuralNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_no}" />
-                            </StackPanel>
-                        </GroupBox>
 
 
                         <ComboBox 
