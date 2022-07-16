@@ -42,8 +42,8 @@ namespace ProjectPractika.ViewModels
         private DBLoad dbl = new DBLoad();
         private MainWindowViewModel mVM;
         private ICommand _logIn;
-        private string password;
-        private string log;
+        private string password = "Admin";
+        private string log = "Admin";
 
         #endregion
 

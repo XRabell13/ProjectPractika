@@ -19,8 +19,64 @@
     <v:String x:Key="ap_btnDel_category">Удалить категорию</v:String>
     <v:String x:Key="ap_btnDel_entry">Удалить запись</v:String>
     <v:String x:Key="ap_btnDel_concourse">Удалить конкурс</v:String>
+    <v:String x:Key="ap_combobox_titleYear">Год</v:String>
+    <v:String x:Key="ap_combobox_titleFree">Бесплатно или платно</v:String>
+    <v:String x:Key="ap_combobox_titleIntramural">Очно или заочно</v:String>
+
+    <v:String x:Key="ap_btnAdd_entrant">Добавить абитуриента</v:String>
+    <v:String x:Key="ap_btnAdd_specialization">Добавить специальность</v:String>
+    <v:String x:Key="ap_btnAdd_educationalIns">Добавить учебное заведение</v:String>
+    <v:String x:Key="ap_btnAdd_category">Добавить категорию</v:String>
+    <v:String x:Key="ap_btnAdd_entry">Добавить запись</v:String>
+    <v:String x:Key="ap_btnAdd_concourse">Добавить конкурс</v:String>
+
+    <v:String x:Key="ap_radiobtn_isFree_no">Платно</v:String>
+    <v:String x:Key="ap_radiobtn_isFree_yes">Бесплатно</v:String>
+
+    <v:String x:Key="ap_radiobtn_isIntramural_no">Очно</v:String>
+    <v:String x:Key="ap_radiobtn_isIntramural_yes">Заочно</v:String>
+
+    <v:String x:Key="ap_dg_id">ID</v:String>
+    
+    <v:String x:Key="ap_dg_entrant_fullName">ФИО</v:String>
+    <v:String x:Key="ap_dg_entrant_passport">Пасспорт</v:String>
+    <v:String x:Key="ap_dg_entrant_maxBall">Балл</v:String>
+    <v:String x:Key="ap_dg_entrant_year">Год</v:String>
+
+    <v:String x:Key="ap_dg_category_name">Наименование категории</v:String>
+
+    <v:String x:Key="ap_dg_eduIns_name">Учебное заведение</v:String>
+    <v:String x:Key="ap_dg_eduIns_address">Адрес</v:String>
+
+    <v:String x:Key="ap_dg_specialization_name">Специальность</v:String>
+    <v:String x:Key="ap_dg_specialization_category">Категория</v:String>
+    <v:String x:Key="ap_dg_specialization_eduIns">Учебное заведение</v:String>
+
+    <v:String x:Key="ap_dg_concourse_specName">Специальность</v:String>
+    <v:String x:Key="ap_dg_concourse_eduIns">Учебное заведение</v:String>
+    <v:String x:Key="ap_dg_concourse_countSeats">Количество мест</v:String>
+    <v:String x:Key="ap_dg_concourse_isFree">Бюджет</v:String>
+    <v:String x:Key="ap_dg_concourse_isIntramural">Очно</v:String>
+    <v:String x:Key="ap_dg_concourse_dateYear">Год</v:String>
+
+    <v:String x:Key="ap_dg_entry_entrant">ФИО</v:String>
+    <v:String x:Key="ap_dg_entry_specName">Специальность</v:String>
+    <v:String x:Key="ap_dg_entry_eduIns">Учебное заведение</v:String>
+    <v:String x:Key="ap_dg_entry_countSeats">Количество мест</v:String>
+    <v:String x:Key="ap_dg_entry_isFree">Бюджет</v:String>
+    <v:String x:Key="ap_dg_entry_isIntramural">Очно</v:String>
+    <v:String x:Key="ap_dg_entry_year">Год</v:String>
+
+
+    <v:String x:Key="ap_dg_councourse_year">Год</v:String>
+
+    <v:String x:Key="ap_dg_forward">Вперед</v:String>
+    <v:String x:Key="ap_dg_back">Назад</v:String>
+
 
     <v:String x:Key="logIn">Войти</v:String>
+    <v:String x:Key="btn_search">Поиск</v:String>
 
+    
 
 </ResourceDictionary>

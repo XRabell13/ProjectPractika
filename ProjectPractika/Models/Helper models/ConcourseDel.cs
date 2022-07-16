@@ -1,13 +1,16 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ProjectPractika.Models
+namespace ProjectPractika.Models.Helper_models
 {
-    public class EducationIns : ObservableObject
+    public class ConcourseDel : ObservableObject
     {
         int id;
+        string specName;
         string insName;
-        string insAddress;
 
         public int Id
         {
@@ -21,6 +24,20 @@ namespace ProjectPractika.Models
                 //  OnPropertyChanged();
             }
         }
+
+        public string SpecName
+        {
+            get
+            {
+                return specName;
+            }
+            set
+            {
+                specName = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string InsName
         {
             get
@@ -33,32 +50,17 @@ namespace ProjectPractika.Models
                 OnPropertyChanged();
             }
         }
-        public string InsAddress
-        {
-            get
-            {
-                return insAddress;
-            }
-            set
-            {
-                insAddress = value;
-                OnPropertyChanged();
-            }
-        }
-        
 
-        public EducationIns(int id, string insName, string insAddress)
+        public ConcourseDel(int id, string specName, string category, string insName)
         {
             this.Id = id;
+            this.SpecName = specName;
             this.InsName = insName;
-            this.InsAddress = insAddress;
-
         }
-
 
         public override string ToString()
         {
-            return  InsName + " " + InsAddress; 
+            return specName + " " + insName;
         }
     }
 }

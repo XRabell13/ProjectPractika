@@ -11,7 +11,7 @@ namespace ProjectPractika.DataBase
 {
     public class Connect
     {
-        string conStr = ConfigurationManager.ConnectionStrings["UserConnectionString"].ConnectionString;// @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=ManualDb;Trusted_Connection=Yes;"; // тестовая проверка подключения к серверу
+        string conStr = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;// @"Server=DESKTOP-0P6S3HA\SQLEXPRESS;Database=ManualDb;Trusted_Connection=Yes;"; // тестовая проверка подключения к серверу
         public bool status = false;
 
         public SqlConnection connection;

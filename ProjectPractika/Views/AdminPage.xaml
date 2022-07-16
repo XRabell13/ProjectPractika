@@ -13,87 +13,319 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-       <!-- <StackPanel Grid.Column="1">
-            <Button Content="{DynamicResource ap_tabTitle_loadInfo}" />
-        </StackPanel>-->
         <TabControl>
-           <!-- 
-            <TabItem Header="users" >
-                <DataGrid x:Name="dg_users" AutoGenerateColumns="False" 
-                          CellEditEnding="dg_users_CellEditEnding">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="nick" Binding="{Binding nick, Mode=TwoWay}"/>
-                        <DataGridTextColumn Header="pass Hash" Binding="{Binding password, Mode=TwoWay}"/>
-                        <DataGridTextColumn Header="IsAdmin" Binding="{Binding isAdmin, Mode=TwoWay}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <!-- АБИТУРИЕНТЫ -->
+            <TabItem Header="{DynamicResource ap_tabTitle_entrants}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="30px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"  Height="25px" MaxWidth="70px" MinWidth="30px"/>
+                        <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}" Height="25px" MaxWidth="90px" MinWidth="40px" />
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                        <TextBlock Text="12" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                    </StackPanel>
+
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding EntrantsDG}" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entrant_fullName}" Binding="{Binding FullName, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entrant_passport}" Binding="{Binding Passport, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entrant_maxBall}" Binding="{Binding MaxBall, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entrant_year}" Binding="{Binding DateYear, Mode=TwoWay}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
-            <TabItem Header="users_info">
-                <DataGrid x:Name="dg_users_info" AutoGenerateColumns="False" 
-                          CellEditEnding="dg_users_info_CellEditEnding">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="name" Binding="{Binding name, Mode=TwoWay}"/>
-                        <DataGridTextColumn Header="telephone" Binding="{Binding telephone, Mode=TwoWay}"/>
-                        <DataGridTextColumn Header="email" Binding="{Binding email, Mode=TwoWay}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <!-- КАТЕГОРИИ -->
+            <TabItem Header="{DynamicResource ap_tabTitle_categories}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding Categories}">
+                        <!-- CellEditEnding="dg_users_CellEditEnding"-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_category_name}" Binding="{Binding CategoryName, Mode=TwoWay}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </TabItem>
-           -->
-            <TabItem Header="{DynamicResource ap_tabTitle_deleteInfo}" Background="GreenYellow">
+            <!-- УЧЕБНЫЕ УЧРЕЖДЕНИЯ -->
+            <TabItem Header="{DynamicResource ap_tabTitle_educationalIns}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                    </StackPanel>
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding EducationalInsDG}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_eduIns_name}" Binding="{Binding InsName, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_eduIns_address}" Binding="{Binding InsAddress, Mode=TwoWay}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <!-- СПЕЦИАЛЬНОСТИ -->
+            <TabItem Header="{DynamicResource ap_tabTitle_specializations}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="410*"/>
+                        <ColumnDefinition Width="169*"/>
+                        <ColumnDefinition Width="215*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="3">
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                    </StackPanel>
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="1" Grid.ColumnSpan="3">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_specialization_name}" Binding="{Binding SpecName, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_specialization_category}" Binding="{Binding Category, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_specialization_eduIns}" Binding="{Binding InsName, Mode=TwoWay}"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <!-- КОНКУРСЫ -->
+            <TabItem Header="{DynamicResource ap_tabTitle_concourses}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                    </StackPanel>
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="2">
+                        <!-- CellEditEnding="dg_users_CellEditEnding"-->
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_specName}" Binding="{Binding SpecName}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_eduIns}" Binding="{Binding InsName}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_countSeats}" Binding="{Binding CountSeats}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_isFree}" Binding="{Binding IsFree}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_isIntramural}" Binding="{Binding IsIntramural}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_dateYear}" Binding="{Binding DateYear}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <!-- ЗАПИСИ -->
+            <TabItem Header="{DynamicResource ap_tabTitle_entries}" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50px"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                    </StackPanel>
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding id}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_entrant}" Binding="{Binding id}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_specName}" Binding="{Binding id}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_eduIns}" Binding="{Binding id}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_isFree}" Binding="{Binding id}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_isIntramural}" Binding="{Binding id}" />
+                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_year}" Binding="{Binding id}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!--////////////////////////////////////// ДОБАВЛЕНИЕ //////////////////////////////////////-->
+
+            <TabItem Header="{DynamicResource ap_tabTitle_addInfo}" Background="GreenYellow">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
+                        <Expander Header="{DynamicResource ap_btnAdd_entrant}">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_entrant_fullName}"/>
+                                <TextBox Text="{Binding InfoAddFullName}"/>
+                                <TextBlock Text="{DynamicResource ap_dg_entrant_passport}"/>
+                                <TextBox Text="{Binding InfoAddPassport}"/>
+                                <TextBlock Text="{DynamicResource ap_dg_entrant_maxBall}"/>
+                                <TextBox Text="{Binding InfoAddMaxBall}"/>
+                                <TextBlock Text="{DynamicResource ap_dg_entrant_year}"/>
+                                <TextBox Text="{Binding InfoAddYear}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_entrant}"/>
+                            </StackPanel>
+                        </Expander>
 
-                      
+                        <Expander Header="{DynamicResource ap_btnAdd_category}">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
+                                <TextBox Text="{Binding InfoAddCategory}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_category}"/>
+                            </StackPanel>
+                        </Expander>
+
+                        <Expander Header="{DynamicResource ap_btnAdd_concourse}">
+                            <TextBlock>Test</TextBlock>
+                        </Expander>
+                        <Expander Header="{DynamicResource ap_btnAdd_educationalIns}">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_eduIns_name}"/>
+                                <TextBox Text="{Binding InfoAddInsName}"/>
+                                <TextBlock Text="{DynamicResource ap_dg_eduIns_address}"/>
+                                <TextBox Text="{Binding InfoAddInsAddress}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_educationalIns}"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="{DynamicResource ap_btnAdd_entry}">
+                            <TextBlock>test</TextBlock>
+                        </Expander>
+                        <Expander Header="{DynamicResource ap_btnAdd_specialization}">
+                            <TextBlock>test</TextBlock>
+                        </Expander>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
+            <!--////////////////////////////////////// УДАЛЕНИЕ //////////////////////////////////////-->
             <TabItem Header="{DynamicResource ap_tabTitle_deleteInfo}" Background="LightCoral">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
+                        <!--DELETE EDUCATIONALINS-->
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_educationalIns}"/>
+                        <TextBox Text="{Binding SearchTxtEducationalIns, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ComboBox ItemsSource="{Binding EducationalIns}" 
+                                  IsEnabled="{Binding EnabledEducationalIns, Mode=TwoWay}" 
+                                  DisplayMemberPath="InsName"
+                                  SelectedItem="{Binding SelectedEducationalIns}"
+                                  IsDropDownOpen="{Binding EnabledDropDownEducationalIns}"
+                                  />
+                        <Button Content="{DynamicResource ap_btnDel_educationalIns}" Command="{Binding DeleteEduCommand}" />
+
                         <!--DELETE CATEGORY-->
                         <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_category}"/>
-                        <ComboBox x:Name="cb_categories" ItemsSource="{Binding Categories}"
-                       DisplayMemberPath="CategoryName"
-                       SelectedItem="{Binding SelectedCategory}" >
-                        </ComboBox>
-                        <!-- <ComboBox x:Name="cb_entrants" ItemsSource="{Binding Entrants, Mode=TwoWay}"
-                       DisplayMemberPath="CategoryName"
-                       SelectedItem="{Binding SelectedEntrant}"  
-                       IsTextSearchEnabled="False" 
-                       IsEditable="True" 
-                       IsDropDownOpen="{Binding  IsDropDownOpen, Mode=TwoWay}"
-                       Text="{Binding Text, Mode=TwoWay}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="KeyUp">
-                                <i:InvokeCommandAction Command="{Binding  GetProductCommand}"  />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ComboBox>-->
-                        <Button Content="{DynamicResource ap_btnDel_category}"  />
+                        <ComboBox ItemsSource="{Binding Categories}"
+                            DisplayMemberPath="CategoryName"
+                            SelectedItem="{Binding SelectedCategory}" />
+                        <Button Content="{DynamicResource ap_btnDel_category}" Command="{Binding DeleteCategoryCommand}" />
 
+                        <!--DELETE ENTRANT-->
                         <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_entrant}"/>
-                        <TextBox Text=""/>
-                        <ComboBox x:Name="cb_entrants" IsEnabled="False" ></ComboBox>
-                        <Button Content="{DynamicResource ap_btnDel_entrant}" />
+                        <TextBox Text="{Binding SearchTxtEntrant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox ItemsSource="{Binding Entrants}"
+                                  IsEnabled="{Binding EnabledEntrant, Mode=TwoWay}" 
+                                  DisplayMemberPath="FullName"
+                                  SelectedItem="{Binding SelectedEntrant}"
+                                  IsDropDownOpen="{Binding EnabledDropDownEntrant}"/>
+                        <Button Content="{DynamicResource ap_btnDel_entrant}" Command="{Binding DeleteEntrantCommand}" />
 
+                        <!--DELETE CONCOURSE-->
                         <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_concourse}"/>
-                        <TextBox Text=""/>
-                        <ComboBox x:Name="cb_concourses" IsEnabled="False" ></ComboBox>
-                        <Button Content="{DynamicResource ap_btnDel_concourse}" />
+                        <TextBox Text="{Binding SearchTxtConcourse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"/>
+                        <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}"  />
+
+                        <TextBlock Text="{DynamicResource ap_combobox_titleFree}"/>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleFree}">
+                            <StackPanel>
+                                <RadioButton GroupName="isFree" IsChecked="{Binding CheckRBtnIsFreeYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_yes}"  />
+                                <RadioButton GroupName="isFree"  IsChecked="{Binding CheckRBtnIsFreeNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_no}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleIntramural}">
+                            <StackPanel>
+                                <RadioButton GroupName="isIntramural"  IsChecked="{Binding CheckRBtnIsIntramuralYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_yes}"  />
+                                <RadioButton GroupName="isIntramural" IsChecked="{Binding CheckRBtnIsIntramuralNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_no}" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <ComboBox ItemsSource="{Binding Concourses}" 
+                                  IsEnabled="{Binding EnabledConcourse, Mode=TwoWay}"  
+                                  SelectedItem="{Binding SelectedConcourseWithEduAndSpec}"
+                                  IsDropDownOpen="{Binding EnabledDropDownConcourse}" 
+                                  BorderBrush="Black"
+                                  />
+
+                        <Button Content="{DynamicResource ap_btnDel_concourse}" Command="{Binding DeleteConcourseCommand}"/>
+
+                        <!--DELETE ENTRY-->
                         <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_entry}"/>
-                        <TextBox Text=""/>
-                        <ComboBox x:Name="cb_entries" IsEnabled="False" ></ComboBox>
-                        <Button Content="{DynamicResource ap_btnDel_entry}" />
+                        <TextBox Text="{Binding SearchTxtEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_educationalIns}"/>
-                        <TextBox Text=""/>
-                        <ComboBox x:Name="cb_educationalIns" IsEnabled="False" ></ComboBox>
-                        <Button Content="{DynamicResource ap_btnDel_educationalIns}" />
-                    
+                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"/>
+                        <ComboBox ItemsSource="{Binding YearsEntry}" SelectedItem="{Binding SelectedYearEntry}"  />
+
+                        <TextBlock Text="{DynamicResource ap_combobox_titleFree}"/>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleFree}">
+                            <StackPanel>
+                                <RadioButton GroupName="isFree" IsChecked="{Binding CheckRBtnIsFreeYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_yes}"  />
+                                <RadioButton GroupName="isFree"  IsChecked="{Binding CheckRBtnIsFreeNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_no}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleIntramural}">
+                            <StackPanel>
+                                <RadioButton GroupName="isIntramural"  IsChecked="{Binding CheckRBtnIsIntramuralYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_yes}"  />
+                                <RadioButton GroupName="isIntramural" IsChecked="{Binding CheckRBtnIsIntramuralNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_no}" />
+                            </StackPanel>
+                        </GroupBox>
+
+
+                        <ComboBox 
+                            IsEnabled="{Binding EnabledEntry, Mode=TwoWay}" 
+                            IsDropDownOpen="{Binding EnabledDropDownEntry}"
+                            />
+                        <Button Content="{DynamicResource ap_btnDel_entry}" Command="{Binding DeleteEntryCommand}"/>
+
+                       
+                        <!--DELETE SPECIALIZATIONS-->
+                        <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_specialization}"/>
+                        <TextBox Text="{Binding SearchTxtSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox ItemsSource="{Binding Specializations}"
+                                  IsEnabled="{Binding EnabledSpecialization, Mode=TwoWay}" 
+                                  DisplayMemberPath="InsName"
+                                  SelectedItem="{Binding SelectedSpecialization}"
+                                  IsDropDownOpen="{Binding EnabledDropDownSpecialization}"/>
+                        <Button Content="{DynamicResource ap_btnDel_educationalIns}" Command="{Binding DeleteSpecializationCommand}" />
+
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

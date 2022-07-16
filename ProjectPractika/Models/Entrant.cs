@@ -9,7 +9,7 @@ namespace ProjectPractika.Models
         string fullName;
         string passport;
         int maxBall;
-        int dataYear;
+        int dateYear;
 
         public int Id { 
             get {
@@ -56,32 +56,32 @@ namespace ProjectPractika.Models
                 OnPropertyChanged();
             }
         }
-        public int DataYear
+        public int DateYear
         {
             get
             {
-                return dataYear;
+                return dateYear;
             }
             set
             {
-                dataYear = value;
+                dateYear = value;
                 OnPropertyChanged();
             }
         }
 
-        public Entrant(int id, string fullName, string passport, int maxBall, int dataYear)
+        public Entrant(int id, string fullName, string passport, int maxBall, int dateYear)
         {
             this.Id = id;
             this.FullName = fullName;
             this.Passport = passport;
             this.MaxBall = maxBall; 
-            this.DataYear = dataYear;
+            this.DateYear = dateYear;
           
         }
 
         public override string ToString()
         {
-            return Id.ToString() + " " + FullName + " " + Passport + " " + MaxBall + " " + DataYear;
+            return Id.ToString() + " " + FullName + " " + Passport + " " + MaxBall + " " + DateYear;
         }
     }
 }
