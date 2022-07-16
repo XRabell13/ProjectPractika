@@ -282,7 +282,6 @@
                                   IsEnabled="{Binding EnabledConcourse, Mode=TwoWay}"  
                                   SelectedItem="{Binding SelectedConcourseWithEduAndSpec}"
                                   IsDropDownOpen="{Binding EnabledDropDownConcourse}" 
-                                  BorderBrush="Black"
                                   />
 
                         <Button Content="{DynamicResource ap_btnDel_concourse}" Command="{Binding DeleteConcourseCommand}"/>
@@ -291,9 +290,27 @@
                         <TextBlock FontSize="16" Text="{DynamicResource ap_btnDel_entry}"/>
                         <TextBox Text="{Binding SearchTxtEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"/>
+                        <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYearEntry}"  />
+
+                        <TextBlock Text="{DynamicResource ap_combobox_titleFree}"/>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleFree}">
+                            <StackPanel>
+                                <RadioButton GroupName="isFreeEntry" IsChecked="{Binding CheckRBtnEntryIsFreeYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_yes}"  />
+                                <RadioButton GroupName="isFreeEntry"  IsChecked="{Binding CheckRBtnEntryIsFreeNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_no}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleIntramural}">
+                            <StackPanel>
+                                <RadioButton GroupName="isIntramuralEntry"  IsChecked="{Binding CheckRBtnEntryIsIntramuralYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_yes}"  />
+                                <RadioButton GroupName="isIntramuralEntry" IsChecked="{Binding CheckRBtnEntryIsIntramuralNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_no}" />
+                            </StackPanel>
+                        </GroupBox>
 
 
                         <ComboBox 
+                            ItemsSource="{Binding Entries}"
+                            SelectedItem="{Binding SelectedEntryWithInfo}"
                             IsEnabled="{Binding EnabledEntry, Mode=TwoWay}" 
                             IsDropDownOpen="{Binding EnabledDropDownEntry}"
                             />

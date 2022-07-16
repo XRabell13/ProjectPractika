@@ -56,35 +56,32 @@ namespace ProjectPractika.ViewModels
         bool checkRBtnIsFreeYes = false, checkRBtnIsFreeNo = false, 
             checkRBtnIsIntramuralYes = false, checkRBtnIsIntramuralNo = false;
 
+        bool checkRBtnEntryIsFreeYes = false, checkRBtnEntryIsFreeNo = false,
+            checkRBtnEntryIsIntramuralYes = false, checkRBtnEntryIsIntramuralNo = false;
+
         string searchTxtEntrant = "", searchTxtEntry = "", searchTxtEducationalIns = "",
              searchTxtSpecialization = "", searchTxtConcourse = "";
 
         private ICommand _delCategory, _delEntrant, _delEducationalIns, _delEntry, _delConcourse, _delSpecialization;
+        
         List<int> years = new List<int>() { 2019, 2020, 2021, 2022 };
         
         ObservableCollection<Category> categories = new ObservableCollection<Category>();
         ObservableCollection<Entrant> entrants = new ObservableCollection<Entrant>();
         ObservableCollection<EducationIns> educationIns = new ObservableCollection<EducationIns>();
         ObservableCollection<ConcourseWithEduAndSpec> concourses = new ObservableCollection<ConcourseWithEduAndSpec>();
+        ObservableCollection<EntryWithInfo> entries = new ObservableCollection<EntryWithInfo>();
 
         ObservableCollection<Entrant> entrantsDG = new ObservableCollection<Entrant>();
         ObservableCollection<EducationIns> educationInsDG = new ObservableCollection<EducationIns>();
 
-        int selectedYear;
+        int selectedYear, selectedYearEntry;
         Category selectedCategory; 
         Entrant selectedEntrant;
         EducationIns selectedEducationIns;
         ConcourseWithEduAndSpec selectedConcourseWithEduAndSpec;
-         //придумать и изменить для радио баттона
-        private bool[] _modeArray = new bool[] { true, false};
-        public bool[] ModeArray
-        {
-            get { return _modeArray; }
-        }
-        public int SelectedMode
-        {
-            get { return Array.IndexOf(_modeArray, true); }
-        }
+        EntryWithInfo selectedEntryWithInfo;
+
 
         #endregion
 
@@ -164,6 +161,27 @@ namespace ProjectPractika.ViewModels
             get { return checkRBtnIsIntramuralNo; }
             set { checkRBtnIsIntramuralNo = value; OnPropertyChanged(); }
         }
+        // ------------------------------------------------------------------- 
+        public bool CheckRBtnEntryIsFreeYes
+        {
+            get { return checkRBtnEntryIsFreeYes; }
+            set { checkRBtnEntryIsFreeYes = value; OnPropertyChanged(); }
+        }
+        public bool CheckRBtnEntryIsFreeNo
+        {
+            get { return checkRBtnEntryIsFreeNo; }
+            set { checkRBtnEntryIsFreeNo = value; OnPropertyChanged(); }
+        }
+        public bool CheckRBtnEntryIsIntramuralYes
+        {
+            get { return checkRBtnEntryIsIntramuralYes; }
+            set { checkRBtnEntryIsIntramuralYes = value; OnPropertyChanged(); }
+        }
+        public bool CheckRBtnEntryIsIntramuralNo
+        {
+            get { return checkRBtnEntryIsIntramuralNo; }
+            set { checkRBtnEntryIsIntramuralNo = value; OnPropertyChanged(); }
+        }
 
         #endregion
 
@@ -207,6 +225,11 @@ namespace ProjectPractika.ViewModels
         {
             get { return selectedYear; }
             set { selectedYear = value; OnPropertyChanged(); }
+        }
+        public int SelectedYearEntry
+        {
+            get { return selectedYearEntry; }
+            set { selectedYearEntry = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<Category> Categories { 
@@ -252,6 +275,18 @@ namespace ProjectPractika.ViewModels
         {
             get { return selectedConcourseWithEduAndSpec; }
             set { selectedConcourseWithEduAndSpec = value; OnPropertyChanged(); }
+        }
+
+        public ObservableCollection<EntryWithInfo> Entries
+        {
+            get { return entries; }
+            set { entries = value; OnPropertyChanged(); }
+        }
+
+        public EntryWithInfo SelectedEntryWithInfo
+        {
+            get { return selectedEntryWithInfo; }
+            set { selectedEntryWithInfo = value; OnPropertyChanged(); }
         }
         #endregion
 
@@ -400,8 +435,34 @@ namespace ProjectPractika.ViewModels
         {
             if (searchTxtEntry != "")
             {
-                // foreach(Entrant entrant in entrantsList)
+                if (selectedYearEntry != 0)
+                {
+                    if (checkRBtnEntryIsFreeNo == false & checkRBtnEntryIsFreeYes == false)
+                    {
+                        MessageBox.Show("Выберите платное или бесплатное обучение.");
+                        return;
+                    }
+                    if (checkRBtnEntryIsIntramuralNo == false & checkRBtnEntryIsIntramuralYes == false)
+                    {
+                        MessageBox.Show("Выберите очное или заочное обучение.");
+                        return;
+                    }
+
+                    Entries = dbla.GetAllEntryWithInfo(SelectedYearEntry, Convert.ToInt32(checkRBtnEntryIsFreeYes),
+                        Convert.ToInt32(checkRBtnEntryIsIntramuralYes), SearchTxtEntry);
+                   
+                    EnabledEntry = true;
+                    EnabledDropDownEntry = true;
+
+                }
+                else MessageBox.Show("Выберите год");
             }
+            else
+            {
+                EnabledEntry = false;
+                EnabledDropDownEntry = false;
+            }
+
 
         }
 
@@ -478,11 +539,18 @@ namespace ProjectPractika.ViewModels
                 dbla.DeleteConcourse(SelectedConcourseWithEduAndSpec.Id);
                 Concourses.Clear();
             }
-           
+            else MessageBox.Show("Элемент не выбран");
+
         }
+     
         private void DeleteEntry()
         {
-
+            if(SelectedEntryWithInfo != null)
+            { 
+                dbla.DeleteEntry(SelectedEntryWithInfo.Id);
+                Entries.Clear();
+            }
+            else MessageBox.Show("Элемент не выбран");
         }
         private void DeleteSpecialization()
         {

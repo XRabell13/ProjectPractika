@@ -77,10 +77,10 @@
     <Compile Include="Models\EducationIns.cs" />
     <Compile Include="Models\Entrant.cs" />
     <Compile Include="Models\Entry.cs" />
-    <Compile Include="Models\Helper models\ConcourseDel.cs" />
     <Compile Include="Models\Helper models\ConcourseDG.cs" />
     <Compile Include="Models\Helper models\ConcourseWithEduAndSpec.cs" />
     <Compile Include="Models\Helper models\EntryDG.cs" />
+    <Compile Include="Models\Helper models\EntryWithInfo.cs" />
     <Compile Include="Models\Helper models\SpecializationDG.cs" />
     <Compile Include="Models\Specialization.cs" />
     <Compile Include="ViewModels\AdminPageViewModel.cs" />

@@ -131,8 +131,64 @@ namespace ProjectPractika.DataBase.Administration
             }
         }
 
-       
-        
+        public ObservableCollection<EntryWithInfo> GetAllEntryWithInfo(int year, int isFree, int isIntramural, string fullName)
+        {
+            ObservableCollection<EntryWithInfo> entries = new ObservableCollection<EntryWithInfo>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SearchEntryByInfo";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter fullNameParam = new SqlParameter
+                {
+                    ParameterName = "@fullName",
+                    Value = fullName
+                };
+                SqlParameter yearParam = new SqlParameter
+                {
+                    ParameterName = "@dateYear",
+                    Value = year
+                };
+                SqlParameter isFreeParam = new SqlParameter
+                {
+                    ParameterName = "@isFree",
+                    Value = isFree
+                };
+                SqlParameter isIntramuralParam = new SqlParameter
+                {
+                    ParameterName = "@isIntramural",
+                    Value = isIntramural
+                };
+               
+                // добавляем параметры
+                command.Parameters.Add(yearParam);
+                command.Parameters.Add(isFreeParam);
+                command.Parameters.Add(isIntramuralParam);
+                command.Parameters.Add(fullNameParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        entries.Add(new EntryWithInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3)));
+                    
+                }
+                reader.Close();
+                base.Close();
+                return entries;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка записей");
+                base.Close();
+                return null;
+            }
+        }
+
+
         #region DeleteInfo
 
         public void DeleteCategory(int id)
@@ -264,6 +320,40 @@ namespace ProjectPractika.DataBase.Administration
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show("Error: ошибка удаления конкурса" + "\n\n" + e.Message);
+                base.Close();
+            }
+
+        }
+
+        public void DeleteEntry(int id)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.DeleteEntry";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter loginParam = new SqlParameter
+                    {
+                        ParameterName = "@entryId",
+                        Value = id
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(loginParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка удаления записи" + "\n\n" + e.Message);
                 base.Close();
             }
 

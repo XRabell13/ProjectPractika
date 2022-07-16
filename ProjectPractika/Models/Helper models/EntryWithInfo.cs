@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ProjectPractika.Models.Helper_models
 {
-    public class ConcourseDel : ObservableObject
+    public class EntryWithInfo:ObservableObject
     {
         int id;
+        string fullName;
         string specName;
         string insName;
 
@@ -24,7 +25,6 @@ namespace ProjectPractika.Models.Helper_models
                 //  OnPropertyChanged();
             }
         }
-
         public string SpecName
         {
             get
@@ -37,7 +37,6 @@ namespace ProjectPractika.Models.Helper_models
                 OnPropertyChanged();
             }
         }
-
         public string InsName
         {
             get
@@ -50,17 +49,29 @@ namespace ProjectPractika.Models.Helper_models
                 OnPropertyChanged();
             }
         }
-
-        public ConcourseDel(int id, string specName, string category, string insName)
+        public string FullName
         {
-            this.Id = id;
-            this.SpecName = specName;
-            this.InsName = insName;
+            get
+            {
+                return fullName;
+            }
+            set
+            {
+                fullName = value;
+                OnPropertyChanged();
+            }
+        }
+        public EntryWithInfo(int id, string fullName,  string specName, string insName)
+        {
+            Id = id;
+            FullName = fullName;
+            SpecName = specName;
+            InsName = insName;
         }
 
         public override string ToString()
         {
-            return specName + " " + insName;
+            return fullName + "\n" + specName + "\n" + insName;
         }
     }
 }
