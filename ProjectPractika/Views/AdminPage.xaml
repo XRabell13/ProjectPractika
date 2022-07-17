@@ -192,7 +192,7 @@
                                 <TextBox Text="{Binding InfoAddMaxBall}"/>
                                 <TextBlock Text="{DynamicResource ap_dg_entrant_year}"/>
                                 <TextBox Text="{Binding InfoAddYear}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_entrant}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_entrant}" Command="{DynamicResource AddEntrantCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add edu -->
@@ -202,7 +202,7 @@
                                 <TextBox Text="{Binding InfoAddInsName}"/>
                                 <TextBlock Text="{DynamicResource ap_dg_eduIns_address}"/>
                                 <TextBox Text="{Binding InfoAddInsAddress}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_educationalIns}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_educationalIns}" Command="{DynamicResource AddEduCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add category -->
@@ -210,7 +210,7 @@
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
                                 <TextBox Text="{Binding InfoAddCategory}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_category}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_category}" Command="{DynamicResource AddCategoryCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add specialization -->
@@ -219,8 +219,11 @@
                                 <TextBlock Text="{DynamicResource ap_dg_specialization_name}"/>
                                 <TextBox Text="{Binding InfoAddSpecializationName}"/>
                                 <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
-                                <ComboBox />
-                                <Button Content="{DynamicResource ap_btnAdd_category}"/>
+                                <ComboBox 
+                                    ItemsSource="{Binding Categories}" 
+                                    DisplayMemberPath="CategoryName"
+                                    />
+                                <Button Content="{DynamicResource ap_btnAdd_category}" Command="{DynamicResource AddSpecializationCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add concourse -->
@@ -232,7 +235,12 @@
                         <Expander Header="{DynamicResource ap_btnAdd_entry}">
                             <TextBlock>test</TextBlock>
                         </Expander>
-                       
+
+                        <!-- Add eduSpec -->
+                        <Expander Header="{DynamicResource ap_btnAdd_specEdu}">
+                            <TextBlock>test</TextBlock>
+                        </Expander>
+
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

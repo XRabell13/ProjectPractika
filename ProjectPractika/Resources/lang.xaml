@@ -31,6 +31,7 @@
     <v:String x:Key="ap_btnAdd_category">Добавить категорию</v:String>
     <v:String x:Key="ap_btnAdd_entry">Добавить запись</v:String>
     <v:String x:Key="ap_btnAdd_concourse">Добавить конкурс</v:String>
+    <v:String x:Key="ap_btnAdd_specEdu">Добавить специальность в учебное учреждение</v:String>
 
     <v:String x:Key="ap_radiobtn_isFree_no">Платно</v:String>
     <v:String x:Key="ap_radiobtn_isFree_yes">Бесплатно</v:String>

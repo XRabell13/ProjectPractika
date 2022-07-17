@@ -424,5 +424,171 @@ namespace ProjectPractika.DataBase.Administration
             }
         }
         #endregion
+
+        #region AddInfo
+
+        public void AddCategory(string categoryName)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddCategory";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter categoryParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryName",
+                        Value = categoryName
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(categoryParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления категории" + "\n\n" + e.Message);
+                base.Close();
+            }
+        }
+
+        public void AddSpecialization(string specName, int categoryId)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddSpecialization";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter specNameParam = new SqlParameter
+                    {
+                        ParameterName = "@specName",
+                        Value = specName
+                    };
+                    SqlParameter categoryIdParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryId",
+                        Value = categoryId
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(specNameParam);
+                    command.Parameters.Add(categoryIdParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления специальности" + "\n\n" + e.Message);
+                base.Close();
+            }
+        }
+
+        public void AddEduIns(string insName, string insAddress)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddEduIns";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter insNameParam = new SqlParameter
+                    {
+                        ParameterName = "@insName",
+                        Value = insName
+                    };
+                    SqlParameter insAddressParam = new SqlParameter
+                    {
+                        ParameterName = "@adress",
+                        Value = insAddress
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(insNameParam);
+                    command.Parameters.Add(insAddressParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления учебного учреждения" + "\n\n" + e.Message);
+                base.Close();
+            }
+        }
+
+        public void AddEntrant(string fullName, string passport, int maxBall, int dateYear)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddEntrant";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter fullNameParam = new SqlParameter
+                    {
+                        ParameterName = "@fullName",
+                        Value = fullName
+                    };
+                    SqlParameter passportParam = new SqlParameter
+                    {
+                        ParameterName = "@numberPassport",
+                        Value = passport
+                    };
+                    SqlParameter maxBallParam = new SqlParameter
+                    {
+                        ParameterName = "@maxBall",
+                        Value = maxBall
+                    };
+                    SqlParameter dateYearParam = new SqlParameter
+                    {
+                        ParameterName = "@dateYear",
+                        Value = dateYear
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(fullNameParam);
+                    command.Parameters.Add(passportParam);
+                    command.Parameters.Add(maxBallParam);
+                    command.Parameters.Add(dateYearParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления учебного учреждения" + "\n\n" + e.Message);
+                base.Close();
+            }
+        }
+
+        #endregion
     }
 }
