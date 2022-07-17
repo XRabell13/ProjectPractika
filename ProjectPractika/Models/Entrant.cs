@@ -81,7 +81,7 @@ namespace ProjectPractika.Models
 
         public override string ToString()
         {
-            return Id.ToString() + " " + FullName + " " + Passport + " " + MaxBall + " " + DateYear;
+            return FullName + " " + DateYear;
         }
     }
 }

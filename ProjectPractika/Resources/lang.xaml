@@ -54,6 +54,7 @@
     <v:String x:Key="ap_dg_specialization_name">Специальность</v:String>
     <v:String x:Key="ap_dg_specialization_category">Категория</v:String>
     <v:String x:Key="ap_dg_specialization_eduIns">Учебное заведение</v:String>
+    <v:String x:Key="ap_dg_specialization_countSeats">Количество мест</v:String>
 
     <v:String x:Key="ap_dg_concourse_specName">Специальность</v:String>
     <v:String x:Key="ap_dg_concourse_eduIns">Учебное заведение</v:String>

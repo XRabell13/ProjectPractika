@@ -192,7 +192,7 @@
                                 <TextBox Text="{Binding InfoAddMaxBall}"/>
                                 <TextBlock Text="{DynamicResource ap_dg_entrant_year}"/>
                                 <TextBox Text="{Binding InfoAddYear}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_entrant}" Command="{DynamicResource AddEntrantCommand}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_entrant}" Command="{Binding AddEntrantCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add edu -->
@@ -202,7 +202,7 @@
                                 <TextBox Text="{Binding InfoAddInsName}"/>
                                 <TextBlock Text="{DynamicResource ap_dg_eduIns_address}"/>
                                 <TextBox Text="{Binding InfoAddInsAddress}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_educationalIns}" Command="{DynamicResource AddEduCommand}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_educationalIns}" Command="{Binding AddEduCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add category -->
@@ -210,7 +210,7 @@
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
                                 <TextBox Text="{Binding InfoAddCategory}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_category}" Command="{DynamicResource AddCategoryCommand}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_category}" Command="{Binding AddCategoryCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add specialization -->
@@ -222,23 +222,72 @@
                                 <ComboBox 
                                     ItemsSource="{Binding Categories}" 
                                     DisplayMemberPath="CategoryName"
+                                    SelectedItem="{Binding SelectedCategoryBySpec}"
                                     />
-                                <Button Content="{DynamicResource ap_btnAdd_category}" Command="{DynamicResource AddSpecializationCommand}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_category}" Command="{Binding AddSpecializationCommand}"/>
                             </StackPanel>
                         </Expander>
                         <!-- Add concourse -->
                         <Expander Header="{DynamicResource ap_btnAdd_concourse}">
-                            <TextBlock>Test</TextBlock>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_specialization_countSeats}"/>
+                                <TextBox Text="{Binding InfoAddCountSeats}"/>
+                                <TextBlock Text="{DynamicResource ap_combobox_titleFree}"/>
+                                <GroupBox Header="{DynamicResource ap_combobox_titleFree}">
+                                    <StackPanel>
+                                        <RadioButton GroupName="isAddFree" IsChecked="{Binding CheckRBtnAddIsFreeYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_yes}"  />
+                                        <RadioButton GroupName="isAddFree"  IsChecked="{Binding CheckRBtnAddIsFreeNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_no}" />
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="{DynamicResource ap_combobox_titleIntramural}">
+                                    <StackPanel>
+                                        <RadioButton GroupName="isAddIntramural"  IsChecked="{Binding CheckRBtnAddIsIntramuralYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_yes}"  />
+                                        <RadioButton GroupName="isAddIntramural" IsChecked="{Binding CheckRBtnAddIsIntramuralNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_no}" />
+                                    </StackPanel>
+                                </GroupBox>
+                                <TextBlock Text="{DynamicResource ap_combobox_titleYear}"/>
+                                <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedAddConcourseYear}"  />
+                                <TextBlock Text="{DynamicResource ap_dg_specialization_name}"/>
+                                <TextBox Text="{Binding SearchTxtSpecializationEduByAddConcourse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <ComboBox 
+                                    ItemsSource="{Binding SpecializationEducations}"
+                                    SelectedItem="{Binding SelectedSpecializationEducation}"
+                                    IsEnabled="{Binding EnabledSpecializationEduByAddConcourse, Mode=TwoWay}"
+                                    IsDropDownOpen="{Binding EnabledDropDownSpecializationEduByAddConcourse, Mode=TwoWay}"
+                                    />
+                                <Button Content="{DynamicResource ap_btnAdd_concourse}" Command="{Binding AddConcourseCommand}"/>
+                            </StackPanel>
                         </Expander>
                       
                         <!-- Add entry -->
                         <Expander Header="{DynamicResource ap_btnAdd_entry}">
-                            <TextBlock>test</TextBlock>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_entrant_fullName}"/>
+                                <TextBox />
+                                <ComboBox ItemsSource="{Binding Entrants}"/>
+                                
+                                <TextBlock Text="{DynamicResource ap_dg_concourse_specName}"/>
+                                <TextBox/>
+                                <ComboBox ItemsSource="{Binding Concourses}"/>
+
+                                <Button Content="{DynamicResource ap_btnAdd_entry}"/>
+                            </StackPanel>
+                           
                         </Expander>
 
                         <!-- Add eduSpec -->
                         <Expander Header="{DynamicResource ap_btnAdd_specEdu}">
-                            <TextBlock>test</TextBlock>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_specialization_name}"/>
+                                <TextBox />
+                                <ComboBox />
+                                <TextBlock Text="{DynamicResource ap_dg_eduIns_name}"/>
+                                <TextBox />
+                                <ComboBox />
+                                <Button />
+                            </StackPanel>
+                           
                         </Expander>
 
                     </StackPanel>

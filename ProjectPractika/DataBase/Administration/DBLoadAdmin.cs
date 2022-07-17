@@ -41,6 +41,42 @@ namespace ProjectPractika.DataBase.Administration
             }
         }
 
+        public ObservableCollection<SpecializationEducation> GetAllSpecializationEducationByInfo(string specName)
+        {
+            ObservableCollection<SpecializationEducation> specializationEducations = new ObservableCollection<SpecializationEducation>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SearchSpecialization";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@specName",
+                    Value = specName
+                };
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        specializationEducations.Add(new SpecializationEducation(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+                reader.Close();
+                base.Close();
+                return specializationEducations;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка специальностей");
+                base.Close();
+                return null;
+            }
+        }
+
         public ObservableCollection<Entrant> GetAllEntrantsPagination(int offset, int limit)
         {
             ObservableCollection<Entrant> entrants = new ObservableCollection<Entrant>();
@@ -427,7 +463,7 @@ namespace ProjectPractika.DataBase.Administration
 
         #region AddInfo
 
-        public void AddCategory(string categoryName)
+        public bool AddCategory(string categoryName)
         {
             Open();
             try
@@ -435,6 +471,7 @@ namespace ProjectPractika.DataBase.Administration
                 if (status)
                 {
                     string sqlExpression = "AdminApp.AddCategory";
+                    bool added = false;
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -448,19 +485,24 @@ namespace ProjectPractika.DataBase.Administration
                     // добавляем параметры
                     command.Parameters.Add(categoryParam);
 
-                    command.ExecuteNonQuery();
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
 
                     base.Close();
+
+                    return added;
                 }
             }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show("Error: ошибка добавления категории" + "\n\n" + e.Message);
                 base.Close();
+                return false;
             }
+
+            return false;
         }
 
-        public void AddSpecialization(string specName, int categoryId)
+        public bool AddSpecialization(string specName, int categoryId)
         {
             Open();
             try
@@ -468,6 +510,7 @@ namespace ProjectPractika.DataBase.Administration
                 if (status)
                 {
                     string sqlExpression = "AdminApp.AddSpecialization";
+                    bool added = false;
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -487,19 +530,24 @@ namespace ProjectPractika.DataBase.Administration
                     command.Parameters.Add(specNameParam);
                     command.Parameters.Add(categoryIdParam);
 
-                    command.ExecuteNonQuery();
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
 
                     base.Close();
+
+                    return added;
                 }
             }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show("Error: ошибка добавления специальности" + "\n\n" + e.Message);
                 base.Close();
+                return false;
             }
+
+            return false;
         }
 
-        public void AddEduIns(string insName, string insAddress)
+        public bool AddEduIns(string insName, string insAddress)
         {
             Open();
             try
@@ -507,6 +555,7 @@ namespace ProjectPractika.DataBase.Administration
                 if (status)
                 {
                     string sqlExpression = "AdminApp.AddEduIns";
+                    bool added = false;
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -526,19 +575,22 @@ namespace ProjectPractika.DataBase.Administration
                     command.Parameters.Add(insNameParam);
                     command.Parameters.Add(insAddressParam);
 
-                    command.ExecuteNonQuery();
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
 
                     base.Close();
+                    return added;
                 }
             }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show("Error: ошибка добавления учебного учреждения" + "\n\n" + e.Message);
                 base.Close();
+                return false;
             }
+            return false;
         }
 
-        public void AddEntrant(string fullName, string passport, int maxBall, int dateYear)
+        public bool AddEntrant(string fullName, string passport, int maxBall, int dateYear)
         {
             Open();
             try
@@ -546,6 +598,7 @@ namespace ProjectPractika.DataBase.Administration
                 if (status)
                 {
                     string sqlExpression = "AdminApp.AddEntrant";
+                    bool added = false;
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -577,18 +630,126 @@ namespace ProjectPractika.DataBase.Administration
                     command.Parameters.Add(maxBallParam);
                     command.Parameters.Add(dateYearParam);
 
-                    command.ExecuteNonQuery();
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
 
                     base.Close();
+
+                    return added;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления абитуриента" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
+        public bool AddConcourse(int countSeats, int isFree, int isIntramural, int dateYear, int idSpecializationEducational)
+        {
+        
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddConcourse";
+                    bool added = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter countSeatsParam = new SqlParameter
+                    {
+                        ParameterName = "@countSeats",
+                        Value = countSeats
+                    };
+                    SqlParameter yearParam = new SqlParameter
+                    {
+                        ParameterName = "@dateYear",
+                        Value = dateYear
+                    };
+                    SqlParameter isFreeParam = new SqlParameter
+                    {
+                        ParameterName = "@isFree",
+                        Value = isFree
+                    };
+                    SqlParameter isIntramuralParam = new SqlParameter
+                    {
+                        ParameterName = "@isIntramural",
+                        Value = isIntramural
+                    };
+                    SqlParameter idSpecializationEducationalParam = new SqlParameter
+                    {
+                        ParameterName = "@idSpecializationEducational",
+                        Value = idSpecializationEducational
+                    };
+                    // добавляем параметры
+                    command.Parameters.Add(countSeatsParam);
+                    command.Parameters.Add(yearParam);
+                    command.Parameters.Add(isFreeParam);
+                    command.Parameters.Add(isIntramuralParam);
+                    command.Parameters.Add(idSpecializationEducationalParam);
+
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+
+                    return added;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления конкурса" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
+        public bool AddEntry(int idEntrant, int idConcourse)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddEntry";
+                    bool added = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idEntrantParam = new SqlParameter
+                    {
+                        ParameterName = "@idEntrant",
+                        Value = idEntrant
+                    };
+                    SqlParameter idConcourseParam = new SqlParameter
+                    {
+                        ParameterName = "@idConcourse",
+                        Value = idConcourse
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idEntrantParam);
+                    command.Parameters.Add(idConcourseParam);
+
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+                    return added;
                 }
             }
             catch (Exception e)
             {
                 System.Windows.MessageBox.Show("Error: ошибка добавления учебного учреждения" + "\n\n" + e.Message);
                 base.Close();
+                return false;
             }
+            return false;
         }
-
         #endregion
     }
 }
