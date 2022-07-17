@@ -9,6 +9,7 @@ namespace ProjectPractika.Models.Helper_models
     public class SpecializationWithInfo : ObservableObject
     {
         int id;
+        int specEduId;
         string insName;
         string specName;
 
@@ -48,12 +49,25 @@ namespace ProjectPractika.Models.Helper_models
                 OnPropertyChanged();
             }
         }
+        public int SpecEduId
+        {
+            get
+            {
+                return specEduId;
+            }
+            set
+            {
+                specEduId = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public SpecializationWithInfo(int id, string specName, string insName)
+        public SpecializationWithInfo(int id, string specName, string insName, int specEduId)
         {
             this.Id = id;
             this.SpecName = specName;
             this.InsName = insName;
+            this.SpecEduId = specEduId;
         }
 
         public override string ToString()

@@ -181,6 +181,7 @@
             <TabItem Header="{DynamicResource ap_tabTitle_addInfo}" Background="GreenYellow">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
+                        <!-- Add entrant -->
                         <Expander Header="{DynamicResource ap_btnAdd_entrant}">
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource ap_dg_entrant_fullName}"/>
@@ -194,18 +195,7 @@
                                 <Button Content="{DynamicResource ap_btnAdd_entrant}"/>
                             </StackPanel>
                         </Expander>
-
-                        <Expander Header="{DynamicResource ap_btnAdd_category}">
-                            <StackPanel>
-                                <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
-                                <TextBox Text="{Binding InfoAddCategory}"/>
-                                <Button Content="{DynamicResource ap_btnAdd_category}"/>
-                            </StackPanel>
-                        </Expander>
-
-                        <Expander Header="{DynamicResource ap_btnAdd_concourse}">
-                            <TextBlock>Test</TextBlock>
-                        </Expander>
+                        <!-- Add edu -->
                         <Expander Header="{DynamicResource ap_btnAdd_educationalIns}">
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource ap_dg_eduIns_name}"/>
@@ -215,12 +205,34 @@
                                 <Button Content="{DynamicResource ap_btnAdd_educationalIns}"/>
                             </StackPanel>
                         </Expander>
+                        <!-- Add category -->
+                        <Expander Header="{DynamicResource ap_btnAdd_category}">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
+                                <TextBox Text="{Binding InfoAddCategory}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_category}"/>
+                            </StackPanel>
+                        </Expander>
+                        <!-- Add specialization -->
+                        <Expander Header="{DynamicResource ap_btnAdd_specialization}">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource ap_dg_specialization_name}"/>
+                                <TextBox Text="{Binding InfoAddSpecializationName}"/>
+                                <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
+                                <ComboBox />
+                                <Button Content="{DynamicResource ap_btnAdd_category}"/>
+                            </StackPanel>
+                        </Expander>
+                        <!-- Add concourse -->
+                        <Expander Header="{DynamicResource ap_btnAdd_concourse}">
+                            <TextBlock>Test</TextBlock>
+                        </Expander>
+                      
+                        <!-- Add entry -->
                         <Expander Header="{DynamicResource ap_btnAdd_entry}">
                             <TextBlock>test</TextBlock>
                         </Expander>
-                        <Expander Header="{DynamicResource ap_btnAdd_specialization}">
-                            <TextBlock>test</TextBlock>
-                        </Expander>
+                       
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>

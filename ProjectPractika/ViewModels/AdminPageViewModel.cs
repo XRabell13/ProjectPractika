@@ -351,6 +351,7 @@ namespace ProjectPractika.ViewModels
 
         #region ICommands
 
+        #region DeleteCommands
         public ICommand DeleteCategoryCommand
         {
             get
@@ -435,6 +436,12 @@ namespace ProjectPractika.ViewModels
                 return _delConcourse;
             }
         }
+        #endregion
+
+        #region Add Commands
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -633,11 +640,12 @@ namespace ProjectPractika.ViewModels
         {
             if (SelectedSpecialization != null)
             {
-                dbla.DeleteSpecialization(SelectedSpecialization.Id);
+                dbla.DeleteSpecializationByEdu(SelectedSpecialization.SpecEduId);
                 Specializations.Clear();
             }
             else MessageBox.Show("Элемент не выбран");
         }
+      
         private void DeleteSpecializationOne()
         {
             if (SelectedSpecializationOne != null)
@@ -647,6 +655,7 @@ namespace ProjectPractika.ViewModels
             }
             else MessageBox.Show("Элемент не выбран");
         }
+       
         #endregion
 
         #endregion
@@ -658,34 +667,5 @@ namespace ProjectPractika.ViewModels
             educationInsDG = dbl.GetAllEducationalIns();
            // entrantsList = dbla.GetAllEntrants();
         }
-
-      /*  private void cb_entrants_TextChanged()
-        {
-            //  MessageBox.Show(Text);
-
-            if (Text.Length != 0)
-            {
-                SelectedEntrant = null; // Если набирается текст сбросить выбраный элемент
-            }
-            if (Text.Length == 0 && SelectedEntrant == null)
-            {
-                IsDropDownOpen = false; // Если сбросили текст и элемент не выбран, сбросить фокус выпадающего списка
-            }
-
-            IsDropDownOpen = true;
-            if (SelectedEntrant == null)
-            {
-                //Entrants.Clear();
-                foreach (Category category in entrants) {
-                    if (category.CategoryName.IndexOf(Text) > -1)
-                        MessageBox.Show("sfspofk");
-                      //Entrants.Add(category);
-
-                }
-                // CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(Entrants);
-                //  cv.Filter = s => ((string)s).IndexOf(Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
-            }
-        }*/
-
     }
 }

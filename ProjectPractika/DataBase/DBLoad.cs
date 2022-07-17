@@ -220,7 +220,7 @@ namespace ProjectPractika.DataBase
                 if (reader.HasRows)
                 {
                     while (reader.Read())
-                        specializations.Add(new SpecializationWithInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                        specializations.Add(new SpecializationWithInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3)));
                    
 
                 }

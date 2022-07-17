@@ -390,6 +390,39 @@ namespace ProjectPractika.DataBase.Administration
                 base.Close();
             }
         }
+
+        public void DeleteSpecializationByEdu(int id)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.DeleteSpecializationByEdu";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@specEduId",
+                        Value = id
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+
+                    command.ExecuteNonQuery();
+
+                    base.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка удаления специальности в учреждении" + "\n\n" + e.Message);
+                base.Close();
+            }
+        }
         #endregion
     }
 }
