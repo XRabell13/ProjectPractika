@@ -264,14 +264,24 @@
                         <Expander Header="{DynamicResource ap_btnAdd_entry}">
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource ap_dg_entrant_fullName}"/>
-                                <TextBox />
-                                <ComboBox ItemsSource="{Binding Entrants}"/>
+                                <TextBox Text="{Binding SearchTxtAddEntryEntrant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBox 
+                                    ItemsSource="{Binding EntrantsByEntry}"
+                                    SelectedItem="{Binding SelectedEntrantByEntry}"
+                                    IsEnabled="{Binding  EnabledAddEntryEntrants, Mode=TwoWay}"
+                                    IsDropDownOpen="{Binding EnabledDropDownAddEntryEntrants, Mode=TwoWay}"
+                                    />
                                 
-                                <TextBlock Text="{DynamicResource ap_dg_concourse_specName}"/>
-                                <TextBox/>
-                                <ComboBox ItemsSource="{Binding Concourses}"/>
+                                <TextBlock Text="{DynamicResource ap_dg_concourse_concourse}"/>
+                                <TextBox Text="{Binding SearchTxtAddEntryConcourse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBox 
+                                    ItemsSource="{Binding ConcoursesByEntry}"
+                                    SelectedItem="{Binding SelectedConcourseByEntry}"
+                                    IsEnabled="{Binding EnabledAddEntryConcourses, Mode=TwoWay}"
+                                    IsDropDownOpen="{Binding  EnabledDropDowmAddEntryConcourses, Mode=TwoWay}"
+                                    />
 
-                                <Button Content="{DynamicResource ap_btnAdd_entry}"/>
+                                <Button Content="{DynamicResource ap_btnAdd_entry}" Command="{Binding AddEntryCommand}"/>
                             </StackPanel>
                            
                         </Expander>
@@ -285,7 +295,7 @@
                                 <TextBlock Text="{DynamicResource ap_dg_eduIns_name}"/>
                                 <TextBox />
                                 <ComboBox />
-                                <Button />
+                                <Button Content="{DynamicResource ap_btnAdd_specEdu}"/>
                             </StackPanel>
                            
                         </Expander>

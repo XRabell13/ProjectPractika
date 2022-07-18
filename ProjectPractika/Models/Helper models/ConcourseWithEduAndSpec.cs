@@ -95,7 +95,7 @@ namespace ProjectPractika.Models.Helper_models
             InsName = insName;
             constr = 1;
         }
-        public ConcourseWithEduAndSpec(int id, string specName, string insName, int dateYear, bool isFree, bool isIntramural)
+        public ConcourseWithEduAndSpec(int id, string specName, string insName, bool isFree, bool isIntramural, int dateYear)
         {
             Id = id;
             SpecName = specName;
@@ -111,9 +111,9 @@ namespace ProjectPractika.Models.Helper_models
             if (constr == 2)
             {
                 string isFree = "Платно";
-                string isIntramural = "Заочно";
+                string isIntramural = "Очно";
                 if (IsFree) isFree = "Бюджет";
-                if (IsIntramural) isIntramural = "Очно";
+                if (IsIntramural) isIntramural = "Заочно";
                 return specName + "\n" + insName + "\n" + dateYear + "\n" + isFree + ", " + isIntramural;
             }
             return specName + "\n" + insName;

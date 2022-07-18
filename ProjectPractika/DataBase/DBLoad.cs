@@ -189,11 +189,52 @@ namespace ProjectPractika.DataBase
             }
             else
             {
-                MessageBox.Show("Error: ошибка получения списка абитуриентов");
+                MessageBox.Show("Error: ошибка получения списка конкурсов");
                 base.Close();
                 return null;
             }
         }
+
+        public ObservableCollection<ConcourseWithEduAndSpec> GetAllConcourseWithInfo(string specName)
+        {
+            ObservableCollection<ConcourseWithEduAndSpec> councourses = new ObservableCollection<ConcourseWithEduAndSpec>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SearchConcourseWithInfo";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@specName",
+                    Value = specName
+                };
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        councourses.Add(new ConcourseWithEduAndSpec(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetBoolean(3), reader.GetBoolean(4), reader.GetInt32(5)));
+
+                }
+                reader.Close();
+                base.Close();
+                return councourses;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                base.Close();
+                return null;
+            }
+        }
+
 
         public ObservableCollection<SpecializationWithInfo> GetAllSpecializations(string specName)
         {
