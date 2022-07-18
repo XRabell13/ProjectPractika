@@ -68,6 +68,33 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        public ObservableCollection<SpecializationDG> GetAllSpecializationsWithCategory()
+        {
+            ObservableCollection<SpecializationDG> specializations = new ObservableCollection<SpecializationDG>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.AllSpecializationWithCategory";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        specializations.Add(new SpecializationDG(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+                reader.Close();
+                base.Close();
+                return specializations;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Error: ошибка получения списка специальностей с категориями");
+                base.Close();
+                return null;
+            }
+        }
+
         public ObservableCollection<Models.Specialization> GetAllSpecializationsBasic(string specName)
         {
             ObservableCollection<Models.Specialization> specializations = new ObservableCollection<Models.Specialization>();
@@ -257,6 +284,36 @@ namespace ProjectPractika.DataBase
                     while (reader.Read())
                         councourses.Add(new ConcourseWithEduAndSpec(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
                             reader.GetBoolean(3), reader.GetBoolean(4), reader.GetInt32(5)));
+
+                }
+                reader.Close();
+                base.Close();
+                return councourses;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                base.Close();
+                return null;
+            }
+        }
+
+        public ObservableCollection<ConcourseWithEduAndSpec> GetAllConcourseWithInfo()
+        {
+            ObservableCollection<ConcourseWithEduAndSpec> councourses = new ObservableCollection<ConcourseWithEduAndSpec>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SearchConcourseWithInfoDG";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        councourses.Add(new ConcourseWithEduAndSpec(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetBoolean(3), reader.GetBoolean(4), reader.GetInt32(5),reader.GetInt32(6)));
 
                 }
                 reader.Close();

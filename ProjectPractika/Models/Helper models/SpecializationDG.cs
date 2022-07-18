@@ -11,7 +11,7 @@ namespace ProjectPractika.Models.Helper_models
         int id;
         string specName;
         string categoryName;
-        string insName;
+       
 
         public int Id
         {
@@ -51,30 +51,16 @@ namespace ProjectPractika.Models.Helper_models
             }
         }
 
-        public string InsName
-        {
-            get
-            {
-                return insName;
-            }
-            set
-            {
-                insName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public SpecializationDG(int id, string specName, string category, string insName)
+        public SpecializationDG(int id, string specName, string category)
         {
             this.Id = id;
             this.SpecName = specName;
             this.CategoryName = category;
-            this.InsName = insName;
         }
 
         public override string ToString()
         {
-            return Id.ToString() + " " + specName + " " + categoryName + " " + insName;
+            return Id.ToString() + " " + specName + " " + categoryName;
         }
     }
 }

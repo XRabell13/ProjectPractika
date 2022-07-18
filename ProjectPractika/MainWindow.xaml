@@ -7,7 +7,9 @@
         xmlns:localView="clr-namespace:ProjectPractika.Views"
         xmlns:localViewModel="clr-namespace:ProjectPractika.ViewModels" d:DataContext="{d:DesignInstance Type=localViewModel:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="{DynamicResource window_title}" Height="700" Width="1200">
+        Title="{DynamicResource window_title}" 
+         WindowState="Maximized"
+        >
     
    
     <Window.Resources>

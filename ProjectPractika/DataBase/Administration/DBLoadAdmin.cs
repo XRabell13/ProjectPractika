@@ -744,7 +744,7 @@ namespace ProjectPractika.DataBase.Administration
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show("Error: ошибка добавления учебного учреждения" + "\n\n" + e.Message);
+                System.Windows.MessageBox.Show("Error: ошибка добавления записи" + "\n\n" + e.Message);
                 base.Close();
                 return false;
             }
@@ -793,6 +793,335 @@ namespace ProjectPractika.DataBase.Administration
             }
             return false;
         }
+        #endregion
+
+        #region UpdateInfo
+
+        public bool UpdateEntrant(int id,string fullName, string passport, int maxBall, int dateYear)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateEntrant";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@entrantId",
+                        Value = id
+                    };
+                    SqlParameter fullNameParam = new SqlParameter
+                    {
+                        ParameterName = "@fullName",
+                        Value = fullName
+                    };
+                    SqlParameter passportParam = new SqlParameter
+                    {
+                        ParameterName = "@numberPassport",
+                        Value = passport
+                    };
+                    SqlParameter maxBallParam = new SqlParameter
+                    {
+                        ParameterName = "@maxBall",
+                        Value = maxBall
+                    };
+                    SqlParameter dateYearParam = new SqlParameter
+                    {
+                        ParameterName = "@dateYear",
+                        Value = dateYear
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(fullNameParam);
+                    command.Parameters.Add(passportParam);
+                    command.Parameters.Add(maxBallParam);
+                    command.Parameters.Add(dateYearParam);
+
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+                    
+                    base.Close();
+
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления абитуриента" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
+        public bool UpdateCategory(int id, string categoryName)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateCategory";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryId",
+                        Value = id
+                    };
+                    SqlParameter categoryParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryName",
+                        Value = categoryName
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(categoryParam);
+                    command.Parameters.Add(idParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления категории" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+
+            return false;
+        }
+
+        public bool UpdateEduIns(int id, string insName, string insAddress)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateEduIns";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@eduId",
+                        Value = id
+                    };
+                    SqlParameter insNameParam = new SqlParameter
+                    {
+                        ParameterName = "@insName",
+                        Value = insName
+                    };
+                    SqlParameter insAddressParam = new SqlParameter
+                    {
+                        ParameterName = "@adress",
+                        Value = insAddress
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(insNameParam);
+                    command.Parameters.Add(insAddressParam);
+                    command.Parameters.Add(idParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления учебного учреждения" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
+        public bool UpdateSpecialization(int id, string specName, int categoryId)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateSpecialization";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@specializationId",
+                        Value = id
+                    };
+                    SqlParameter specNameParam = new SqlParameter
+                    {
+                        ParameterName = "@specName",
+                        Value = specName
+                    };
+                    SqlParameter categoryIdParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryId",
+                        Value = categoryId
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(specNameParam);
+                    command.Parameters.Add(categoryIdParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления специальности" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+
+            return false;
+        }
+
+        public bool UpdateConcourse(int id, int countSeats, int isFree, int isIntramural, int dateYear, int idSpecializationEducational)
+        {
+
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateConcourse";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@concourseId",
+                        Value = id
+                    };
+                    SqlParameter countSeatsParam = new SqlParameter
+                    {
+                        ParameterName = "@countSeats",
+                        Value = countSeats
+                    };
+                    SqlParameter yearParam = new SqlParameter
+                    {
+                        ParameterName = "@dateYear",
+                        Value = dateYear
+                    };
+                    SqlParameter isFreeParam = new SqlParameter
+                    {
+                        ParameterName = "@isFree",
+                        Value = isFree
+                    };
+                    SqlParameter isIntramuralParam = new SqlParameter
+                    {
+                        ParameterName = "@isIntramural",
+                        Value = isIntramural
+                    };
+                    SqlParameter idSpecializationEducationalParam = new SqlParameter
+                    {
+                        ParameterName = "@idSpecializationEducational",
+                        Value = idSpecializationEducational
+                    };
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(countSeatsParam);
+                    command.Parameters.Add(yearParam);
+                    command.Parameters.Add(isFreeParam);
+                    command.Parameters.Add(isIntramuralParam);
+                    command.Parameters.Add(idSpecializationEducationalParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления конкурса" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
+        public bool UpdateEntry(int id, int idEntrant, int idConcourse)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateEntry";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@entryId",
+                        Value = id
+                    };
+                    SqlParameter idEntrantParam = new SqlParameter
+                    {
+                        ParameterName = "@idEntrant",
+                        Value = idEntrant
+                    };
+                    SqlParameter idConcourseParam = new SqlParameter
+                    {
+                        ParameterName = "@idConcourse",
+                        Value = idConcourse
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(idEntrantParam);
+                    command.Parameters.Add(idConcourseParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления записи" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
         #endregion
     }
 }

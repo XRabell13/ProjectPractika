@@ -13,6 +13,7 @@ namespace ProjectPractika.Models.Helper_models
         string insName;
         bool isFree, isIntramural;
         int dateYear;
+        int countSeats;
         int constr;
 
         public int Id
@@ -87,6 +88,18 @@ namespace ProjectPractika.Models.Helper_models
                 OnPropertyChanged();
             }
         }
+        public int CountSeats
+        {
+            get
+            {
+                return countSeats;
+            }
+            set
+            {
+                countSeats = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ConcourseWithEduAndSpec(int id, string specName, string insName)
         {
@@ -104,6 +117,17 @@ namespace ProjectPractika.Models.Helper_models
             IsFree = isFree;
             IsIntramural = isIntramural;
             constr = 2;
+        }
+        public ConcourseWithEduAndSpec(int id, string specName, string insName, bool isFree, bool isIntramural, int dateYear, int countSeats)
+        {
+            Id = id;
+            SpecName = specName;
+            InsName = insName;
+            DateYear = dateYear;
+            IsFree = isFree;
+            IsIntramural = isIntramural;
+            CountSeats = countSeats;
+            constr = 3;
         }
 
         public override string ToString()

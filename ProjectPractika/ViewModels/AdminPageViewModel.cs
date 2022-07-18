@@ -100,6 +100,7 @@ namespace ProjectPractika.ViewModels
         #region ICommand fields
         private ICommand _delCategory, _delEntrant, _delEducationalIns, _delEntry, _delConcourse, _delSpecialization, _delSpecializationOne;
         private ICommand _addCategory, _addEntrant, _addEducationalIns, _addEntry, _addConcourse, _addSpecialization, _addEduSpec;
+        private ICommand _updateCategory, _updateEntrant, _updateEducationalIns, _updateEntry, _updateConcourse, _updateSpecialization;
         #endregion
 
         #region Collections for deleteing
@@ -127,8 +128,22 @@ namespace ProjectPractika.ViewModels
         ObservableCollection<EducationIns> eduSpecAddEducations = new ObservableCollection<EducationIns>();
         #endregion
 
+        #region Collections/Objects for updating
+
         ObservableCollection<Entrant> entrantsDG = new ObservableCollection<Entrant>();
         ObservableCollection<EducationIns> educationInsDG = new ObservableCollection<EducationIns>();
+        ObservableCollection<Category> categoriesDG = new ObservableCollection<Category>();
+        ObservableCollection<SpecializationDG> specializationsDG = new ObservableCollection<SpecializationDG>();
+        ObservableCollection<ConcourseWithEduAndSpec> concoursesDG = new ObservableCollection<ConcourseWithEduAndSpec>();
+
+
+        Entrant selectedEntrantDG;
+        EducationIns selectedEducationInsDG;
+        Category selectedCategoryDG;
+        SpecializationDG selectedSpecializationDG;
+
+
+        #endregion
 
         #region SelectedItems for deleting
 
@@ -158,6 +173,11 @@ namespace ProjectPractika.ViewModels
 
         #endregion
 
+        #region SelectedItems for updating
+
+
+
+        #endregion
 
         #endregion
 
@@ -461,7 +481,7 @@ namespace ProjectPractika.ViewModels
         }
         #endregion
 
-        #region SelectedItem / ComboBox-Delete Bindings
+        #region SelectedItem / ComboBox-Delete-Add Bindings
         public List<int> Years
         {
             get { return years; }
@@ -629,11 +649,13 @@ namespace ProjectPractika.ViewModels
         }
         #endregion
 
-        #region DataGrid ItemsSource Bindings
+       // DATAGRID 
+        #region DataGrid ItemsSource/SlecetedItem Bindings
 
         public ObservableCollection<Entrant> EntrantsDG
         {
             get { return entrantsDG; }
+            
             set { entrantsDG = value; OnPropertyChanged(); }
         }
 
@@ -642,8 +664,46 @@ namespace ProjectPractika.ViewModels
             get { return educationInsDG; }
             set { educationInsDG = value; OnPropertyChanged(); }
         }
+        public ObservableCollection<Category> CategoriesDG
+        {
+            get { return categoriesDG; }
+            set { categoriesDG = value; OnPropertyChanged(); }
+        }
+        public ObservableCollection<SpecializationDG> SpecializationsDG
+        {
+            get { return specializationsDG; }
+            set { specializationsDG = value; OnPropertyChanged(); }
+        }
+        public ObservableCollection<ConcourseWithEduAndSpec> ConcoursesDG
+        {
+            get { return concoursesDG; }
+            set { concoursesDG = value; OnPropertyChanged(); }
+        }
 
 
+        #region SelectedItem / DG Update Bindings
+
+        public Entrant SelectedEntrantDG
+        {
+            get { return selectedEntrantDG; }
+            set { selectedEntrantDG = value; OnPropertyChanged(); } 
+        }
+        public EducationIns SelectedEducationInsDG
+        {
+            get { return selectedEducationInsDG; }
+            set { selectedEducationInsDG = value; OnPropertyChanged(); }
+        }
+        public Category SelectedCategoryDG
+        {
+            get { return selectedCategoryDG; }
+            set { selectedCategoryDG = value; OnPropertyChanged(); }
+        }
+        public SpecializationDG SelectedSpecializationDG
+        {
+            get { return selectedSpecializationDG; }
+            set { selectedSpecializationDG = value; OnPropertyChanged(); }
+        }
+        #endregion
 
         #endregion
 
@@ -823,6 +883,82 @@ namespace ProjectPractika.ViewModels
         }
         #endregion
 
+        #region UpdateCommand
+
+        public ICommand UpdateEntrantCommand
+        {
+            get
+            {
+                if (_updateEntrant == null)
+                {
+                    _updateEntrant = new RelayCommand(p => UpdateEntrant());
+                }
+
+                return _updateEntrant;
+            }
+        }
+        public ICommand UpdateCategoryCommand
+        {
+            get
+            {
+                if (_updateCategory == null)
+                {
+                    _updateCategory = new RelayCommand(p => UpdateCategory());
+                }
+
+                return _updateCategory;
+            }
+        }
+        public ICommand UpdateEduInsCommand
+        {
+            get
+            {
+                if (_updateEducationalIns == null)
+                {
+                    _updateEducationalIns = new RelayCommand(p => UpdateEduIns());
+                }
+
+                return _updateEducationalIns;
+            }
+        }
+        public ICommand UpdateSpecializationCommand
+        {
+            get
+            {
+                if (_updateSpecialization == null)
+                {
+                    _updateSpecialization = new RelayCommand(p => UpdateSpecialization());
+                }
+
+                return _updateSpecialization;
+            }
+        }
+        public ICommand UpdateConcourseCommand
+        {
+            get
+            {
+                if (_updateConcourse == null)
+                {
+                   _updateConcourse  = new RelayCommand(p => UpdateConcourse());
+                }
+
+                return _updateConcourse;
+            }
+        }
+        public ICommand UpdateEntryCommand
+        {
+            get
+            {
+                if (_updateEntry == null)
+                {
+                    _updateEntry = new RelayCommand(p => UpdateEntry());
+                }
+
+                return _updateEntry;
+            }
+        }
+        #endregion
+        
         #endregion
 
         #endregion
@@ -1212,13 +1348,45 @@ namespace ProjectPractika.ViewModels
             }
         }
         #endregion
+
+        #region Methods For Update
+
+        private void UpdateEntrant() {
+            dbla.UpdateEntrant(SelectedEntrantDG.Id, SelectedEntrantDG.FullName,
+                SelectedEntrantDG.Passport, SelectedEntrantDG.MaxBall, SelectedEntrantDG.DateYear);
+        }
+        private void UpdateCategory()
+        {
+            dbla.UpdateCategory(SelectedCategoryDG.Id, SelectedCategoryDG.CategoryName);
+        }
+        private void UpdateEduIns()
+        {
+            dbla.UpdateEduIns(SelectedEducationInsDG.Id, SelectedEducationInsDG.InsName, SelectedEducationInsDG.InsAddress);
+        }
+        private void UpdateSpecialization()
+        {
+          
+        }
+        private void UpdateConcourse()
+        {
+            
+        }
+        private void UpdateEntry()
+        {
+            
+        }
+        #endregion
         #endregion
 
         public AdminPageViewModel()
         {
             categories = dbl.GetAllCategory();
-            entrantsDG = dbla.GetAllEntrantsPagination(1,20);
+            entrantsDG = dbla.GetAllEntrantsPagination(1,35);
             educationInsDG = dbl.GetAllEducationalIns();
+            specializationsDG = dbl.GetAllSpecializationsWithCategory();
+            concoursesDG = dbl.GetAllConcourseWithInfo();
+            
+            
            // entrantsList = dbla.GetAllEntrants();
         }
     }

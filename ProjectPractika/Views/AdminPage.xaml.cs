@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectPractika.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,10 @@ namespace ProjectPractika.Views
             InitializeComponent();
         }
 
-        
+        private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            MessageBox.Show(((Entrant)(((DataGrid)sender).SelectedItem)).ToString());
+
+        }
     }
 }

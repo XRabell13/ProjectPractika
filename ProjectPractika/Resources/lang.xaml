@@ -32,7 +32,7 @@
     <v:String x:Key="ap_btnAdd_entry">Добавить запись</v:String>
     <v:String x:Key="ap_btnAdd_concourse">Добавить конкурс</v:String>
     <v:String x:Key="ap_btnAdd_specEdu">Добавить специальность в учебное учреждение</v:String>
-
+    
     <v:String x:Key="ap_radiobtn_isFree_no">Платно</v:String>
     <v:String x:Key="ap_radiobtn_isFree_yes">Бесплатно</v:String>
 
@@ -55,6 +55,7 @@
     <v:String x:Key="ap_dg_specialization_category">Категория</v:String>
     <v:String x:Key="ap_dg_specialization_eduIns">Учебное заведение</v:String>
     <v:String x:Key="ap_dg_specialization_countSeats">Количество мест</v:String>
+    <v:String x:Key="ap_dg_specialization_updateLabel">Изменение категории для выбранной специальности</v:String>
 
     <v:String x:Key="ap_dg_concourse_concourse">Конкурс</v:String>
     <v:String x:Key="ap_dg_concourse_specName">Специальность</v:String>
@@ -63,6 +64,7 @@
     <v:String x:Key="ap_dg_concourse_isFree">Бюджет</v:String>
     <v:String x:Key="ap_dg_concourse_isIntramural">Очно</v:String>
     <v:String x:Key="ap_dg_concourse_dateYear">Год</v:String>
+    <v:String x:Key="ap_dg_concourse_updateLabel">Изменение спеицальности в учебном учреждении для выбранного конкурса</v:String>
 
     <v:String x:Key="ap_dg_entry_entrant">ФИО</v:String>
     <v:String x:Key="ap_dg_entry_specName">Специальность</v:String>
@@ -71,6 +73,8 @@
     <v:String x:Key="ap_dg_entry_isFree">Бюджет</v:String>
     <v:String x:Key="ap_dg_entry_isIntramural">Очно</v:String>
     <v:String x:Key="ap_dg_entry_year">Год</v:String>
+    <v:String x:Key="ap_dg_entry_updateLabel">Изменение специальности в учебном учреждении или абитуриента для выбранной записи </v:String>
+
 
 
     <v:String x:Key="ap_dg_councourse_year">Год</v:String>
@@ -81,6 +85,7 @@
 
     <v:String x:Key="logIn">Войти</v:String>
     <v:String x:Key="btn_search">Поиск</v:String>
+    <v:String x:Key="btn_update">Обновить</v:String>
 
     
 
