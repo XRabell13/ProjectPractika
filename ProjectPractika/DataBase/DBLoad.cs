@@ -68,6 +68,42 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        public ObservableCollection<Models.Specialization> GetAllSpecializationsBasic(string specName)
+        {
+            ObservableCollection<Models.Specialization> specializations = new ObservableCollection<Models.Specialization>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.SearchSpecializationBasic";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметры для ввода 
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@specName",
+                    Value = specName
+                };
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        specializations.Add(new Models.Specialization(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2)));
+                }
+                reader.Close();
+                base.Close();
+                return specializations;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Error: ошибка получения списка специальностей");
+                base.Close();
+                return null;
+            }
+        }
+
         public ObservableCollection<EducationIns> GetAllEducationalInsByName(string eduName)
         {
             ObservableCollection<EducationIns> educationals = new ObservableCollection<EducationIns>();

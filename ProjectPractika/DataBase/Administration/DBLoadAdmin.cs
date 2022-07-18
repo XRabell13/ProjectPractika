@@ -750,6 +750,49 @@ namespace ProjectPractika.DataBase.Administration
             }
             return false;
         }
+
+        public bool AddEduSpec(int idSpecialization, int idEducation)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.AddEducationalInsSpecializations";
+                    bool added = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idEduParam = new SqlParameter
+                    {
+                        ParameterName = "@educationalInsID",
+                        Value = idEducation
+                    };
+                    SqlParameter idSpecParam = new SqlParameter
+                    {
+                        ParameterName = "@specializationID",
+                        Value = idSpecialization
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idSpecParam);
+                    command.Parameters.Add(idEduParam);
+
+                    added = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+                    return added;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка добавления специальности в учебное учреждение" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
         #endregion
     }
 }

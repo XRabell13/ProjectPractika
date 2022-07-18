@@ -290,12 +290,23 @@
                         <Expander Header="{DynamicResource ap_btnAdd_specEdu}">
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource ap_dg_specialization_name}"/>
-                                <TextBox />
-                                <ComboBox />
+                                <TextBox Text="{Binding SearchTxtAddEduSpecSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBox 
+                                    ItemsSource="{Binding EduSpecAddSpecializations}"
+                                    SelectedItem="{Binding  SelectedEduSpecSpecialization}"
+                                    DisplayMemberPath="SpecName"
+                                    IsEnabled="{Binding EnabledEduSpecSpecialization, Mode=TwoWay}"
+                                    IsDropDownOpen="{Binding EnabledDropDownEduSpecSpecialization, Mode=TwoWay}"
+                                    />
                                 <TextBlock Text="{DynamicResource ap_dg_eduIns_name}"/>
-                                <TextBox />
-                                <ComboBox />
-                                <Button Content="{DynamicResource ap_btnAdd_specEdu}"/>
+                                <TextBox Text="{Binding SearchTxtAddEduSpecEducation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ComboBox 
+                                    ItemsSource="{Binding  EduSpecAddEducations}"
+                                    SelectedItem="{Binding  SelectedEduSpecEducationIns}"
+                                    IsEnabled="{Binding EnabledEduSpecEducation, Mode=TwoWay}"
+                                    IsDropDownOpen="{Binding EnabledDropDownEduSpecEducation, Mode=TwoWay}"
+                                    />
+                                <Button Content="{DynamicResource ap_btnAdd_specEdu}" Command="{Binding AddEduSpecCommand}"/>
                             </StackPanel>
                            
                         </Expander>

@@ -53,16 +53,19 @@ namespace ProjectPractika.ViewModels
            enabledSpecialization = false, enabledSpecializationOne = false, enabledConcourse = false;
 
         bool enabledSpecializationEduByAddConcourse = false;
-        bool enabledAddEntryEntrants = false;
-        bool enabledAddEntryConcourses = false;
+        bool enabledAddEntryEntrants = false, enabledAddEntryConcourses = false;
+
+        bool enabledEduSpecSpecialization = false, enabledEduSpecEducation = false;
 
         bool enabledDropDownEntrant = false, enabledDropDownEntry = false, enabledDropDownEducationalIns = false,
          enabledDropDownSpecialization = false, enabledDropDownSpecializationOne = false, enabledDropDownConcourse = false;
 
         bool enabledDropDownSpecializationEduByAddConcourse = false;
 
-        bool enabledDropDownAddEntryEntrants = false;
-        bool enabledDropDownAddEntryConcourses = false;
+        bool enabledDropDownAddEntryEntrants = false, enabledDropDownAddEntryConcourses = false;
+
+        bool enabledDropDownEduSpecSpecialization = false, enabledDropDownEduSpecEducation = false;
+
         #endregion
 
         #region Checks
@@ -84,6 +87,8 @@ namespace ProjectPractika.ViewModels
 
         string searchTxtAddEntryConcourse = "";
         string searchTxtAddEntryEntrant = "";
+
+        string searchTxtAddEduSpecSpecialization = "", searchTxtAddEduSpecEducation = "";
         #endregion
 
         int infoAddMaxBall, infoAddYear, infoAddCountSeats;
@@ -94,7 +99,7 @@ namespace ProjectPractika.ViewModels
 
         #region ICommand fields
         private ICommand _delCategory, _delEntrant, _delEducationalIns, _delEntry, _delConcourse, _delSpecialization, _delSpecializationOne;
-        private ICommand _addCategory, _addEntrant, _addEducationalIns, _addEntry, _addConcourse, _addSpecialization;
+        private ICommand _addCategory, _addEntrant, _addEducationalIns, _addEntry, _addConcourse, _addSpecialization, _addEduSpec;
         #endregion
 
         #region Collections for deleteing
@@ -117,6 +122,9 @@ namespace ProjectPractika.ViewModels
 
         ObservableCollection<Entrant> entrantsByEntry = new ObservableCollection<Entrant>();
         ObservableCollection<ConcourseWithEduAndSpec> concoursesByEntry = new ObservableCollection<ConcourseWithEduAndSpec>();
+
+        ObservableCollection<Specialization> eduSpecAddSpecializations = new ObservableCollection<Specialization>();
+        ObservableCollection<EducationIns> eduSpecAddEducations = new ObservableCollection<EducationIns>();
         #endregion
 
         ObservableCollection<Entrant> entrantsDG = new ObservableCollection<Entrant>();
@@ -144,6 +152,9 @@ namespace ProjectPractika.ViewModels
 
         Entrant selectedEntrantByEntry;
         ConcourseWithEduAndSpec selectedConcourseByEntry;
+
+        Specialization selectedEduSpecSpecialization;
+        EducationIns selectedEduSpecEducation;
 
         #endregion
 
@@ -208,7 +219,17 @@ namespace ProjectPractika.ViewModels
             get { return enabledDropDownAddEntryConcourses; }
             set { enabledDropDownAddEntryConcourses = value; OnPropertyChanged(); }
         }
-
+        // add eduspec
+        public bool EnabledEduSpecSpecialization
+        {
+            get { return enabledEduSpecSpecialization; }
+            set { enabledEduSpecSpecialization = value; OnPropertyChanged(); }
+        }
+        public bool EnabledEduSpecEducation
+        {
+            get { return enabledEduSpecEducation; }
+            set { enabledEduSpecEducation = value; OnPropertyChanged(); }
+        }
         #endregion
         #region DROPDOWN ENABLED
         public bool EnabledDropDownEntrant
@@ -246,6 +267,18 @@ namespace ProjectPractika.ViewModels
             get { return enabledDropDownSpecializationEduByAddConcourse; }
             set { enabledDropDownSpecializationEduByAddConcourse = value; OnPropertyChanged(); }
         }
+        //add eduSpec
+        public bool EnabledDropDownEduSpecSpecialization
+        {
+            get { return enabledDropDownEduSpecSpecialization; }
+            set { enabledDropDownEduSpecSpecialization = value; OnPropertyChanged(); }
+        }
+        public bool EnabledDropDownEduSpecEducation
+        {
+            get { return enabledDropDownEduSpecEducation; }
+            set { enabledDropDownEduSpecEducation = value; OnPropertyChanged(); }
+        }
+
         #endregion
         #region RADIOBUTTON ENABLED CHECKS
 
@@ -363,6 +396,17 @@ namespace ProjectPractika.ViewModels
         {
             get { return searchTxtAddEntryEntrant; }
             set { searchTxtAddEntryEntrant = value; OnPropertyChanged(); SearchEntryEntrant(); }
+        }
+        // eduSpec
+        public string SearchTxtAddEduSpecSpecialization 
+        {
+            get { return searchTxtAddEduSpecSpecialization; }
+            set { searchTxtAddEduSpecSpecialization = value; OnPropertyChanged(); SearchEduSpecSpecialization(); }
+        }
+        public string SearchTxtAddEduSpecEducation
+        {
+            get { return searchTxtAddEduSpecEducation; }
+            set { searchTxtAddEduSpecEducation = value; OnPropertyChanged(); SearchEduSpecEducation(); }
         }
         #endregion
 
@@ -559,7 +603,30 @@ namespace ProjectPractika.ViewModels
             get { return selectedConcourseByEntry; }
             set { selectedConcourseByEntry = value; OnPropertyChanged(); }
         }
+        // add EduSpec
 
+        public ObservableCollection<Specialization> EduSpecAddSpecializations
+        { 
+            get { return eduSpecAddSpecializations; }
+            set { eduSpecAddSpecializations = value; OnPropertyChanged(); }
+        }
+        public ObservableCollection<EducationIns> EduSpecAddEducations
+        {
+            get { return eduSpecAddEducations; }
+            set { eduSpecAddEducations = value; OnPropertyChanged(); }
+        }
+
+        public Specialization SelectedEduSpecSpecialization
+        {
+            get { return selectedEduSpecSpecialization; }
+            set { selectedEduSpecSpecialization = value; OnPropertyChanged(); }
+        }
+
+        public EducationIns SelectedEduSpecEducationIns
+        {
+            get { return selectedEduSpecEducation; }
+            set { selectedEduSpecEducation = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region DataGrid ItemsSource Bindings
@@ -742,6 +809,18 @@ namespace ProjectPractika.ViewModels
                 return _addEntry;
             }
         }
+        public ICommand AddEduSpecCommand
+        {
+            get
+            {
+                if (_addEduSpec == null)
+                {
+                    _addEduSpec = new RelayCommand(p => AddEduSpec());
+                }
+
+                return _addEduSpec;
+            }
+        }
         #endregion
 
         #endregion
@@ -921,6 +1000,36 @@ namespace ProjectPractika.ViewModels
                 EnabledDropDowmAddEntryConcourses = false;
             }
         }
+        //eduspecsearch
+
+        private void SearchEduSpecSpecialization()
+        {
+            if (SearchTxtAddEduSpecSpecialization != "")
+            {
+                EduSpecAddSpecializations = dbl.GetAllSpecializationsBasic(SearchTxtAddEduSpecSpecialization);
+
+               // MessageBox.Show(EduSpecAddSpecializations1[0].ToString());
+                EnabledEduSpecSpecialization = true;
+                EnabledDropDownEduSpecSpecialization = true;
+            }
+            else {
+                EnabledEduSpecSpecialization = false;
+                EnabledDropDownEduSpecSpecialization = false;
+            }
+        }
+        private void SearchEduSpecEducation()
+        {
+            if (SearchTxtAddEduSpecEducation != "")
+            {
+                EduSpecAddEducations = dbl.GetAllEducationalInsByName(SearchTxtAddEduSpecEducation);
+                EnabledEduSpecEducation = true;
+                EnabledDropDownEduSpecEducation = true;
+            }
+            else {
+                EnabledEduSpecEducation = false;
+                EnabledDropDownEduSpecEducation = false;
+            }
+        }
         #endregion
 
         #region Methods For Delete
@@ -1090,7 +1199,18 @@ namespace ProjectPractika.ViewModels
                 MessageBox.Show("Выберите значения");
             }
         }
-
+        private void AddEduSpec() 
+        {
+            if (SelectedEduSpecSpecialization != null & SelectedEduSpecEducationIns != null)
+            {
+                bool added = dbla.AddEduSpec(SelectedEduSpecSpecialization.Id, SelectedEduSpecEducationIns.Id);
+                if (added) MessageBox.Show("Специальность " +SelectedEduSpecSpecialization.SpecName + " добавлена в " + SelectedEduSpecEducationIns.InsName );  
+            }
+            else
+            {
+                MessageBox.Show("Выберите значения");
+            }
+        }
         #endregion
         #endregion
 
