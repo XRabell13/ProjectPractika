@@ -304,7 +304,7 @@ namespace ProjectPractika.DataBase
             Open();
             if (status)
             {
-                string sqlExpression = "GeneralApp.SearchConcourseWithInfoDG";
+                string sqlExpression = "GeneralApp.AllConcourseWithInfoDG";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 

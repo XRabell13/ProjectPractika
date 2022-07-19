@@ -224,6 +224,36 @@ namespace ProjectPractika.DataBase.Administration
             }
         }
 
+        public ObservableCollection<EntryDG> GetAllEntriesDG()
+        {
+            ObservableCollection<EntryDG> entries = new ObservableCollection<EntryDG>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "AdminApp.AllEntriesWithConcourseAndEntrant";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        entries.Add(new EntryDG(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetBoolean(4), reader.GetBoolean(5), reader.GetInt32(6)));
+
+                }
+                reader.Close();
+                base.Close();
+                return entries;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка записей");
+                base.Close();
+                return null;
+            }
+        }
 
         #region DeleteInfo
 
@@ -954,14 +984,14 @@ namespace ProjectPractika.DataBase.Administration
             return false;
         }
 
-        public bool UpdateSpecialization(int id, string specName, int categoryId)
+        public bool UpdateSpecializationName(int id, string specName)
         {
             Open();
             try
             {
                 if (status)
                 {
-                    string sqlExpression = "AdminApp.UpdateSpecialization";
+                    string sqlExpression = "AdminApp.UpdateSpecializationName";
                     bool updatted = false;
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -977,16 +1007,10 @@ namespace ProjectPractika.DataBase.Administration
                         ParameterName = "@specName",
                         Value = specName
                     };
-                    SqlParameter categoryIdParam = new SqlParameter
-                    {
-                        ParameterName = "@categoryId",
-                        Value = categoryId
-                    };
-
+                  
                     // добавляем параметры
                     command.Parameters.Add(idParam);
                     command.Parameters.Add(specNameParam);
-                    command.Parameters.Add(categoryIdParam);
 
                     updatted = Convert.ToBoolean(command.ExecuteNonQuery());
 
@@ -1005,7 +1029,52 @@ namespace ProjectPractika.DataBase.Administration
             return false;
         }
 
-        public bool UpdateConcourse(int id, int countSeats, int isFree, int isIntramural, int dateYear, int idSpecializationEducational)
+        public bool UpdateSpecializationCategory(int id, int idCategory)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateSpecializationCategory";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@specializationId",
+                        Value = id
+                    };
+                    SqlParameter idCategoryParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryId",
+                        Value = idCategory
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(idCategoryParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления специальности" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+
+            return false;
+        }
+        
+        public bool UpdateConcourse(int id, int countSeats, int isFree, int isIntramural, int dateYear)
         {
 
             Open();
@@ -1021,7 +1090,7 @@ namespace ProjectPractika.DataBase.Administration
                     // параметры для ввода 
                     SqlParameter idParam = new SqlParameter
                     {
-                        ParameterName = "@concourseId",
+                        ParameterName = "@conId",
                         Value = id
                     };
                     SqlParameter countSeatsParam = new SqlParameter
@@ -1044,6 +1113,50 @@ namespace ProjectPractika.DataBase.Administration
                         ParameterName = "@isIntramural",
                         Value = isIntramural
                     };
+                  
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(countSeatsParam);
+                    command.Parameters.Add(yearParam);
+                    command.Parameters.Add(isFreeParam);
+                    command.Parameters.Add(isIntramuralParam);
+                   
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления конкурса" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+      
+        public bool UpdateConcourse(int id, int idSpecializationEducational)
+        {
+
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateConcourseSpecEdu";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@conId",
+                        Value = id
+                    };
+                   
                     SqlParameter idSpecializationEducationalParam = new SqlParameter
                     {
                         ParameterName = "@idSpecializationEducational",
@@ -1051,10 +1164,6 @@ namespace ProjectPractika.DataBase.Administration
                     };
                     // добавляем параметры
                     command.Parameters.Add(idParam);
-                    command.Parameters.Add(countSeatsParam);
-                    command.Parameters.Add(yearParam);
-                    command.Parameters.Add(isFreeParam);
-                    command.Parameters.Add(isIntramuralParam);
                     command.Parameters.Add(idSpecializationEducationalParam);
 
                     updatted = Convert.ToBoolean(command.ExecuteNonQuery());
@@ -1073,14 +1182,58 @@ namespace ProjectPractika.DataBase.Administration
             return false;
         }
 
-        public bool UpdateEntry(int id, int idEntrant, int idConcourse)
+        public bool UpdateEntryConcourse(int id, int idConcourse)
         {
             Open();
             try
             {
                 if (status)
                 {
-                    string sqlExpression = "AdminApp.UpdateEntry";
+                    string sqlExpression = "AdminApp.UpdateEntryConcourse";
+                    bool updatted = false;
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter idParam = new SqlParameter
+                    {
+                        ParameterName = "@entryId",
+                        Value = id
+                    };
+                   
+                    SqlParameter idConcourseParam = new SqlParameter
+                    {
+                        ParameterName = "@idConcourse",
+                        Value = idConcourse
+                    };
+
+                    // добавляем параметры
+                    command.Parameters.Add(idParam);
+                    command.Parameters.Add(idConcourseParam);
+
+                    updatted = Convert.ToBoolean(command.ExecuteNonQuery());
+
+                    base.Close();
+                    return updatted;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Error: ошибка обновления записи" + "\n\n" + e.Message);
+                base.Close();
+                return false;
+            }
+            return false;
+        }
+
+        public bool UpdateEntryEntrant(int id, int idEntrant)
+        {
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "AdminApp.UpdateEntryEntrant";
                     bool updatted = false;
                     SqlCommand command = new SqlCommand(sqlExpression, connection);
                     command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1096,17 +1249,12 @@ namespace ProjectPractika.DataBase.Administration
                         ParameterName = "@idEntrant",
                         Value = idEntrant
                     };
-                    SqlParameter idConcourseParam = new SqlParameter
-                    {
-                        ParameterName = "@idConcourse",
-                        Value = idConcourse
-                    };
+                   
 
                     // добавляем параметры
                     command.Parameters.Add(idParam);
                     command.Parameters.Add(idEntrantParam);
-                    command.Parameters.Add(idConcourseParam);
-
+                    
                     updatted = Convert.ToBoolean(command.ExecuteNonQuery());
 
                     base.Close();

@@ -57,6 +57,11 @@ namespace ProjectPractika.ViewModels
 
         bool enabledEduSpecSpecialization = false, enabledEduSpecEducation = false;
 
+        bool enabledEduSpecConcourseDG = false;
+
+        bool enabledEntryEntrantDGCombobox = false, enabledEntryConcourseDGCombobox = false;
+
+        // dropdown
         bool enabledDropDownEntrant = false, enabledDropDownEntry = false, enabledDropDownEducationalIns = false,
          enabledDropDownSpecialization = false, enabledDropDownSpecializationOne = false, enabledDropDownConcourse = false;
 
@@ -65,6 +70,9 @@ namespace ProjectPractika.ViewModels
         bool enabledDropDownAddEntryEntrants = false, enabledDropDownAddEntryConcourses = false;
 
         bool enabledDropDownEduSpecSpecialization = false, enabledDropDownEduSpecEducation = false;
+
+        bool enabledDropDownEduSpecConcourseDG = false;
+
 
         #endregion
 
@@ -89,18 +97,57 @@ namespace ProjectPractika.ViewModels
         string searchTxtAddEntryEntrant = "";
 
         string searchTxtAddEduSpecSpecialization = "", searchTxtAddEduSpecEducation = "";
+
+        string searchTxtDGSpecializationEduCombobox = "", searchTxtDGSpecialization = "", searchTxtDGEducation = "", 
+            searchTxtDGEntrant = "", searchTxtDGConcourse = "", searchTxtDGEntry = "";
+        string searchTxtDGEntrantCombobox = "", searchTxtDGConcourseCombobox = "";
         #endregion
 
+        #region infoAdd
         int infoAddMaxBall, infoAddYear, infoAddCountSeats;
         string infoAddFullName = "", infoAddPassport = "";
         string infoAddInsName = "", infoAddInsAddress = "";
         string infoAddCategory = "";
         string infoAddSpecializationName = "";
+        #endregion
+
+
+        #region count pagination
+
+        int numPageEntrantDG = 1, numPageEduInsDG = 1, numPageSpecializationDG = 1, numPageConcourseDG = 1, numPageEntryDG = 1;
+
+        public int NumPageEntrantDG
+        {
+            get { return numPageEntrantDG; }
+            set { numPageEntrantDG = value; OnPropertyChanged(); }
+        }
+        public int NumPageEduInsDG
+        {
+            get { return numPageEduInsDG; }
+            set { numPageEduInsDG = value; OnPropertyChanged(); }
+        }
+        public int NumPageSpecializationDG
+        {
+            get { return numPageSpecializationDG; }
+            set { numPageSpecializationDG = value; OnPropertyChanged(); }
+        }
+        public int NumPageConcourseDG
+        {
+            get { return numPageConcourseDG; }
+            set{ numPageConcourseDG = value; OnPropertyChanged();}
+        }
+        public int NumPageEntryDG
+        {
+            get { return numPageEntryDG; }
+            set { numPageEntryDG = value; OnPropertyChanged(); }
+        }
+        #endregion
 
         #region ICommand fields
         private ICommand _delCategory, _delEntrant, _delEducationalIns, _delEntry, _delConcourse, _delSpecialization, _delSpecializationOne;
         private ICommand _addCategory, _addEntrant, _addEducationalIns, _addEntry, _addConcourse, _addSpecialization, _addEduSpec;
-        private ICommand _updateCategory, _updateEntrant, _updateEducationalIns, _updateEntry, _updateConcourse, _updateSpecialization;
+        private ICommand _updateCategory, _updateEntrant, _updateEducationalIns, _updateEntryEntrant, _updateEntryConcourse, _updateConcourse, 
+            _updateSpecializationName, _updateSpecializationCategory, _updateConcourseEduSpec;
         #endregion
 
         #region Collections for deleteing
@@ -135,13 +182,24 @@ namespace ProjectPractika.ViewModels
         ObservableCollection<Category> categoriesDG = new ObservableCollection<Category>();
         ObservableCollection<SpecializationDG> specializationsDG = new ObservableCollection<SpecializationDG>();
         ObservableCollection<ConcourseWithEduAndSpec> concoursesDG = new ObservableCollection<ConcourseWithEduAndSpec>();
+        ObservableCollection<EntryDG> entriesDG = new ObservableCollection<EntryDG>();
 
+        ObservableCollection<Specialization> specializationsDGCombobox = new ObservableCollection<Specialization>();
+        ObservableCollection<SpecializationEducation> specializationsEduDGcombobox = new ObservableCollection<SpecializationEducation>();
+        ObservableCollection<Entrant> entrantsDGCombobox = new ObservableCollection<Entrant>();
+        ObservableCollection<ConcourseWithEduAndSpec> concoursesDGCombobox = new ObservableCollection<ConcourseWithEduAndSpec>();
 
         Entrant selectedEntrantDG;
+        Entrant selectedEntrantDGCombobox;
         EducationIns selectedEducationInsDG;
         Category selectedCategoryDG;
+        Category selectedCategoryDGCombobox;
         SpecializationDG selectedSpecializationDG;
-
+        Specialization selectedSpecializationDGCombobox;
+        SpecializationEducation selectedSpecializationEduDGCombobox;
+        ConcourseWithEduAndSpec selectedConcourseDG;
+        ConcourseWithEduAndSpec selectedConcourseDGCombobox;
+        EntryDG selectedEntryDG;
 
         #endregion
 
@@ -249,6 +307,28 @@ namespace ProjectPractika.ViewModels
         {
             get { return enabledEduSpecEducation; }
             set { enabledEduSpecEducation = value; OnPropertyChanged(); }
+        }
+        // DG
+        public bool EnabledEduSpecConcourseDG
+        {
+            get { return enabledEduSpecConcourseDG; }
+            set { enabledEduSpecConcourseDG = value; OnPropertyChanged(); }
+        }
+
+        public bool EnabledDropDownEduSpecConcourseDG
+        {
+            get { return enabledDropDownEduSpecConcourseDG; }
+            set { enabledDropDownEduSpecConcourseDG = value; OnPropertyChanged(); }
+        }
+        public bool EnabledEntryEntrantDGCombobox
+        {
+            get { return enabledEntryEntrantDGCombobox; }
+            set { enabledEntryEntrantDGCombobox = value; OnPropertyChanged(); }
+        }
+        public bool EnabledEntryConcourseDGCombobox
+        {
+            get { return enabledEntryConcourseDGCombobox; }
+            set { enabledEntryConcourseDGCombobox = value; OnPropertyChanged(); }
         }
         #endregion
         #region DROPDOWN ENABLED
@@ -371,6 +451,7 @@ namespace ProjectPractika.ViewModels
 
         #region SearchTextProperties Binding
 
+        #region add/delete searchTxt
         public string SearchTxtEntrant
         {
             get { return searchTxtEntrant; }
@@ -401,6 +482,7 @@ namespace ProjectPractika.ViewModels
             get { return searchTxtConcourse; }
             set { searchTxtConcourse = value; OnPropertyChanged(); SearchConcourse(); }
         }
+      
         public string SearchTxtSpecializationEduByAddConcourse
         {
             get { return searchTxtSpecializationEduByAddConcourse; }
@@ -428,6 +510,54 @@ namespace ProjectPractika.ViewModels
             get { return searchTxtAddEduSpecEducation; }
             set { searchTxtAddEduSpecEducation = value; OnPropertyChanged(); SearchEduSpecEducation(); }
         }
+        #endregion
+
+        #region datagrid search text properties
+
+        public string SearchTxtDGSpecializationEduCombobox
+        {
+            get { return searchTxtDGSpecializationEduCombobox; }
+            set { searchTxtDGSpecializationEduCombobox = value; OnPropertyChanged(); SearchDGSpecializationEduCombobox(); }
+        }
+        public string SearchTxtDGSpecialization
+        {
+            get { return searchTxtDGSpecialization; }
+            set { searchTxtDGSpecialization = value; OnPropertyChanged(); }
+        }
+        public string SearchTxtDGEducation
+        {
+            get { return searchTxtDGEducation; }
+            set { searchTxtDGEducation = value; OnPropertyChanged(); }
+        }
+        public string SearchTxtDGEntrant
+        {
+            get { return searchTxtDGEntrant; }
+            set { searchTxtDGEntrant = value; OnPropertyChanged();  }
+        }
+        public string SearchTxtDGConcourse
+        {
+            get { return searchTxtDGConcourse; }
+            set { searchTxtDGConcourse = value; OnPropertyChanged();  }
+        }
+        // update entry
+        public string SearchTxtDGEntrantCombobox
+        {
+            get { return searchTxtDGEntrantCombobox; }
+            set { searchTxtDGEntrantCombobox = value; OnPropertyChanged(); SearchDGEntrantCombobox(); }
+        }
+        public string SearchTxtDGConcourseCombobox
+        {
+            get { return searchTxtDGConcourseCombobox; }
+            set { searchTxtDGConcourseCombobox = value; OnPropertyChanged(); SearchDGConcourseCombobox(); }
+        }
+
+        public string SearchTxtDGEntry
+        {
+            get { return searchTxtDGEntry; }
+            set { searchTxtDGEntry = value; OnPropertyChanged();  }
+        }
+        #endregion
+
         #endregion
 
         #region InfoAdds
@@ -658,6 +788,12 @@ namespace ProjectPractika.ViewModels
             
             set { entrantsDG = value; OnPropertyChanged(); }
         }
+        public ObservableCollection<Entrant> EntrantsDGCombobox
+        {
+            get { return entrantsDGCombobox; }
+
+            set { entrantsDGCombobox = value; OnPropertyChanged(); }
+        }
 
         public ObservableCollection<EducationIns> EducationalInsDG
         {
@@ -679,7 +815,22 @@ namespace ProjectPractika.ViewModels
             get { return concoursesDG; }
             set { concoursesDG = value; OnPropertyChanged(); }
         }
+        public ObservableCollection<ConcourseWithEduAndSpec> ConcoursesDGCombobox
+        {
+            get { return concoursesDGCombobox; }
+            set { concoursesDGCombobox = value; OnPropertyChanged(); }
+        }
+        public ObservableCollection<EntryDG> EntriesDG
+        {
+            get { return entriesDG; }
+            set { entriesDG = value; OnPropertyChanged(); }
+        }
 
+        public ObservableCollection<SpecializationEducation> SpecializationsEduDGcombobox
+        {
+            get { return specializationsEduDGcombobox; }
+            set { specializationsEduDGcombobox = value; OnPropertyChanged(); }
+        }
 
         #region SelectedItem / DG Update Bindings
 
@@ -687,6 +838,11 @@ namespace ProjectPractika.ViewModels
         {
             get { return selectedEntrantDG; }
             set { selectedEntrantDG = value; OnPropertyChanged(); } 
+        }
+        public Entrant SelectedEntrantDGCombobox
+        {
+            get { return selectedEntrantDGCombobox; }
+            set { selectedEntrantDGCombobox = value; OnPropertyChanged(); }
         }
         public EducationIns SelectedEducationInsDG
         {
@@ -698,10 +854,45 @@ namespace ProjectPractika.ViewModels
             get { return selectedCategoryDG; }
             set { selectedCategoryDG = value; OnPropertyChanged(); }
         }
+        public Category SelectedCategoryDGCombobox
+        {
+            get { return selectedCategoryDGCombobox; }
+            set { selectedCategoryDGCombobox = value; OnPropertyChanged(); }
+        }
         public SpecializationDG SelectedSpecializationDG
         {
             get { return selectedSpecializationDG; }
             set { selectedSpecializationDG = value; OnPropertyChanged(); }
+        }
+        public Specialization SpecializationsDGCombobox
+        {
+            get { return SpecializationsDGCombobox; }
+            set { SpecializationsDGCombobox = value; OnPropertyChanged(); }
+        }
+        public Specialization SelectedSpecializationDGCombobox
+        {
+            get { return selectedSpecializationDGCombobox; }
+            set { selectedSpecializationDGCombobox = value; OnPropertyChanged(); }
+        }
+        public SpecializationEducation SelectedSpecializationEduDGCombobox
+        {
+            get { return selectedSpecializationEduDGCombobox; }
+            set { selectedSpecializationEduDGCombobox = value; OnPropertyChanged(); }
+        }
+        public ConcourseWithEduAndSpec SelectedConcourseDG
+        {
+            get { return selectedConcourseDG; }
+            set { selectedConcourseDG = value; OnPropertyChanged(); }
+        }
+        public ConcourseWithEduAndSpec SelectedConcourseDGCombobox
+        {
+            get { return selectedConcourseDGCombobox; }
+            set { selectedConcourseDGCombobox = value; OnPropertyChanged(); }
+        }
+        public EntryDG SelectedEntryDG
+        {
+            get { return selectedEntryDG; }
+            set { selectedEntryDG = value; OnPropertyChanged(); }
         }
         #endregion
 
@@ -925,12 +1116,24 @@ namespace ProjectPractika.ViewModels
         {
             get
             {
-                if (_updateSpecialization == null)
+                if (_updateSpecializationName == null)
                 {
-                    _updateSpecialization = new RelayCommand(p => UpdateSpecialization());
+                    _updateSpecializationName = new RelayCommand(p => UpdateSpecialization());
                 }
 
-                return _updateSpecialization;
+                return _updateSpecializationName;
+            }
+        }
+        public ICommand UpdateSpecializationCategoryCommand
+        {
+            get
+            {
+                if (_updateSpecializationCategory == null)
+                {
+                    _updateSpecializationCategory = new RelayCommand(p => UpdateSpecializationCategory());
+                }
+
+                return _updateSpecializationCategory;
             }
         }
         public ICommand UpdateConcourseCommand
@@ -945,20 +1148,44 @@ namespace ProjectPractika.ViewModels
                 return _updateConcourse;
             }
         }
-        public ICommand UpdateEntryCommand
+        public ICommand UpdateConcourseEduSpecCommand
         {
             get
             {
-                if (_updateEntry == null)
+                if (_updateConcourseEduSpec == null)
                 {
-                    _updateEntry = new RelayCommand(p => UpdateEntry());
+                    _updateConcourseEduSpec = new RelayCommand(p => UpdateConcourseEduSpec());
                 }
 
-                return _updateEntry;
+                return _updateConcourseEduSpec;
+            }
+        }
+        public ICommand UpdateEntryEntrantCommand
+        {
+            get
+            {
+                if (_updateEntryEntrant == null)
+                {
+                    _updateEntryEntrant = new RelayCommand(p => UpdateEntryEntrant());
+                }
+
+                return _updateEntryEntrant;
+            }
+        }
+        public ICommand UpdateEntryConcourseCommand
+        {
+            get
+            {
+                if (_updateEntryConcourse == null)
+                {
+                    _updateEntryConcourse = new RelayCommand(p => UpdateEntryConcourse());
+                }
+
+                return _updateEntryConcourse;
             }
         }
         #endregion
-        
+
         #endregion
 
         #endregion
@@ -967,6 +1194,7 @@ namespace ProjectPractika.ViewModels
 
         #region Methods For Search
 
+        #region search for adding or deleting
         private void SearchEntrants()
         {
             if (searchTxtEntrant != "")
@@ -1153,6 +1381,7 @@ namespace ProjectPractika.ViewModels
                 EnabledDropDownEduSpecSpecialization = false;
             }
         }
+      
         private void SearchEduSpecEducation()
         {
             if (SearchTxtAddEduSpecEducation != "")
@@ -1168,6 +1397,56 @@ namespace ProjectPractika.ViewModels
         }
         #endregion
 
+
+        #region search for updating
+
+        private void SearchDGSpecializationEduCombobox()
+        {
+            if (SearchTxtDGSpecializationEduCombobox != "")
+            {
+                SpecializationsEduDGcombobox = dbla.GetAllSpecializationEducationByInfo(SearchTxtDGSpecializationEduCombobox);
+                EnabledEduSpecConcourseDG = true;
+                EnabledDropDownEduSpecConcourseDG = true;
+            }
+            else {
+                EnabledEduSpecConcourseDG = false;
+                EnabledDropDownEduSpecConcourseDG = false;
+            }
+
+        }
+      
+        private void SearchDGEntrantCombobox()
+        {
+            if (SearchTxtDGEntrantCombobox != "")
+            {
+                // MessageBox.Show(SearchTxtDGEntrantCombobox);
+                EntrantsDGCombobox = dbla.GetAllEntrantsByName(SearchTxtDGEntrantCombobox);
+                EnabledEntryEntrantDGCombobox = true;
+            }
+            else
+            {
+                EnabledEntryEntrantDGCombobox = false;
+            }
+
+        }
+      
+        private void SearchDGConcourseCombobox()
+        {
+            if (SearchTxtDGConcourseCombobox != "")
+            {
+                ConcoursesDGCombobox = dbl.GetAllConcourseWithInfo(SearchTxtDGConcourseCombobox);
+                EnabledEntryConcourseDGCombobox = true;
+            }
+            else
+            {
+                EnabledEntryConcourseDGCombobox= false;
+            }
+
+        }
+    
+
+        #endregion
+        #endregion
         #region Methods For Delete
 
         private void DeleteCategory()
@@ -1365,15 +1644,51 @@ namespace ProjectPractika.ViewModels
         }
         private void UpdateSpecialization()
         {
-          
+            dbla.UpdateSpecializationName(SelectedSpecializationDG.Id, SelectedSpecializationDG.SpecName);
+        }
+        private void UpdateSpecializationCategory()
+        {
+            if (SelectedSpecializationDG != null & SelectedCategoryDGCombobox != null)
+            {
+               
+               bool updatted = dbla.UpdateSpecializationCategory(SelectedSpecializationDG.Id, SelectedCategoryDGCombobox.Id);
+               SpecializationsDG = dbl.GetAllSpecializationsWithCategory();
+            }
+            else MessageBox.Show("Выберите изменяемый элемент из таблицы и элемент из списка");
         }
         private void UpdateConcourse()
         {
-            
+            //  MessageBox.Show(SelectedSpecializationEduDGCombobox.ToString() + " " + SelectedConcourseDG.ToString());
+            dbla.UpdateConcourse(SelectedConcourseDG.Id, SelectedConcourseDG.CountSeats,
+                Convert.ToInt32(SelectedConcourseDG.IsFree),
+                Convert.ToInt32(SelectedConcourseDG.IsIntramural), SelectedConcourseDG.DateYear);
+                ConcoursesDG = dbl.GetAllConcourseWithInfo();
         }
-        private void UpdateEntry()
+        private void UpdateConcourseEduSpec()
         {
-            
+            //MessageBox.Show(SelectedSpecializationEduDGCombobox.ToString() + " " + SelectedConcourseDG.ToString());
+            dbla.UpdateConcourse(SelectedConcourseDG.Id, SelectedSpecializationEduDGCombobox.Id);
+            ConcoursesDG = dbl.GetAllConcourseWithInfo();
+
+        }
+        private void UpdateEntryEntrant()
+        {
+            if(SelectedEntrantDGCombobox!=null & SelectedEntryDG !=null )
+            {
+                dbla.UpdateEntryEntrant(SelectedEntryDG.Id, SelectedEntrantDGCombobox.Id);
+                EntriesDG = dbla.GetAllEntriesDG();
+               // MessageBox.Show(SelectedEntrantDGCombobox.ToString() + " " + SelectedEntryDG.ToString());
+            }
+        }
+        private void UpdateEntryConcourse()
+        {
+            if (SelectedConcourseDGCombobox != null & SelectedEntryDG!=null)
+            {
+                dbla.UpdateEntryConcourse(SelectedEntryDG.Id, SelectedConcourseDGCombobox.Id);
+                EntriesDG = dbla.GetAllEntriesDG();
+
+                // MessageBox.Show(SelectedConcourseDGCombobox.ToString() + " " + SelectedEntryDG.ToString());
+            }
         }
         #endregion
         #endregion
@@ -1385,7 +1700,7 @@ namespace ProjectPractika.ViewModels
             educationInsDG = dbl.GetAllEducationalIns();
             specializationsDG = dbl.GetAllSpecializationsWithCategory();
             concoursesDG = dbl.GetAllConcourseWithInfo();
-            
+            entriesDG = dbla.GetAllEntriesDG();
             
            // entrantsList = dbla.GetAllEntrants();
         }

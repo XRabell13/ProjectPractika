@@ -27,15 +27,16 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
-                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGEntrant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock Text="{DynamicResource ap_combobox_titleYear}"  Height="25px" MaxWidth="70px" MinWidth="30px"/>
                         <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}" Height="25px" MaxWidth="90px" MinWidth="40px" />
-                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10" 
+                               />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Grid.Column="1" Margin="4,0,0,0">
                         <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
-                        <TextBlock Text="12" Margin="10 5"/>
+                        <TextBlock Margin="10 5" Text="{Binding NumPageEntrantDG, Mode=TwoWay}"/>
                         <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
                     </StackPanel>
 
@@ -53,11 +54,7 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                               
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_entrant_fullName}" Binding="{Binding FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_entrant_passport}" Binding="{Binding Passport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -86,11 +83,7 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                            
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_category_name}" Binding="{Binding CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
@@ -109,13 +102,13 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGEducation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" >
                         <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
-                        <TextBlock Text="12" Margin="10 5"/>
+                        <TextBlock Text="{Binding NumPageEduInsDG, Mode=TwoWay}" Margin="10 5"/>
                         <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
                     </StackPanel>
                     <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding EducationalInsDG}" SelectedItem="{Binding SelectedEducationInsDG}">
@@ -126,11 +119,7 @@
                         </i:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                             
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_eduIns_name}" Binding="{Binding InsName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_eduIns_address}" Binding="{Binding InsAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -151,47 +140,42 @@
                         <RowDefinition Height="130px"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" >
-                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" >
                         <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
-                        <TextBlock Text="12" Margin="10 5"/>
+                        <TextBlock Text="{Binding NumPageSpecializationDG, Mode=TwoWay}" Margin="10 5"/>
                         <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
                     </StackPanel>
 
 
                     <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding SpecializationsDG}" SelectedItem="{Binding SelectedSpecializationDG}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="CellEditEnding">
+                                <i:InvokeCommandAction Command="{Binding UpdateSpecializationCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                               
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_specialization_name}" Binding="{Binding SpecName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_specialization_category}"
                                                 Binding="{Binding CategoryName, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                                 IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                              
                             </DataGridTextColumn>
 
                         </DataGrid.Columns>
                     </DataGrid>
                     
                     <StackPanel Orientation="Vertical" Grid.Row="3">
-                        <TextBlock Text="{DynamicResource ap_dg_specialization_updateLabel}"/>
-                        <TextBox Height="25px"/>
-                        <ComboBox/>
+                       
                         <TextBlock Text="{DynamicResource ap_dg_category_name}"/>
-                        <ComboBox ItemsSource="{Binding Categories}" DisplayMemberPath="CategoryName" />
-                        <Button Content="{DynamicResource btn_update}" />
+                        <ComboBox ItemsSource="{Binding Categories}" DisplayMemberPath="CategoryName" SelectedItem="{Binding SelectedCategoryDGCombobox}"/>
+                        <Button Content="{DynamicResource btn_update}" Command="{Binding UpdateSpecializationCategoryCommand}" />
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -209,38 +193,30 @@
                     </Grid.RowDefinitions>
                     
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
+                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGConcourse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" >
                         <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
-                        <TextBlock Text="12" Margin="10 5"/>
+                        <TextBlock Text="{Binding NumPageConcourseDG, Mode=TwoWay}" Margin="10 5"/>
                         <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
                     </StackPanel>
-                    <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding ConcoursesDG}">
-                        <!-- CellEditEnding="dg_users_CellEditEnding"-->
+                    <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding ConcoursesDG}" SelectedItem="{Binding SelectedConcourseDG}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="CellEditEnding">
+                                <i:InvokeCommandAction Command="{Binding UpdateConcourseCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                               
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_specName}" Binding="{Binding SpecName, Mode=TwoWay}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                                
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_eduIns}" Binding="{Binding InsName, Mode=TwoWay}" IsReadOnly="True">
-                                <DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="TextBlock.Background" Value="#ededed" />
-                                    </Style>
-                                </DataGridTextColumn.ElementStyle>
+                             
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_countSeats}" Binding="{Binding CountSeats, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <DataGridTextColumn Header="{DynamicResource ap_dg_concourse_isFree}" Binding="{Binding IsFree, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -250,59 +226,76 @@
                     </DataGrid>
                     <StackPanel Grid.Row="3">
                         <TextBlock Text="{DynamicResource ap_dg_concourse_updateLabel}"/>
-                        <ComboBox/>
-                        <Button Content="{DynamicResource btn_update}"/>
-                        <TextBlock/>
-                        <ComboBox/>
-                        <Button Content="{DynamicResource btn_update}"/>
+
+                        <TextBox Text="{Binding SearchTxtDGSpecializationEduCombobox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <ComboBox ItemsSource="{Binding SpecializationsEduDGcombobox}" 
+                                  SelectedItem="{Binding SelectedSpecializationEduDGCombobox}"
+                                  IsEnabled="{Binding EnabledEduSpecConcourseDG}"
+                                  />
+                        <Button Content="{DynamicResource btn_update}" Command="{Binding UpdateConcourseEduSpecCommand}"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
             <!-- ЗАПИСИ -->
             <TabItem Header="{DynamicResource ap_tabTitle_entries}" >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50px"/>
-                        <RowDefinition Height="30px"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="150px"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                        <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10"/>
-                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
-                    </StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50px"/>
+                            <RowDefinition Height="30px"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="240px"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" >
-                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
-                        <TextBlock Text="12" Margin="10 5"/>
-                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" >
+                            <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                            <TextBlock Text="{Binding NumPageEntryDG, Mode=TwoWay}" Margin="10 5"/>
+                            <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                        </StackPanel>
 
-                    <DataGrid AutoGenerateColumns="False" Grid.Row="2">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding id}" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_entrant}" Binding="{Binding id}" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_specName}" Binding="{Binding id}" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_eduIns}" Binding="{Binding id}" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_isFree}" Binding="{Binding id}" IsReadOnly="True" />
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_isIntramural}" Binding="{Binding id}" IsReadOnly="True"/>
-                            <DataGridTextColumn Header="{DynamicResource ap_dg_entry_year}" Binding="{Binding id}" IsReadOnly="True"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    
-                    <StackPanel Grid.Row="3">
-                        <TextBlock Text="{DynamicResource ap_dg_entry_updateLabel}"/>
-                        <ComboBox/>
-                        <TextBlock/>
-                        <ComboBox/>
-                        <Button Content="{DynamicResource btn_update}"/>
-                    </StackPanel>
-                </Grid>
-                
-                
+                        <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding EntriesDG}"
+                              SelectedItem="{Binding SelectedEntryDG}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_id}" Binding="{Binding Id}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_entry_entrant}" Binding="{Binding FullName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_entry_specName}" Binding="{Binding SpecName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_entry_eduIns}" Binding="{Binding InsName}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_entry_isFree}" Binding="{Binding IsFree}" IsReadOnly="True" />
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_entry_isIntramural}" Binding="{Binding IsIntramural}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="{DynamicResource ap_dg_entry_year}" Binding="{Binding DateYear}" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <StackPanel Grid.Row="3">
+                            <TextBlock Text="{DynamicResource ap_dg_entry_updateEntrantLabel}"/>
+                            <TextBox Text="{Binding SearchTxtDGEntrantCombobox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ComboBox 
+                            ItemsSource="{Binding EntrantsDGCombobox}" 
+                            SelectedItem="{Binding  SelectedEntrantDGCombobox}"
+                            IsEnabled="{Binding  EnabledEntryEntrantDGCombobox}"
+                            />
+                            <Button Content="{DynamicResource btn_update}" Command="{Binding UpdateEntryEntrantCommand}"/>
+
+                            <TextBlock Text="{DynamicResource ap_dg_entry_updateConcourseLabel}"/>
+                            <TextBox Text="{Binding SearchTxtDGConcourseCombobox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ComboBox 
+                            ItemsSource="{Binding ConcoursesDGCombobox}" 
+                            SelectedItem="{Binding SelectedConcourseDGCombobox}"
+                            IsEnabled="{Binding EnabledEntryConcourseDGCombobox}"
+                            />
+                            <Button Content="{DynamicResource btn_update}" Command="{Binding UpdateEntryConcourseCommand}"/>
+
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+
             </TabItem>
 
             <!--////////////////////////////////////// ДОБАВЛЕНИЕ //////////////////////////////////////-->
@@ -566,6 +559,7 @@
 
                                 <ComboBox ItemsSource="{Binding Specializations}"
                                   IsEnabled="{Binding EnabledSpecialization, Mode=TwoWay}" 
+                                  IsDropDownOpen="{Binding EnabledDropDownSpecialization, Mode=TwoWay}"
                                   SelectedItem="{Binding SelectedSpecialization}"
                                  />
                                 <Button Content="{DynamicResource ap_btnDel_educationalIns}" Command="{Binding DeleteSpecializationCommand}" />
@@ -581,6 +575,7 @@
 
                                 <ComboBox ItemsSource="{Binding SpecializationsDelOne}"
                                   IsEnabled="{Binding EnabledSpecializationOne, Mode=TwoWay}" 
+                                  IsDropDownOpen="{Binding EnabledDropDownSpecializationOne, Mode=TwoWay}" 
                                   DisplayMemberPath="SpecName"
                                   SelectedItem="{Binding SelectedSpecializationOne}"
                                  />

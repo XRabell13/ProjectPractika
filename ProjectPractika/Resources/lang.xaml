@@ -64,7 +64,7 @@
     <v:String x:Key="ap_dg_concourse_isFree">Бюджет</v:String>
     <v:String x:Key="ap_dg_concourse_isIntramural">Очно</v:String>
     <v:String x:Key="ap_dg_concourse_dateYear">Год</v:String>
-    <v:String x:Key="ap_dg_concourse_updateLabel">Изменение спеицальности в учебном учреждении для выбранного конкурса</v:String>
+    <v:String x:Key="ap_dg_concourse_updateLabel">Изменение специальности учебного учреждения для выбранного конкурса</v:String>
 
     <v:String x:Key="ap_dg_entry_entrant">ФИО</v:String>
     <v:String x:Key="ap_dg_entry_specName">Специальность</v:String>
@@ -73,7 +73,8 @@
     <v:String x:Key="ap_dg_entry_isFree">Бюджет</v:String>
     <v:String x:Key="ap_dg_entry_isIntramural">Очно</v:String>
     <v:String x:Key="ap_dg_entry_year">Год</v:String>
-    <v:String x:Key="ap_dg_entry_updateLabel">Изменение специальности в учебном учреждении или абитуриента для выбранной записи </v:String>
+    <v:String x:Key="ap_dg_entry_updateConcourseLabel">Изменение конкурса для выбранной записи</v:String>
+    <v:String x:Key="ap_dg_entry_updateEntrantLabel">Изменение абитуриента для выбранной записи </v:String>
 
 
 

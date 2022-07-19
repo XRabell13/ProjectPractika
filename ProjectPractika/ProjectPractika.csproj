@@ -136,6 +136,10 @@
     <Resource Include="Resources\Images\manual.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\DGStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\lang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

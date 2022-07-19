@@ -9,9 +9,9 @@ namespace ProjectPractika.Models.Helper_models
     public class EntryDG : ObservableObject
     {
         int id;
+        string fullName;
         string specName;
         string insName;
-        int countSeats;
         bool isFree, isIntramural;
         int dateYear;
 
@@ -57,18 +57,6 @@ namespace ProjectPractika.Models.Helper_models
             }
         }
 
-        public int CountSeats
-        {
-            get
-            {
-                return countSeats;
-            }
-            set
-            {
-                countSeats = value;
-                OnPropertyChanged();
-            }
-        }
         public int DateYear
         {
             get
@@ -106,12 +94,27 @@ namespace ProjectPractika.Models.Helper_models
                 OnPropertyChanged();
             }
         }
-
-        public EntryDG(int id, string specName, string insName)
+        public string FullName
+        {
+            get
+            {
+                return fullName;
+            }
+            set
+            {
+                fullName = value;
+                OnPropertyChanged();
+            }
+        }
+        public EntryDG(int id, string fullName, string specName, string insName, bool isFree, bool isIntramural, int dateYear)
         {
             this.Id = id;
             this.SpecName = specName;
             this.InsName = insName;
+            this.FullName = fullName;
+            DateYear = dateYear;
+            IsFree = isFree;
+            IsIntramural = isIntramural;
         }
 
         public override string ToString()
