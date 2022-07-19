@@ -95,6 +95,43 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        public ObservableCollection<SpecializationDG> GetAllSpecializationsWithCategory(string specName)
+        {
+            ObservableCollection<SpecializationDG> specializations = new ObservableCollection<SpecializationDG>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.AllSpecializationWithCategoryBySpecName";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+
+
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@specName",
+                    Value = specName
+                };
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        specializations.Add(new SpecializationDG(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                }
+                reader.Close();
+                base.Close();
+                return specializations;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Error: ошибка получения списка специальностей с категориями");
+                base.Close();
+                return null;
+            }
+        }
+
         public ObservableCollection<Models.Specialization> GetAllSpecializationsBasic(string specName)
         {
             ObservableCollection<Models.Specialization> specializations = new ObservableCollection<Models.Specialization>();
@@ -298,6 +335,46 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        public ObservableCollection<ConcourseWithEduAndSpec> GetAllConcourseWithInfoDG(string specName)
+        {
+            ObservableCollection<ConcourseWithEduAndSpec> councourses = new ObservableCollection<ConcourseWithEduAndSpec>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.AllConcourseWithInfoDGBySpecName";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter specNameParam = new SqlParameter
+                {
+                    ParameterName = "@specName",
+                    Value = specName
+                };
+                // добавляем параметры
+                command.Parameters.Add(specNameParam);
+
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        councourses.Add(new ConcourseWithEduAndSpec(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetBoolean(3), reader.GetBoolean(4), reader.GetInt32(5), reader.GetInt32(6)));
+
+                }
+                reader.Close();
+                base.Close();
+                return councourses;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                base.Close();
+                return null;
+            }
+        }
+
         public ObservableCollection<ConcourseWithEduAndSpec> GetAllConcourseWithInfo()
         {
             ObservableCollection<ConcourseWithEduAndSpec> councourses = new ObservableCollection<ConcourseWithEduAndSpec>();
@@ -327,7 +404,6 @@ namespace ProjectPractika.DataBase
                 return null;
             }
         }
-
 
         public ObservableCollection<SpecializationWithInfo> GetAllSpecializations(string specName)
         {
@@ -410,7 +486,157 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        //пагинация в datagrid
 
+        public ObservableCollection<EducationIns> GetAllEduInsPagination(int offset, int limit)
+        {
+            ObservableCollection<EducationIns> eduIns = new ObservableCollection<EducationIns>();
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "GeneralApp.AllEducationalInsPagination";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter offsetParam = new SqlParameter
+                    {
+                        ParameterName = "@offset",
+                        Value = offset
+                    };
+                    SqlParameter limitParam = new SqlParameter
+                    {
+                        ParameterName = "@limit",
+                        Value = limit
+                    };
+                    // добавляем параметры
+                    command.Parameters.Add(offsetParam);
+                    command.Parameters.Add(limitParam);
+
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            eduIns.Add(new EducationIns(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                    }
+                    reader.Close();
+                    base.Close();
+                    return eduIns;
+                }
+                else
+                {
+                    MessageBox.Show("Error: ошибка получения списка учреждений образования");
+                    base.Close();
+                    return null;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: ошибка получения списка учреждений образования" + "\n\n" + e.Message);
+            }
+            return null;
+
+        }
+
+        public ObservableCollection<SpecializationDG> GetAllSpecializationPagination(int offset, int limit)
+        {
+            ObservableCollection<SpecializationDG> eduIns = new ObservableCollection<SpecializationDG>();
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "GeneralApp.AllSpecializationPagination";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter offsetParam = new SqlParameter
+                    {
+                        ParameterName = "@offset",
+                        Value = offset
+                    };
+                    SqlParameter limitParam = new SqlParameter
+                    {
+                        ParameterName = "@limit",
+                        Value = limit
+                    };
+                    // добавляем параметры
+                    command.Parameters.Add(offsetParam);
+                    command.Parameters.Add(limitParam);
+
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            eduIns.Add(new SpecializationDG(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
+                    }
+                    reader.Close();
+                    base.Close();
+                    return eduIns;
+                }
+                else
+                {
+                    MessageBox.Show("Error: ошибка получения списка специальностей");
+                    base.Close();
+                    return null;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error: ошибка получения списка специальностей" + "\n\n" + e.Message);
+            }
+            return null;
+
+        }
+
+        public ObservableCollection<ConcourseWithEduAndSpec> GetAllConcourseWithInfoPagination(int offset, int limit)
+        {
+            ObservableCollection<ConcourseWithEduAndSpec> councourses = new ObservableCollection<ConcourseWithEduAndSpec>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.AllConcourseDGPagination";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметры для ввода 
+                SqlParameter offsetParam = new SqlParameter
+                {
+                    ParameterName = "@offset",
+                    Value = offset
+                };
+                SqlParameter limitParam = new SqlParameter
+                {
+                    ParameterName = "@limit",
+                    Value = limit
+                };
+                // добавляем параметры
+                command.Parameters.Add(offsetParam);
+                command.Parameters.Add(limitParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        councourses.Add(new ConcourseWithEduAndSpec(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                            reader.GetBoolean(3), reader.GetBoolean(4), reader.GetInt32(5), reader.GetInt32(6)));
+
+                }
+                reader.Close();
+                base.Close();
+                return councourses;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                base.Close();
+                return null;
+            }
+        }
 
         // Проверка праивльности логина и пароля
         public bool IsAdminCheck(string login, string password)

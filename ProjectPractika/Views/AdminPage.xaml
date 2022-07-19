@@ -28,16 +28,15 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
                         <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGEntrant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"  Height="25px" MaxWidth="70px" MinWidth="30px"/>
-                        <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}" Height="25px" MaxWidth="90px" MinWidth="40px" />
+                       
                         <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10" 
-                               />
+                               Command="{Binding SearchEntrantCommand}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Grid.Column="1" Margin="4,0,0,0">
-                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5" Command="{Binding BackPagEntrantCommand}"/>
                         <TextBlock Margin="10 5" Text="{Binding NumPageEntrantDG, Mode=TwoWay}"/>
-                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5" Command="{Binding ForwardEntrantCommand}"/>
                     </StackPanel>
 
                     <DataGrid  Grid.Row="2"  
@@ -103,13 +102,14 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
                         <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGEducation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"
+                                Command="{Binding SearchEduInsCommand}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" >
-                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5" Command="{Binding BackPagEduInsCommand}"/>
                         <TextBlock Text="{Binding NumPageEduInsDG, Mode=TwoWay}" Margin="10 5"/>
-                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5" Command="{Binding ForwardPagEduInsCommand}"/>
                     </StackPanel>
                     <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding EducationalInsDG}" SelectedItem="{Binding SelectedEducationInsDG}">
                         <i:Interaction.Triggers>
@@ -141,13 +141,14 @@
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Grid.Row="0" >
                         <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"
+                                Command="{Binding SearchSpecializationCommand}"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" >
-                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5" Command="{Binding BackPagSpecializationCommand}"/>
                         <TextBlock Text="{Binding NumPageSpecializationDG, Mode=TwoWay}" Margin="10 5"/>
-                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5" Command="{Binding ForwardPagSpecializationCommand}"/>
                     </StackPanel>
 
 
@@ -194,13 +195,14 @@
                     
                     <StackPanel Orientation="Horizontal" Grid.Row="0">
                         <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGConcourse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                        <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"
+                                Command="{Binding SearchConcourseCommand}"/>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" >
-                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_back}" Margin="10 5" Command="{Binding BackPagConcourseCommand}"/>
                         <TextBlock Text="{Binding NumPageConcourseDG, Mode=TwoWay}" Margin="10 5"/>
-                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                        <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5" Command="{Binding ForwardPagConcourseCommand}"/>
                     </StackPanel>
                     <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding ConcoursesDG}" SelectedItem="{Binding SelectedConcourseDG}">
                         <i:Interaction.Triggers>
@@ -250,14 +252,17 @@
                             <RowDefinition Height="240px"/>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Row="0">
-                            <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" Text="{Binding SearchTxtDGEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"/>
+                            <TextBox Height="25px" MaxWidth="700px" MinWidth="660px" Margin="10" 
+                                     Text="{Binding SearchTxtDGEntry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Content="{DynamicResource btn_search}" Height="25px" MaxWidth="80px" MinWidth="40px" Margin="10"
+                                    Command="{Binding SearchEntryCommand}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" >
-                            <Button Content="{DynamicResource ap_dg_back}" Margin="10 5"/>
+                            <Button Content="{DynamicResource ap_dg_back}" Margin="10 5" Command="{Binding BackPagEntryCommand}"/>
                             <TextBlock Text="{Binding NumPageEntryDG, Mode=TwoWay}" Margin="10 5"/>
-                            <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"/>
+                            <Button Content="{DynamicResource ap_dg_forward}" Margin="10 5"
+                                    Command="{Binding ForwardPagEntryCommand}"/>
                         </StackPanel>
 
                         <DataGrid AutoGenerateColumns="False" Grid.Row="2" ItemsSource="{Binding EntriesDG}"

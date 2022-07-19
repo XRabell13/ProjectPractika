@@ -166,6 +166,7 @@ namespace ProjectPractika.DataBase.Administration
                 return null;
             }
         }
+       
 
         public ObservableCollection<EntryWithInfo> GetAllEntryWithInfo(int year, int isFree, int isIntramural, string fullName)
         {
@@ -254,6 +255,90 @@ namespace ProjectPractika.DataBase.Administration
                 return null;
             }
         }
+
+        public ObservableCollection<EntryDG> GetAllEntriesDGPagination(int offset, int limit)
+        {
+            ObservableCollection<EntryDG> entries = new ObservableCollection<EntryDG>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "AdminApp.AllEntriesWithConcourseAndEntrantPagination";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметры для ввода 
+                SqlParameter offsetParam = new SqlParameter
+                {
+                    ParameterName = "@offset",
+                    Value = offset
+                };
+                SqlParameter limitParam = new SqlParameter
+                {
+                    ParameterName = "@limit",
+                    Value = limit
+                };
+                // добавляем параметры
+                command.Parameters.Add(offsetParam);
+                command.Parameters.Add(limitParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        entries.Add(new EntryDG(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetBoolean(4), reader.GetBoolean(5), reader.GetInt32(6)));
+
+                }
+                reader.Close();
+                base.Close();
+                return entries;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка записей");
+                base.Close();
+                return null;
+            }
+        }
+
+        public ObservableCollection<EntryDG> GetAllEntriesDG(string fullName)
+        {
+            ObservableCollection<EntryDG> entries = new ObservableCollection<EntryDG>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "AdminApp.AllEntriesWithConcourseAndEntrantByFullName";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter nameParam = new SqlParameter
+                {
+                    ParameterName = "@fullName",
+                    Value = fullName
+                };
+                // добавляем параметры
+                command.Parameters.Add(nameParam);
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                        entries.Add(new EntryDG(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3),
+                            reader.GetBoolean(4), reader.GetBoolean(5), reader.GetInt32(6)));
+
+                }
+                reader.Close();
+                base.Close();
+                return entries;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка записей");
+                base.Close();
+                return null;
+            }
+        }
+
 
         #region DeleteInfo
 

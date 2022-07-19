@@ -45,6 +45,7 @@ namespace ProjectPractika.ViewModels
 
         DBLoad dbl = new DBLoad();
         DBLoadAdmin dbla = new DBLoadAdmin();
+        const int offset = 0, limit = 20;
 
         #region Fields
        
@@ -148,10 +149,15 @@ namespace ProjectPractika.ViewModels
         private ICommand _addCategory, _addEntrant, _addEducationalIns, _addEntry, _addConcourse, _addSpecialization, _addEduSpec;
         private ICommand _updateCategory, _updateEntrant, _updateEducationalIns, _updateEntryEntrant, _updateEntryConcourse, _updateConcourse, 
             _updateSpecializationName, _updateSpecializationCategory, _updateConcourseEduSpec;
+        private ICommand _searchEntrantDG, _searchEducationalInsDG, _searchEntryDG, _searchConcourseDG, _searchSpecializationDG;
+
+        private ICommand _backPagEntrantDG, _backPagEducationalInsDG, _backPagEntryDG, _backPagConcourseDG, _backPagSpecializationDG;
+        private ICommand _forwardPagEntrantDG, _forwardPagEducationalInsDG, _forwardPagEntryDG, _forwardPagConcourseDG,
+            _forwardPagSpecializationDG;
         #endregion
 
         #region Collections for deleteing
-      
+
         List<int> years = new List<int>() { 2019, 2020, 2021, 2022 };
         
         ObservableCollection<Category> categories = new ObservableCollection<Category>();
@@ -1186,6 +1192,204 @@ namespace ProjectPractika.ViewModels
         }
         #endregion
 
+        #region Commands For Searches
+        public ICommand SearchEntrantCommand
+        {
+            get
+            {
+                if (_searchEntrantDG == null)
+                {
+                    _searchEntrantDG = new RelayCommand(p => SearchEntrantDG());
+                }
+
+                return _searchEntrantDG;
+            }
+        }
+      
+        public ICommand SearchEduInsCommand
+        {
+            get
+            {
+                if (_searchEducationalInsDG == null)
+                {
+                    _searchEducationalInsDG = new RelayCommand(p => SearchEduInsDG());
+                }
+
+                return _searchEducationalInsDG;
+            }
+        }
+        public ICommand SearchSpecializationCommand
+        {
+            get
+            {
+                if (_searchSpecializationDG == null)
+                {
+                    _searchSpecializationDG = new RelayCommand(p => SearchSpecializationDG());
+                }
+
+                return _searchSpecializationDG;
+            }
+        }
+        
+        public ICommand SearchConcourseCommand
+        {
+            get
+            {
+                if (_searchConcourseDG == null)
+                {
+                    _searchConcourseDG = new RelayCommand(p => SearchConcourseDG());
+                }
+
+                return _searchConcourseDG;
+            }
+        }
+       
+        public ICommand SearchEntryCommand
+        {
+            get
+            {
+                if (_searchEntryDG == null)
+                {
+                    _searchEntryDG = new RelayCommand(p => SearchEntryDG());
+                }
+
+                return _searchEntryDG;
+            }
+        }
+
+
+        #endregion
+
+        #region Commands For Pagination
+        // BACK
+        public ICommand BackPagEntrantCommand
+        {
+            get
+            {
+                if (_backPagEntrantDG == null)
+                {
+                    _backPagEntrantDG = new RelayCommand(p => BackPagEntrantDG());
+                }
+
+                return _backPagEntrantDG;
+            }
+        }
+        public ICommand BackPagEduInsCommand
+        {
+            get
+            {
+                if (_backPagEducationalInsDG == null)
+                {
+                    _backPagEducationalInsDG = new RelayCommand(p => BackPagEduInsDG());
+                }
+
+                return _backPagEducationalInsDG;
+            }
+        }
+        public ICommand BackPagSpecializationCommand
+        {
+            get
+            {
+                if (_backPagSpecializationDG == null)
+                {
+                    _backPagSpecializationDG = new RelayCommand(p => BackPagSpecializationDG());
+                }
+
+                return _backPagSpecializationDG;
+            }
+        }
+        public ICommand BackPagConcourseCommand
+        {
+            get
+            {
+                if (_backPagConcourseDG == null)
+                {
+                    _backPagConcourseDG = new RelayCommand(p => BackPagConcourseDG());
+                }
+
+                return _backPagConcourseDG;
+            }
+        }
+        public ICommand BackPagEntryCommand
+        {
+            get
+            {
+                if (_backPagEntryDG == null)
+                {
+                    _backPagEntryDG = new RelayCommand(p => BackPagEntryDG());
+                }
+
+                return _backPagEntryDG;
+            }
+        }
+       
+        // FORWARD
+        public ICommand ForwardEntrantCommand
+        {
+            get
+            {
+                if (_forwardPagEntrantDG == null)
+                {
+                    _forwardPagEntrantDG = new RelayCommand(p => ForwardPagEntrantDG());
+                }
+
+                return _forwardPagEntrantDG;
+            }
+        }
+
+        public ICommand ForwardPagEduInsCommand
+        {
+            get
+            {
+                if (_forwardPagEducationalInsDG == null)
+                {
+                    _forwardPagEducationalInsDG = new RelayCommand(p => ForwardPagEduInsDG());
+                }
+
+                return _forwardPagEducationalInsDG;
+            }
+        }
+        public ICommand ForwardPagSpecializationCommand
+        {
+            get
+            {
+                if (_forwardPagSpecializationDG == null)
+                {
+                    _forwardPagSpecializationDG = new RelayCommand(p => ForwardPagSpecializationDG());
+                }
+
+                return _forwardPagSpecializationDG;
+            }
+        }
+
+        public ICommand ForwardPagConcourseCommand
+        {
+            get
+            {
+                if (_forwardPagConcourseDG == null)
+                {
+                    _forwardPagConcourseDG = new RelayCommand(p => ForwardPagConcourseDG());
+                }
+
+                return _forwardPagConcourseDG;
+            }
+        }
+
+        public ICommand ForwardPagEntryCommand
+        {
+            get
+            {
+                if (_forwardPagEntryDG == null)
+                {
+                    _forwardPagEntryDG = new RelayCommand(p => ForwardPagEntryDG());
+                }
+
+                return _forwardPagEntryDG;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -1691,16 +1895,156 @@ namespace ProjectPractika.ViewModels
             }
         }
         #endregion
+
+        #region Methods For Searches
+        private void SearchEntrantDG()
+        {
+           if(!String.IsNullOrWhiteSpace(SearchTxtDGEntrant))
+           {
+                EntrantsDG = dbla.GetAllEntrantsByName(SearchTxtDGEntrant);
+                NumPageEntrantDG = 1;
+           }
+        }
+        private void SearchEduInsDG()
+        {
+            if(!String.IsNullOrWhiteSpace(SearchTxtDGEducation))
+            {
+                EducationalInsDG = dbl.GetAllEducationalInsByName(SearchTxtDGEducation);
+                NumPageEduInsDG = 1;
+            }
+        }
+        private void SearchSpecializationDG()
+        {
+            if (!String.IsNullOrWhiteSpace(SearchTxtDGSpecialization))
+            {
+                SpecializationsDG = dbl.GetAllSpecializationsWithCategory(SearchTxtDGSpecialization);
+                NumPageSpecializationDG = 1;
+            }
+        }
+        private void SearchConcourseDG()
+        {
+            if (!String.IsNullOrWhiteSpace(SearchTxtDGConcourse))
+            {
+                ConcoursesDG = dbl.GetAllConcourseWithInfoDG(SearchTxtDGConcourse);
+                NumPageConcourseDG = 1;
+            }
+        }
+        private void SearchEntryDG()
+        {
+            if (!String.IsNullOrWhiteSpace(SearchTxtDGEntry))
+            {
+                EntriesDG = dbla.GetAllEntriesDG(SearchTxtDGEntry);
+                NumPageEntryDG = 1;
+            }
+        }
+
+        #endregion
+
+        #region Methods For Back and Forward
+        private void BackPagEntrantDG()
+        {
+            if (NumPageEntrantDG-1 > 0)
+            {
+                NumPageEntrantDG--;
+                int num = (limit*numPageEntrantDG)-limit;
+               
+                EntrantsDG = dbla.GetAllEntrantsPagination(num, limit);
+                
+            }
+        }
+        private void BackPagEduInsDG()
+        {
+            if (NumPageEduInsDG-1>0)
+            {
+                NumPageEduInsDG--;
+                int num = (limit * NumPageEduInsDG) - limit;
+
+                EducationalInsDG = dbl.GetAllEduInsPagination(num, limit);
+            }
+        }
+        private void BackPagSpecializationDG()
+        {
+            if (NumPageSpecializationDG - 1>0)
+            {
+                NumPageSpecializationDG--;
+                int num = (limit * NumPageSpecializationDG) - limit;
+                SpecializationsDG = dbl.GetAllSpecializationPagination(num, limit);
+            }
+        }
+        private void BackPagConcourseDG()
+        {
+            if (NumPageConcourseDG - 1>0)
+            {
+                NumPageConcourseDG--;
+                int num = (limit * NumPageConcourseDG) - limit;
+                ConcoursesDG = dbl.GetAllConcourseWithInfoPagination(num, limit);
+            }
+        }
+        private void BackPagEntryDG()
+        {
+            if (NumPageEntryDG - 1>0)
+            {
+                NumPageEntryDG--;
+                int num = (limit * NumPageEntryDG) - limit;
+                EntriesDG = dbla.GetAllEntriesDGPagination(num, limit);
+            }
+        }
+        // FORWARD 
+
+        private void ForwardPagEntrantDG()
+        {
+            NumPageEntrantDG++;
+            int num = (limit * NumPageEntrantDG) - limit;
+            EntrantsDG = dbla.GetAllEntrantsPagination(num, limit);
+            
+
+        }
+        private void ForwardPagEduInsDG()
+        {
+            NumPageEduInsDG++;
+            int num = (limit * NumPageEduInsDG) - limit;
+
+            EducationalInsDG = dbl.GetAllEduInsPagination(num, limit);
+
+
+        }
+        private void ForwardPagSpecializationDG()
+        {
+            NumPageSpecializationDG++;
+            int num = (limit * NumPageSpecializationDG) - limit;
+            SpecializationsDG = dbl.GetAllSpecializationPagination(num, limit);
+
+        }
+        private void ForwardPagConcourseDG()
+        {
+            NumPageConcourseDG++;
+            int num = (limit * NumPageConcourseDG) - limit;
+            ConcoursesDG = dbl.GetAllConcourseWithInfoPagination(num, limit);
+
+
+        }
+        private void ForwardPagEntryDG()
+        {
+            NumPageEntryDG++;
+            int num = (limit * NumPageEntryDG) - limit;
+            EntriesDG = dbla.GetAllEntriesDGPagination(num, limit);
+
+
+        }
+        #endregion
+
+
         #endregion
 
         public AdminPageViewModel()
         {
             categories = dbl.GetAllCategory();
-            entrantsDG = dbla.GetAllEntrantsPagination(1,35);
-            educationInsDG = dbl.GetAllEducationalIns();
-            specializationsDG = dbl.GetAllSpecializationsWithCategory();
-            concoursesDG = dbl.GetAllConcourseWithInfo();
-            entriesDG = dbla.GetAllEntriesDG();
+            entrantsDG = dbla.GetAllEntrantsPagination(offset, limit);
+            educationInsDG = dbl.GetAllEduInsPagination(offset, limit);
+            specializationsDG = dbl.GetAllSpecializationPagination(offset, limit);
+
+            concoursesDG = dbl.GetAllConcourseWithInfoPagination(offset, limit);
+            entriesDG = dbla.GetAllEntriesDGPagination(offset, limit);
             
            // entrantsList = dbla.GetAllEntrants();
         }
