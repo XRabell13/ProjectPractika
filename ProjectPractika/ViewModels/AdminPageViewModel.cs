@@ -1651,6 +1651,7 @@ namespace ProjectPractika.ViewModels
 
         #endregion
         #endregion
+       
         #region Methods For Delete
 
         private void DeleteCategory()

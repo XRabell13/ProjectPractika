@@ -20,8 +20,9 @@
     <v:String x:Key="ap_btnDel_category">Удалить категорию</v:String>
     <v:String x:Key="ap_btnDel_entry">Удалить запись</v:String>
     <v:String x:Key="ap_btnDel_concourse">Удалить конкурс</v:String>
-    
+
     <v:String x:Key="ap_combobox_titleYear">Год</v:String>
+    <v:String x:Key="ap_combobox_titleCategory">Категория</v:String>
     <v:String x:Key="ap_combobox_titleFree">Бесплатно или платно</v:String>
     <v:String x:Key="ap_combobox_titleIntramural">Очно или заочно</v:String>
 
@@ -94,6 +95,28 @@
     <v:String x:Key="hp_welcome">Добро пожаловать!</v:String>
     <v:String x:Key="hp_dateTime">Сегодня</v:String>
     <v:String x:Key="hp_info">График ЦТ</v:String>
+
+
+    <!-- CATALOG PAGE -->
+
+    <v:String x:Key="cs_title">АЛФАВИТНЫЙ СПИСОК ВСЕХ СПЕЦИАЛЬНОСТЕЙ</v:String>
+    <v:String x:Key="cs_info">График ЦТ</v:String>
+    <v:String x:Key="cs_infoSearch">Поиск по другим критериям</v:String>
+    <v:String x:Key="cs_infoSearchBySpec">Поиск по названию специальности</v:String>
+    <v:String x:Key="cs_infoSearchByConcourse">Поиск по конкурсу</v:String>
+
+    <v:String x:Key="cs_infoInsideExpanderBall">Проходной балл</v:String>
+    <v:String x:Key="cs_infoInsideExpanderCountSeats">Количество мест</v:String>
+    <v:String x:Key="cs_infoInsideExpanderCountEntrants">Количество подавших документы</v:String>
+
+    <v:String x:Key="cs_btnSort_ball">Сортировать по проходному баллу</v:String>
+    <v:String x:Key="cs_btnSort_countSeats">Сортировать по количеству мест</v:String>
+    <v:String x:Key="cs_btnSort_countEntrants">Сортировать по количеству подавших документы</v:String>
+
+
+    <v:String x:Key="btn_load">Скачать таблицу с мониторингом</v:String>
+    
+    
     
 
 </ResourceDictionary>

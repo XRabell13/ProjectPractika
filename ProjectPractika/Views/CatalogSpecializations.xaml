@@ -6,7 +6,86 @@
              xmlns:local="clr-namespace:ProjectPractika.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16px" />
+            <Setter Property="TextAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-            
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="{DynamicResource cs_title}"/>
+                <ListBox ItemsSource="{Binding Alphabet}" SelectedItem="{Binding SelectedLetter}" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+                <TextBlock Text="{DynamicResource cs_infoSearch}"/>
+                
+                <Expander Header="{DynamicResource cs_infoSearchBySpec}">
+                    <StackPanel>
+                        <TextBox Text="{Binding SearchTxtSpecialization, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Content="{DynamicResource btn_search}" />
+                    </StackPanel>
+                </Expander>
+
+                <Expander Header="{DynamicResource cs_infoSearchByConcourse}">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource ap_combobox_titleCategory}"/>
+                        <ComboBox ItemsSource="{Binding Categories}"
+                                     DisplayMemberPath="CategoryName"
+                                     SelectedItem="{Binding SelectedCategory}" />
+                        <TextBlock Text="{DynamicResource ap_combobox_titleYear}"/>
+                        <ComboBox ItemsSource="{Binding Years}" SelectedItem="{Binding SelectedYear}"  />
+
+                        <GroupBox Header="{DynamicResource ap_combobox_titleFree}">
+                            <StackPanel>
+                                <RadioButton GroupName="isFree" IsChecked="{Binding CheckRBtnIsFreeYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_yes}"  />
+                                <RadioButton GroupName="isFree"  IsChecked="{Binding CheckRBtnIsFreeNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isFree_no}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{DynamicResource ap_combobox_titleIntramural}">
+                            <StackPanel>
+                                <RadioButton GroupName="isIntramural"  IsChecked="{Binding CheckRBtnIsIntramuralYes, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_yes}"  />
+                                <RadioButton GroupName="isIntramural" IsChecked="{Binding CheckRBtnIsIntramuralNo, Mode=TwoWay}" Content="{DynamicResource ap_radiobtn_isIntramural_no}" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <Button Content="{DynamicResource btn_search}" />
+                    </StackPanel>
+                </Expander>
+                
+                <Separator BorderThickness="240px"  BorderBrush="Black" Height="40px"/>
+
+                <Button Content="{DynamicResource cs_btnSort_ball}"/>
+                <Button Content="{DynamicResource cs_btnSort_countSeats}"/>
+
+                <Separator BorderThickness="240px"  BorderBrush="Black" Height="40px"/>
+
+
+                <ListBox ItemsSource="{Binding Concourses}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <Expander Header="{Binding }">
+                                    <StackPanel>
+                                        <TextBlock Text="{DynamicResource cs_infoInsideExpanderBall}"/>
+                                        <TextBlock Text="2"/>
+                                        <TextBlock Text="{DynamicResource cs_infoInsideExpanderCountSeats}"/>
+                                        <TextBlock Text="3"/>
+                                        <TextBlock Text="{DynamicResource cs_infoInsideExpanderCountEntrants}"/>
+                                        <TextBlock Text="2"/>
+                                        <Button Content="{DynamicResource btn_load}"/>
+                                    </StackPanel>
+                                </Expander>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

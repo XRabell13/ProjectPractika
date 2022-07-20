@@ -90,6 +90,7 @@
     <Compile Include="Models\Entrant.cs" />
     <Compile Include="Models\Entry.cs" />
     <Compile Include="Models\Helper models\ConcourseDG.cs" />
+    <Compile Include="Models\Helper models\ConcoursesForView.cs" />
     <Compile Include="Models\Helper models\ConcourseWithEduAndSpec.cs" />
     <Compile Include="Models\Helper models\EntryDG.cs" />
     <Compile Include="Models\Helper models\EntryWithInfo.cs" />
