@@ -83,11 +83,17 @@
     <v:String x:Key="ap_dg_forward">Вперед</v:String>
     <v:String x:Key="ap_dg_back">Назад</v:String>
 
+    
+    <!-- HOME PAGE -->
+    
 
     <v:String x:Key="logIn">Войти</v:String>
     <v:String x:Key="btn_search">Поиск</v:String>
     <v:String x:Key="btn_update">Обновить</v:String>
 
+    <v:String x:Key="hp_welcome">Добро пожаловать!</v:String>
+    <v:String x:Key="hp_dateTime">Сегодня</v:String>
+    <v:String x:Key="hp_info">График ЦТ</v:String>
     
 
 </ResourceDictionary>

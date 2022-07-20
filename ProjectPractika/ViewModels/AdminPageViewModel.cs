@@ -1856,7 +1856,7 @@ namespace ProjectPractika.ViewModels
             {
                
                bool updatted = dbla.UpdateSpecializationCategory(SelectedSpecializationDG.Id, SelectedCategoryDGCombobox.Id);
-               SpecializationsDG = dbl.GetAllSpecializationsWithCategory();
+                SpecializationsDG = dbl.GetAllSpecializationPagination((limit * NumPageSpecializationDG) - limit,limit);
             }
             else MessageBox.Show("Выберите изменяемый элемент из таблицы и элемент из списка");
         }
@@ -1866,13 +1866,13 @@ namespace ProjectPractika.ViewModels
             dbla.UpdateConcourse(SelectedConcourseDG.Id, SelectedConcourseDG.CountSeats,
                 Convert.ToInt32(SelectedConcourseDG.IsFree),
                 Convert.ToInt32(SelectedConcourseDG.IsIntramural), SelectedConcourseDG.DateYear);
-                ConcoursesDG = dbl.GetAllConcourseWithInfo();
+            ConcoursesDG = dbl.GetAllConcourseWithInfoPagination((limit * NumPageConcourseDG) - limit, limit);
         }
         private void UpdateConcourseEduSpec()
         {
             //MessageBox.Show(SelectedSpecializationEduDGCombobox.ToString() + " " + SelectedConcourseDG.ToString());
             dbla.UpdateConcourse(SelectedConcourseDG.Id, SelectedSpecializationEduDGCombobox.Id);
-            ConcoursesDG = dbl.GetAllConcourseWithInfo();
+            ConcoursesDG = dbl.GetAllConcourseWithInfoPagination((limit * NumPageConcourseDG) - limit, limit);
 
         }
         private void UpdateEntryEntrant()
@@ -1880,7 +1880,7 @@ namespace ProjectPractika.ViewModels
             if(SelectedEntrantDGCombobox!=null & SelectedEntryDG !=null )
             {
                 dbla.UpdateEntryEntrant(SelectedEntryDG.Id, SelectedEntrantDGCombobox.Id);
-                EntriesDG = dbla.GetAllEntriesDG();
+                EntriesDG = dbla.GetAllEntriesDGPagination((limit * NumPageEntryDG) - limit, limit);
                // MessageBox.Show(SelectedEntrantDGCombobox.ToString() + " " + SelectedEntryDG.ToString());
             }
         }
@@ -1889,7 +1889,8 @@ namespace ProjectPractika.ViewModels
             if (SelectedConcourseDGCombobox != null & SelectedEntryDG!=null)
             {
                 dbla.UpdateEntryConcourse(SelectedEntryDG.Id, SelectedConcourseDGCombobox.Id);
-                EntriesDG = dbla.GetAllEntriesDG();
+                EntriesDG = dbla.GetAllEntriesDGPagination((limit * NumPageEntryDG) - limit, limit);
+
 
                 // MessageBox.Show(SelectedConcourseDGCombobox.ToString() + " " + SelectedEntryDG.ToString());
             }

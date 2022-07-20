@@ -35,8 +35,8 @@ namespace ProjectPractika.ViewModels
             PageViewModels.Add(new AdminPageViewModel());
             PageViewModels.Add(new AuthorizationViewModel(this));
             PageViewModels.Add(new HomePageViewModel());
-           // PageViewModels.Add(new Test2ViewModel());
-
+            PageViewModels.Add(new CatalogSpecializationsViewModel());
+           
 
             // Set starting page
             CurrentPageViewModel = PageViewModels[2];

@@ -22,6 +22,9 @@
         <DataTemplate DataType="{x:Type localViewModel:HomePageViewModel}">
             <localView:HomePage />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type localViewModel:CatalogSpecializationsViewModel}">
+            <localView:CatalogSpecializations />
+        </DataTemplate>
 
         <!-- </DataTemplate>
         <DataTemplate DataType="{x:Type local:ProductsViewModel}">
