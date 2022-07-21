@@ -11,6 +11,7 @@
             <Setter Property="FontSize" Value="16px" />
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
+       
     </UserControl.Resources>
     <Grid>
         <ScrollViewer>
@@ -68,7 +69,8 @@
                 <Separator BorderThickness="240px"  BorderBrush="Black" Height="40px"/>
 
 
-                <ListBox ItemsSource="{Binding Concourses}">
+                <ListBox Name ="ListConcourses" ItemsSource="{Binding Concourses}"  SelectedItem="{Binding SelectedConcourse}">
+                    
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="5">
@@ -82,7 +84,8 @@
                                         <TextBlock Text="{Binding CountSeats}"/>
                                         <TextBlock Text="{DynamicResource cs_infoInsideExpanderCountEntrants}"/>
                                         <TextBlock Text="{Binding CountEntrants}"/>
-                                        <Button Content="{DynamicResource btn_load}"/>
+                                        <Button Content="{DynamicResource btn_load}" 
+                                                Command="{Binding ElementName=ListConcourses, Path=DataContext.LoadExcelInfoCommand}"/>
                                     </StackPanel>
                                 </Expander>
                                 <Separator BorderThickness="240px"  BorderBrush="Black" Height="40px"/>

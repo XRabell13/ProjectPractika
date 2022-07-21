@@ -642,6 +642,45 @@ namespace ProjectPractika.DataBase
             }
         }
 
+        public List<int> GetBallsByConcourse(int idConcourse)
+        {
+            List<int> balls = new List<int>();
+            Open();
+            if (status)
+            {
+                string sqlExpression = "GeneralApp.GetBallsByConcourse";
+                SqlCommand command = new SqlCommand(sqlExpression, connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                // параметры для ввода 
+                SqlParameter idParam = new SqlParameter
+                {
+                    ParameterName = "@conId",
+                    Value =idConcourse
+                };
+
+                // добавляем параметры
+                command.Parameters.Add(idParam);
+
+
+                var reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                       balls.Add(reader.GetInt32(0));
+
+                }
+                reader.Close();
+                base.Close();
+                return balls;
+            }
+            else
+            {
+                MessageBox.Show("Error: ошибка получения списка баллов");
+                base.Close();
+                return null;
+            }
+        }
         //пагинация в datagrid
 
         public ObservableCollection<EducationIns> GetAllEduInsPagination(int offset, int limit)

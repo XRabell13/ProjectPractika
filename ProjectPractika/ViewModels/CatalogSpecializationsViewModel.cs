@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ProjectPractika.ViewModels
 {
@@ -40,7 +41,7 @@ namespace ProjectPractika.ViewModels
      
         DBLoad dbl = new DBLoad();
 
-        ICommand _searchBySpecName, _searchByLetter, _searchByConcourse, _sortByAverageBall, _sortByCountSeats;
+        ICommand _searchBySpecName, _searchByLetter, _searchByConcourse, _sortByAverageBall, _sortByCountSeats, _loadExcelInfo;
 
         char selectedLetter;
         string searchTxtSpecialization;
@@ -185,7 +186,18 @@ namespace ProjectPractika.ViewModels
                 return _sortByCountSeats;
             }
         }
+        public ICommand LoadExcelInfoCommand
+        {
+            get
+            {
+                if (_loadExcelInfo == null)
+                {
+                    _loadExcelInfo = new RelayCommand(p => LoadExcelInfo());
+                }
 
+                return _loadExcelInfo;
+            }
+        }
         #endregion
 
         #region Methods 
@@ -266,7 +278,72 @@ namespace ProjectPractika.ViewModels
 
         #endregion
 
+
+        public void LoadExcelInfo()
+        {
+            if (SelectedConcourse != null)
+            {
+                MessageBox.Show(SelectedConcourse.ToString());
+
+                List<int> balls = dbl.GetBallsByConcourse(SelectedConcourse.Id);
+                //Объявляем приложение
+                Excel.Application app = new Excel.Application
+                {
+                    //Отобразить Excel
+                    Visible = true,
+                    //Количество листов в рабочей книге
+                    SheetsInNewWorkbook = 1
+                };
+                //Добавить рабочую книгу
+                Excel.Workbook workBook = app.Workbooks.Add(Type.Missing);
+                //Отключить отображение окон с сообщениями
+                app.DisplayAlerts = false;
+                //Получаем первый лист документа (счет начинается с 1)
+                Excel.Worksheet sheet = (Excel.Worksheet)app.Worksheets.get_Item(1);
+                //Название листа (вкладки снизу)
+                sheet.Name = "Monitoring";
+
+                //Объединение ячеек 
+                Excel.Range range1 = sheet.get_Range("B2", "K5");
+                range1.Merge(Type.Missing);
+                range1.Value = SelectedConcourse.ToString();
+
+                Excel.Range range2 = sheet.get_Range("B7", "D7");
+                range2.Merge(Type.Missing);
+                range2.Value = "План приема: " + SelectedConcourse.CountSeats;
+
+                range2 = sheet.get_Range("B8", "D8");
+                range2.Merge(Type.Missing);
+                range2.Value = "Подано заявлений: " + SelectedConcourse.CountEntrants;
+
+                int bal1=400, bal2=396;
+               
+                   for (int i = 5; i <= 78; i++)
+                   {
+                    int countEntrant = 0;
+                    sheet.Cells[7, i] = "" + bal1 + "-" + bal2;
+
+                    for(int j = 0; j < balls.Count; j++)
+                        if (balls[j] >= bal2 & balls[j] <= bal1)
+                            countEntrant++;
+
+                     sheet.Cells[8, i] = countEntrant;
+                        
+                   
+                        bal1 = bal1 - 5;
+                        bal2 = bal2 - 5;
+                    
+                   }
+                
+                app.Application.ActiveWorkbook.SaveAs("Monitoring.xlsx", Type.Missing,
+  Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange,
+  Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            }
+           
+        }
         #endregion
+       
+        
         public CatalogSpecializationsViewModel()
         {
             Categories = dbl.GetAllCategory();
