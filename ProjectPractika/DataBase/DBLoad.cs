@@ -405,6 +405,162 @@ namespace ProjectPractika.DataBase
             }
         }
 
+
+        public ObservableCollection<ConcoursesForView> GetAllConcoursesForViewByLetterAndYear(char letter, int year)
+        {
+            ObservableCollection<ConcoursesForView> councourses = new ObservableCollection<ConcoursesForView>();
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "GeneralApp.AllConcourseForViewWithInfoByLetterAndYear";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter nameParam = new SqlParameter
+                    {
+                        ParameterName = "@letter",
+                        Value = letter
+                    };
+                    SqlParameter yearParam = new SqlParameter
+                    {
+                        ParameterName = "@year",
+                        Value = year
+                    };
+                    // добавляем параметры
+                    command.Parameters.Add(nameParam);
+                    command.Parameters.Add(yearParam);
+
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            councourses.Add(new ConcoursesForView(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                                  reader.GetString(3), reader.GetBoolean(4), reader.GetBoolean(5),
+                                  reader.GetInt32(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9)));
+
+                    }
+                    reader.Close();
+                    base.Close();
+                    return councourses;
+                }
+                else
+                {
+                    MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                    base.Close();
+                    return null;
+                }
+            }
+            catch(Exception e) { MessageBox.Show(e.Message); }
+            return null;
+        }
+
+        public ObservableCollection<ConcoursesForView> GetAllConcoursesForViewByInfo(int categoryId, int isFree, int isIntramural)
+        {
+            ObservableCollection<ConcoursesForView> councourses = new ObservableCollection<ConcoursesForView>();
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "GeneralApp.AllConcourseForViewWithInfoByInfo";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter catIdParam = new SqlParameter
+                    {
+                        ParameterName = "@categoryId",
+                        Value = categoryId
+                    };
+                    SqlParameter isFreeParam = new SqlParameter
+                    {
+                        ParameterName = "@isFree",
+                        Value = isFree
+                    };
+                    SqlParameter isIntramuralParam = new SqlParameter
+                    {
+                        ParameterName = "@isIntramural",
+                        Value = isIntramural
+                    };
+                    // добавляем параметры
+                    command.Parameters.Add(catIdParam);
+                    command.Parameters.Add(isFreeParam);
+                    command.Parameters.Add(isIntramuralParam);
+
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            councourses.Add(new ConcoursesForView(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                                  reader.GetString(3), reader.GetBoolean(4), reader.GetBoolean(5),
+                                  reader.GetInt32(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9)));
+
+                    }
+                    reader.Close();
+                    base.Close();
+                    return councourses;
+                }
+                else
+                {
+                    MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                    base.Close();
+                    return null;
+                }
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
+            return null;
+        }
+
+        public ObservableCollection<ConcoursesForView> GetAllConcoursesForViewBySpecName(string specName)
+        {
+            ObservableCollection<ConcoursesForView> councourses = new ObservableCollection<ConcoursesForView>();
+            Open();
+            try
+            {
+                if (status)
+                {
+                    string sqlExpression = "GeneralApp.AllConcourseForViewWithInfoBySpecName";
+                    SqlCommand command = new SqlCommand(sqlExpression, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    // параметры для ввода 
+                    SqlParameter specNameParam = new SqlParameter
+                    {
+                        ParameterName = "@specName",
+                        Value = specName
+                    };
+                  
+                    // добавляем параметры
+                    command.Parameters.Add(specNameParam);
+                  
+
+                    var reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                            councourses.Add(new ConcoursesForView(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),
+                                  reader.GetString(3), reader.GetBoolean(4), reader.GetBoolean(5),
+                                  reader.GetInt32(6), reader.GetInt32(7), reader.GetInt32(8), reader.GetInt32(9)));
+
+                    }
+                    reader.Close();
+                    base.Close();
+                    return councourses;
+                }
+                else
+                {
+                    MessageBox.Show("Error: ошибка получения списка конкурсов с расширенной информацией");
+                    base.Close();
+                    return null;
+                }
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
+            return null;
+        }
+
         public ObservableCollection<SpecializationWithInfo> GetAllSpecializations(string specName)
         {
             ObservableCollection<SpecializationWithInfo> specializations = new ObservableCollection<SpecializationWithInfo>();

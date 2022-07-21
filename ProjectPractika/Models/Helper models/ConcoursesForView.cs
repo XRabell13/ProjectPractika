@@ -15,6 +15,8 @@ namespace ProjectPractika.Models.Helper_models
         bool isFree, isIntramural;
         int dateYear;
         int countSeats;
+        int countEntrants;
+        int averageBall;
         
 
         public int Id
@@ -113,8 +115,33 @@ namespace ProjectPractika.Models.Helper_models
                 OnPropertyChanged();
             }
         }
+        public int CountEntrants
+        {
+            get
+            {
+                return countEntrants;
+            }
+            set
+            {
+                countEntrants = value;
+                OnPropertyChanged();
+            }
+        }
+        public int AverageBall
+        {
+            get
+            {
+                return averageBall;
+            }
+            set
+            {
+                averageBall = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public ConcoursesForView(int id, string specName, string insName, string categoryName, bool isFree, bool isIntramural, int dateYear, int countSeats)
+        public ConcoursesForView(int id, string specName, string insName, string categoryName, bool isFree, bool isIntramural, 
+            int dateYear, int countSeats, int countEntrants, int averageBall)
         {
             Id = id;
             SpecName = specName;
@@ -124,7 +151,8 @@ namespace ProjectPractika.Models.Helper_models
             IsIntramural = isIntramural;
             CountSeats = countSeats;
             CategoryName = categoryName;
-          
+            CountEntrants = countEntrants;
+            AverageBall = averageBall;
         }
 
         public override string ToString()
@@ -134,9 +162,8 @@ namespace ProjectPractika.Models.Helper_models
                 string isIntramural = "Очно";
                 if (IsFree) isFree = "Бюджет";
                 if (IsIntramural) isIntramural = "Заочно";
-                return specName + " " + categoryName +" " + insName + "\n" + isFree + ", " + isIntramural + " " + dateYear;
+                return specName.ToUpper() + "\n" + categoryName +"\n" + insName + "\n" + isFree + ", " + isIntramural + " " + dateYear;
             
-           // return specName + "\n" + insName;
         }
     }
 }

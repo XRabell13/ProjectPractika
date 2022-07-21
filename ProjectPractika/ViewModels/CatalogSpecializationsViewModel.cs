@@ -40,7 +40,7 @@ namespace ProjectPractika.ViewModels
      
         DBLoad dbl = new DBLoad();
 
-        ICommand _searchBySpecName, _searchByLetter, _searchByConcourse;
+        ICommand _searchBySpecName, _searchByLetter, _searchByConcourse, _sortByAverageBall, _sortByCountSeats;
 
         char selectedLetter;
         string searchTxtSpecialization;
@@ -104,12 +104,12 @@ namespace ProjectPractika.ViewModels
         public int SelectedYear
         {
             get { return selectedYear; }
-            set { selectedYear = value; OnPropertyChanged(); }
+            set { selectedYear = value; OnPropertyChanged(); SearchByLetterAndYear(); }
         }
         public char SelectedLetter
         {
             get { return selectedLetter; }
-            set { selectedLetter = value; OnPropertyChanged(); }
+            set { selectedLetter = value; OnPropertyChanged(); SearchByLetterAndYear(); }
         }
         #endregion
 
@@ -149,18 +149,6 @@ namespace ProjectPractika.ViewModels
                 return _searchBySpecName;
             }
         }
-        public ICommand SearchByLetterCommand
-        {
-            get
-            {
-                if (_searchByLetter == null)
-                {
-                    _searchByLetter = new RelayCommand(p => SearchByLetter());
-                }
-
-                return _searchByLetter;
-            }
-        }
         public ICommand SearchByConcourseCommand
         {
             get
@@ -173,27 +161,120 @@ namespace ProjectPractika.ViewModels
                 return _searchByConcourse;
             }
         }
+        public ICommand SortByAverageBallCommand
+        {
+            get
+            {
+                if (_sortByAverageBall == null)
+                {
+                    _sortByAverageBall = new RelayCommand(p => SortByAverageBall());
+                }
+
+                return _sortByAverageBall;
+            }
+        }
+        public ICommand SortByCountSeatsCommand
+        {
+            get
+            {
+                if (_sortByCountSeats == null)
+                {
+                    _sortByCountSeats = new RelayCommand(p => SortByCountSeats());
+                }
+
+                return _sortByCountSeats;
+            }
+        }
+
         #endregion
 
         #region Methods 
+
+        #region methods Search
         public void SearchBySpecName()
         {
-
+            if (!String.IsNullOrWhiteSpace(SearchTxtSpecialization))
+            {
+                Concourses = dbl.GetAllConcoursesForViewBySpecName(SearchTxtSpecialization);
+            }
+            else MessageBox.Show("Введите в поиск название специальности");
         }
-        public void SearchByLetter()
+        public void SearchByLetterAndYear()
         {
-
+            Concourses = dbl.GetAllConcoursesForViewByLetterAndYear(SelectedLetter, SelectedYear);
         }
         public void SearchByConcourse()
         {
+            if (SelectedCategory != null)
+            {
+                if (CheckRBtnIsFreeNo == false & CheckRBtnIsFreeYes == false)
+                {
+                    MessageBox.Show("Выберите платное или бесплатное обучение.");
+                    return;
+                }
+                if (CheckRBtnIsIntramuralNo == false & CheckRBtnIsIntramuralYes == false)
+                {
+                    MessageBox.Show("Выберите очное или заочное обучение.");
+                    return;
+                }
 
+                Concourses = dbl.GetAllConcoursesForViewByInfo(SelectedCategory.Id,  Convert.ToInt32(CheckRBtnIsFreeYes),
+                     Convert.ToInt32(CheckRBtnIsIntramuralYes));
+
+            }
+            else MessageBox.Show("Выберите категорию");
         }
+        #endregion
+
+        #region methods Sorts
+
+        public void SortByAverageBall()
+        {
+            try
+            {
+             var sortList = Concourses.OrderByDescending(x => x.AverageBall);
+                ObservableCollection<ConcoursesForView> list = new ObservableCollection<ConcoursesForView>();
+            foreach(var item in sortList)
+            {
+                    list.Add(new ConcoursesForView(item.Id, item.SpecName, item.InsName,
+                        item.CategoryName, item.IsFree, item.IsIntramural, item.DateYear, item.CountSeats, item.CountEntrants,
+                        item.AverageBall));
+            }
+          
+            Concourses = list;
+            }
+            catch(Exception e){ MessageBox.Show(e.Message); }
+          
+        }
+        public void SortByCountSeats()
+        {
+            try
+            {
+                var sortList = Concourses.OrderByDescending(x => x.CountSeats);
+                ObservableCollection<ConcoursesForView> list = new ObservableCollection<ConcoursesForView>();
+                foreach (var item in sortList)
+                {
+                    list.Add(new ConcoursesForView(item.Id, item.SpecName, item.InsName,
+                        item.CategoryName, item.IsFree, item.IsIntramural, item.DateYear, item.CountSeats, item.CountEntrants,
+                        item.AverageBall));
+                }
+
+                Concourses = list;
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
+        }
+
+        #endregion
+
         #endregion
         public CatalogSpecializationsViewModel()
         {
             Categories = dbl.GetAllCategory();
             SelectedLetter = alphabet[0];
-            Concourses.Add(new ConcoursesForView(1,"specname","as","cat",true,true,2019,123));
+            SelectedYear = years[0];
+            Concourses = dbl.GetAllConcoursesForViewByLetterAndYear(SelectedLetter, SelectedYear);
+           // Concourses.Add(new ConcoursesForView(1,"specname","as","cat",true,true,2019,123,34,250));
+           // Concourses.Add(new ConcoursesForView(1,"specname","as","cat",true,true,2019,123,34,250));
         }
    }
 }

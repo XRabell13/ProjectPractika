@@ -166,7 +166,7 @@ namespace ProjectPractika.DataBase.Administration
                 return null;
             }
         }
-       
+ 
 
         public ObservableCollection<EntryWithInfo> GetAllEntryWithInfo(int year, int isFree, int isIntramural, string fullName)
         {
